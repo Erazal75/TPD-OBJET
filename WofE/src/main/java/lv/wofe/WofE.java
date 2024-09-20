@@ -48,6 +48,7 @@ public class WofE {
         */
         
         /* TEST n°3 */
+        /*
         System.out.println("Déplacement de Robin");
         System.out.println("Test Robin : avant déplacement");
         monMonde.robin.affichePos();
@@ -58,6 +59,22 @@ public class WofE {
         
         System.out.println("Vérification de la positon de Guillaume T.");
         monMonde.guillaumeT.affichePos();
+
+        
+        */
+        // TEST N°5
+        
+        /*
+        monMonde.creerMondeAlea();
+        monMonde.robin.affiche();
+        monMonde.peon.affiche();
+        monMonde.aragorn.affiche();
+        monMonde.bugs.affiche();
+        monMonde.bugy.affiche();
+        monMonde.guillaumeT.affiche();
+        monMonde.warwick.affiche();
+        */
+        
         
     }
 }
