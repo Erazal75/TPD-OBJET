@@ -8,30 +8,28 @@ package lv.wofe;
  *
  * @author lazaregrail
  */
-public class Archer extends Personnage{
+public class Guerrier extends Personnage{
     
-    private int nbFleches;
+    private Epee arme;
     
-    public Archer(String n,int pV,int dA,int ptPar,int paAtt,int paPar,int dMax,Point2D p,int nbFleches){
+    public Guerrier(String n,int pV,int dA,int ptPar,int paAtt,int paPar,int dMax,Point2D p,int place,int nbmain,int degEpee){
         super(n,pV,dA,ptPar,paAtt,paPar,dMax,p);
-        this.nbFleches = nbFleches; 
+        arme = new Epee(nbmain,degEpee,place);
     }
     
-    public Archer(Archer a){
+    public Guerrier(Guerrier a){
         super(a);
-        this.nbFleches = a.nbFleches; 
+        arme = new Epee(a.arme);
     }
     
-    public Archer(){
+    public Guerrier(){
         super();
-        nbFleches = 0;
+        arme = new Epee();
     }
     
     public void combattre(Creature c){
-      if (this.getdegAtt()-c.getptPar() > 0 && this.nbFleches > 0){
+      if (this.getdegAtt()-c.getptPar() > 0){
           c.setptVie(c.getptVie() - this.getdegAtt() + c.getptPar());
-          this.nbFleches = this.nbFleches - 1;
       }
   }
-    
 }

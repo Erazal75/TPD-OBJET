@@ -8,18 +8,19 @@ package lv.wofe;
  *
  * @author lazaregrail
  */
-public class Lapin extends Monstre{
+public class PotionSoin extends Objet {
     
-    public Lapin(int pV,int dA,int ptPar,int paAtt,int paPar,Point2D p){
-        super(pV,dA,ptPar,paAtt,paPar,p);
+    private int nbPVRendu;
+    
+    public PotionSoin(int nbPVRendu, int place){
+        super(place);
+        this.nbPVRendu = nbPVRendu;
     }
     
-    public Lapin(Lapin l){
-        super(l);
-    }
-    
-    public Lapin(){
+    public PotionSoin(){
         super();
+        nbPVRendu = 0;
     }
+    
     
 }
