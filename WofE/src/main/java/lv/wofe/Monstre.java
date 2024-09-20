@@ -145,6 +145,6 @@ public class Monstre extends Creature{
     }
     
     public void affichePos(){
-        System.out.println("Votre monstre est en position: ["+ pos.getX()+";"+pos.getY()+"]");
+        System.out.println("Votre monstre est en position: ["+ this.getposX()+";"+this.getposY()+"]");
     }
 }

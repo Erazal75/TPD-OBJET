@@ -104,6 +104,10 @@ public class Creature {
         Random genAlé = new Random();
         int x = genAlé.nextInt(21)-10;
         int y = genAlé.nextInt(21)-10;
+        deplace(x,y);
+    }
+    
+    public void deplace(int x , int y){
         pos.setPosition(pos.getX() + x, pos.getY() + y);
     }
     
