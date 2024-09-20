@@ -11,50 +11,66 @@ package lv.wofe;
 
 import java.util.*;
 
-public class Personnage {
+public class Personnage extends Creature{
+    
+    /**
+     * nom est la nom du personnage
+     * ptVie est son nombre de point de vie
+     * degAtt est les dégats qu'il inflige
+     * ptPar est le point de dégat qu'il pare a chaque attaque
+     * 
+     * 
+     * distAttMax est la distance maximum à laquel il peut attaquer
+     * pos est la position personnage
+     */
     
     private String nom ;
-    private int ptVie ; 
-    private int degAtt;
-    private int ptPar;
-    private int pageAtt;
-    private int pagePar;
     private int distAttMax;
-    private Point2D pos;
 
+    /**
+     * Permier constructeur de personnage
+     * 
+     * @param nom le nom du personnage
+     * @param ptVie son nombre de point de vie
+     * @param dAtt ses dégats d'attaque
+     * @param ptP ses point de parade
+     * @param pageA 
+     * @param pageP
+     * @param distAttM la distance maximum à laquel il peut attaquer
+     * @param p sa position sur la carte
+     */
     
     public Personnage(String nom,int ptVie,int dAtt, int ptP,int pageA, int pageP, int distAttM,Point2D p){
+        super(ptVie,dAtt,ptP,pageA,pageP,p);
         this.nom = nom;
-        this.ptVie = ptVie; 
-        degAtt = dAtt;
-        ptPar = ptP;
-        pageAtt = pageA;
-        pagePar = pageP;
         distAttMax = distAttM;
-        pos = p;
     }
     
+    /**
+     * deuxième contruscteur de personnage
+     * 
+     * @param p recopie un autre personnage
+     */
+    
     public Personnage(Personnage p){
+        super(p);
         nom = p.nom;
-        ptVie = p.ptVie;
-        degAtt = p.degAtt;
-        ptPar = p.ptPar;
-        pageAtt = p.pageAtt;
-        pagePar = p.pagePar;
         distAttMax = p.distAttMax;
-        pos = new Point2D(p.pos);
     }
+    
+    /**
+     * Troisème contructeur personnage qui met 0 à toutes les attributs
+     */
     
     public Personnage(){
         this.nom = "";
-        this.ptVie = 0; 
-        degAtt = 0;
-        ptPar = 0;
-        pageAtt = 0;
-        pagePar = 0;
         distAttMax = 0;
-        pos = new Point2D();
     }
+    
+    /**
+     * La méthode renconter affiche 2 lignes de texte avec enchanetr et les noms des 2 personnages
+     * @param p 
+     */
     
     public void rencontrer(Personnage p){
        
@@ -62,83 +78,136 @@ public class Personnage {
         System.out.println("Enchanter de même "+this.nom);
     }
     
+    /**
+     * getNom renvoie le nom du personnage
+     * @return String 
+     */
+    
     public String getNom(){
         return nom;
     } 
     
-    public int getptVie(){
-        return ptVie;
-    }
+    /**
+     * getptVie renvoie le nombre de point de vie du presonnage
+     * @return int 
+     */
+    
+    
+    /**
+     * getdegAtt renvoie le nombre de dégat d'attaque du personnage
+     * @return int
+     */
+    
+    /**
+     * getptPar renvoie le nombre de point de parade du personnage
+     * @return int
+     */
+    
+    
+    /**
+     * getpageAttt renvoie le pageAtt du personnage
+     * @return int
+     */
+    
 
-    public int getdegAtt(){
-        return degAtt;
-    } 
     
-    public int getptPar(){
-        return ptPar;
-    }
+    /**
+     * getpagePar renvoie le pagePar ud perosnnage
+     * @return int 
+     */
     
-    public int getpageAtt(){
-        return pageAtt;
-    }
+
     
-    public int getpagePar(){
-        return pagePar;
-    }
+    /**
+     * getdistMax renvoie la distance maximum à laquel le perosnnage peut attaquer
+     * @return int
+     */
     
-    public int getdistAttMax(){
-        return distAttMax;
-    }
+
+    /**
+     * getposX renvoie la coordonnée x de la position du personnage
+     * @return int
+     */
     
-    public int getposX(){
-        return pos.getX();
-    }
     
-    public int getposY(){
-        return pos.getY();
-    }
+    /**
+     * getposY renvoie la coordonnée y de la position du personnage
+     * @return int
+     */
+    
+    
+    /**
+     * setNom change le nom du personnage
+     * @param nom String le nouveau nom du personnage
+     */
     
     public void setNom(String nom){
         this.nom = nom;
     }
-        
-    public void setptVie(int ptVie){
-        this.ptVie = ptVie;
-    } 
     
-    public void setdegAtt(int dAtt){
-        degAtt = dAtt;
-    } 
+    /**
+     * setptVie change le nombre de point de vie du personnage
+     * @param ptVie 
+     */
     
-    public void setptPar(int ptP){
-        ptPar = ptP;
-    }
+    /**
+     * setdetAtt change les dégats d'attaque du personnage
+     * @param dAtt 
+     */
     
-    public void setpageAtt(int pageA){
-        pageAtt = pageA;
-    }
+    /**
+     * setptPar change le nombre de point de parade du personnage
+     * @param ptP 
+     */
+   
     
-    public void setpagePar(int pageP){
-        pagePar = pageP;
-    }
+    /**
+     * setpageAtt change la valeur de pageAtt du personnage
+     * @param pageA 
+     */
     
-    public void setdistAttMax(int distattM){
-        distAttMax = distattM;
-    }
+    /**
+     * setpagePar change la valeur de pagePar du personnage
+     * @param pageP 
+     */
     
-    public void setpos(int x, int y){
-        pos.setPosition(x,y);
-    }
     
-    public void deplace(){
-        Random genAlé = new Random();
-        int x = genAlé.nextInt(21)-10;
-        int y = genAlé.nextInt(21)-10;
-        pos.setPosition(pos.getX() + x, pos.getY() + y);
-    }
+    /**
+     * setdistMax change la distance maximale à laquel le personnage peut attaquer
+     * @param distattM 
+     */
+    
+    /**
+     * setpos change les coordonnées x et y du personnage
+     * @param x
+     * @param y 
+     */
+    
+    /**
+     * la preimère méthode deplace fait bouger de manière aléatoire le personnage
+     */
+    
+    
+    /**
+     * la deuxième méthode déplace fait bouger le perosnnage d'une valeur précise x et y
+     * @param x
+     * @param y 
+     */
+    
+    
+    /**
+     * la méthode affiche permet d'afficher toutes les valeurs du personnage
+     */
     
     public void affiche(){
-        System.out.println("Votre personnage s'appelle: "+nom+" point de vie: "+ptVie+" dégat d'attaque: "+degAtt+" point de Par: "+ptPar+" pageAtt: "+pageAtt+" pagePar: "+pagePar+" distance maximale d'attaque: "+distAttMax+" et de position: ["+ pos.getX()+";"+pos.getY()+"]");
+        System.out.println("Votre personnage s'appelle: "+nom
+                +" point de vie: "+this.getptVie()
+                +" dégat d'attaque: "+this.getdegAtt()
+                +" point de Par: "+this.getptPar()
+                +" pageAtt: "+this.getpageAtt()
+                +" pagePar: "+this.getpagePar()
+                +" distance maximale d'attaque: "+distAttMax
+                +" et de position: ["+ this.getposX()+";"+this.getposY()+"]");
     }
     
 }
