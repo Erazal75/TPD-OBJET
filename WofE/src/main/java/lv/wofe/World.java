@@ -15,46 +15,55 @@ public class World {
     public Archer robin = new Archer();
     public Archer guillaumeT = new Archer(robin);
     public Paysan peon = new Paysan();
+    public Guerrier aragorn = new Guerrier();
+    public Loup warwick = new Loup();
     public Lapin bugs = new Lapin();
     public Lapin bugy = new Lapin();
-    
-    
+    public ArrayList<Creature> tableauCreature = new ArrayList<>();
+
     public World(){
+        
     robin = new Archer();
     peon = new Paysan();
+    aragorn = new Guerrier();
+    warwick = new Loup();
     bugs = new Lapin();
     bugy = new Lapin();
+    
+    tableauCreature.add(robin);
+    tableauCreature.add(peon); 
+    tableauCreature.add(aragorn);
+    tableauCreature.add(warwick);
+    tableauCreature.add(bugs); 
+    tableauCreature.add(bugy); 
     }
     
     public void creerMondeAlea(){
         Random genAlé = new Random();
-        int x = genAlé.nextInt(100);
-        int y = genAlé.nextInt(100);
-        
-        robin.setpos(x,y);
-        
-        while (x == robin.getposX() && y == robin.getposY()){
-            x = genAlé.nextInt(100);
-            y = genAlé.nextInt(100);
-        }
-        
-        peon.setpos(x, y);
-        
-        while (x == robin.getposX() && y == robin.getposY() || x == peon.getposX() && y == peon.getposY()){
-            x = genAlé.nextInt(100);
-            y = genAlé.nextInt(100);
-        }
-        
-        bugs.setpos(x, y);
-        
-        while (x == robin.getposX() && y == robin.getposY() || 
-                x == peon.getposX() && y == peon.getposY() || 
-                x == bugs.getposX() && y == bugs.getposY()){
-            x = genAlé.nextInt(100);
-            y = genAlé.nextInt(100);
-        }
-        
-        bugy.setpos(x, y);
-        
+        for(Creature c : tableauCreature){
+            boolean noOneThere = false;
+            int x;
+            int y;
+            int compteur = 0;
+            while (noOneThere != true) {
+                x = genAlé.nextInt(100);
+                y = genAlé.nextInt(100);
+                for(Creature d : tableauCreature){
+                    if (!(c.equals(d))){
+                        if (x == d.getposX()&& y == d.getposY()){
+                            noOneThere = false;
+                            compteur = 0;
+                        }
+                        else{
+                            compteur = compteur + 1;
+                        }
+                    if (compteur == tableauCreature.size()-1) {
+                        noOneThere = true;
+                        }
+                    }
+                }
+            }
+            c.deplace(x,y);
+        }   
     }
 }

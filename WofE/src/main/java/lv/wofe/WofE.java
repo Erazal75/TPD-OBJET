@@ -58,5 +58,6 @@ public class WofE {
         
         System.out.println("Vérification de la positon de Guillaume T.");
         monMonde.guillaumeT.affichePos();
+        
     }
 }

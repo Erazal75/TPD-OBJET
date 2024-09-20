@@ -61,4 +61,8 @@ public class Point2D {
     public float distance (Point2D p){
         return (float) (Math.sqrt( (p.x - this.x)*(p.x - this.x) + (p.y - this.y)*(p.y - this.y) ));
     }
+    
+    public boolean egalite(Point2D p){
+        return(this.x == p.x && this.y == p.y);
+    }
 }
