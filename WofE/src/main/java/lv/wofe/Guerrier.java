@@ -4,6 +4,8 @@
  */
 package lv.wofe;
 
+import java.util.Random;
+
 /**
  *
  * @author lazaregrail
@@ -28,8 +30,23 @@ public class Guerrier extends Personnage{
     }
     
     public void combattre(Creature c){
-      if (this.arme.getdegAtt() + this.getdegAtt() - c.getptPar() > 0){
+      if (this.distance(c)<=1){
+          Random genAlé = new Random();
+          int pourcAtt = genAlé.nextInt(100);
+          int pourcPar = genAlé.nextInt(100);
+          if (pourcAtt <= this.getpageAtt() && pourcPar>c.getpagePar()){
+              c.setptVie(c.getptVie() - this.getdegAtt());
+          }
+          else if (pourcAtt <= this.getpageAtt() && pourcPar<=c.getpagePar() && this.getdegAtt() - c.getptPar() >0){
+              c.setptVie(c.getptVie() - this.getdegAtt() + c.getptPar());
+          }
+    }
+        
+        
+        
+        
+        /*if (this.arme.getdegAtt() + this.getdegAtt() - c.getptPar() > 0){
           c.setptVie(c.getptVie() - this.getdegAtt() - this.arme.getdegAtt() + c.getptPar());
-      }
+      }*/
   }
 }

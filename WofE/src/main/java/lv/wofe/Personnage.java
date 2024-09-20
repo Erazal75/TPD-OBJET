@@ -133,7 +133,10 @@ public class Personnage extends Creature{
      * @return int
      */
     
-
+    public int getdistM(){
+        return distAttMax;
+    }
+    
     /**
      * getposX renvoie la coordonnée x de la position du personnage
      * @return int
@@ -162,6 +165,8 @@ public class Personnage extends Creature{
     public void setInventaire(int invent){
         inventaire = invent;
     }
+    
+    
     /**
      * setptVie change le nombre de point de vie du personnage
      * @param ptVie 
@@ -190,8 +195,12 @@ public class Personnage extends Creature{
     
     /**
      * setdistMax change la distance maximale à laquel le personnage peut attaquer
-     * @param distattM 
+     * @param distM 
      */
+    
+    public void setdistM(int distM){
+        distAttMax = distM;
+    }
     
     /**
      * setpos change les coordonnées x et y du personnage

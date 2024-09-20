@@ -111,5 +111,8 @@ public class Creature {
         pos.setPosition(pos.getX() + x, pos.getY() + y);
     }
     
+    public float distance (Creature c){
+        return this.pos.distance(c.pos);
+    }
 }
 
