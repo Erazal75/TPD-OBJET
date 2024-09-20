@@ -12,8 +12,8 @@ public class PotionSoin extends Objet {
     
     private int nbPVRendu;
     
-    public PotionSoin(int nbPVRendu, int place){
-        super(place);
+    public PotionSoin(int nbPVRendu, int place,int prix){
+        super(place,prix);
         this.nbPVRendu = nbPVRendu;
     }
     

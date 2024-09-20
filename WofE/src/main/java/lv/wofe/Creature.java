@@ -110,6 +110,9 @@ public class Creature {
     public void deplace(int x , int y){
         pos.setPosition(pos.getX() + x, pos.getY() + y);
     }
+    
+    public float distance (Creature c){
+        return this.pos.distance(c.pos);
 
     /* renvoie un booléen traduissant si les deux créatures sont sur la même case */
     public boolean coincide(Creature c){

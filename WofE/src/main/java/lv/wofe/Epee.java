@@ -13,8 +13,8 @@ public class Epee extends Objet {
     private int nbMain;
     private int degAtt;
     
-    public Epee(int nbMain, int degAtt, int place){
-        super(place);
+    public Epee(int nbMain, int degAtt, int place,int prix){
+        super(place,prix);
         this.nbMain = nbMain;
         this.degAtt = degAtt;
     }

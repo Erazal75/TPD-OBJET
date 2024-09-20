@@ -4,6 +4,8 @@
  */
 package lv.wofe;
 
+import java.util.Random;
+
 /**
  *
  * @author lazaregrail
@@ -12,9 +14,9 @@ public class Guerrier extends Personnage{
     
     private Epee arme;
     
-    public Guerrier(String n,int pV,int dA,int ptPar,int paAtt,int paPar,int dMax,Point2D p,int place,int nbmain,int degEpee){
-        super(n,pV,dA,ptPar,paAtt,paPar,dMax,p);
-        arme = new Epee(nbmain,degEpee,place);
+    public Guerrier(String n,int pV,int dA,int ptPar,int paAtt,int paPar,int dMax,Point2D p,int place,int nbmain,int degEpee,int prix,int argent,int inventaire){
+        super(n,pV,dA,ptPar,paAtt,paPar,dMax,p,argent,inventaire);
+        arme = new Epee(nbmain,degEpee,place,prix);
     }
     
     public Guerrier(Guerrier a){
@@ -28,8 +30,23 @@ public class Guerrier extends Personnage{
     }
     
     public void combattre(Creature c){
-      if (this.getdegAtt()-c.getptPar() > 0){
-          c.setptVie(c.getptVie() - this.getdegAtt() + c.getptPar());
-      }
+      if (this.distance(c)<=1){
+          Random genAlé = new Random();
+          int pourcAtt = genAlé.nextInt(100);
+          int pourcPar = genAlé.nextInt(100);
+          if (pourcAtt <= this.getpageAtt() && pourcPar>c.getpagePar()){
+              c.setptVie(c.getptVie() - this.getdegAtt());
+          }
+          else if (pourcAtt <= this.getpageAtt() && pourcPar<=c.getpagePar() && this.getdegAtt() - c.getptPar() >0){
+              c.setptVie(c.getptVie() - this.getdegAtt() + c.getptPar());
+          }
+    }
+        
+        
+        
+        
+        /*if (this.arme.getdegAtt() + this.getdegAtt() - c.getptPar() > 0){
+          c.setptVie(c.getptVie() - this.getdegAtt() - this.arme.getdegAtt() + c.getptPar());
+      }*/
   }
 }

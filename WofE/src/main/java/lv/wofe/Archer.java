@@ -4,6 +4,8 @@
  */
 package lv.wofe;
 
+import java.util.Random;
+
 /**
  *
  * @author lazaregrail
@@ -12,8 +14,8 @@ public class Archer extends Personnage{
     
     private int nbFleches;
     
-    public Archer(String n,int pV,int dA,int ptPar,int paAtt,int paPar,int dMax,Point2D p,int nbFleches){
-        super(n,pV,dA,ptPar,paAtt,paPar,dMax,p);
+    public Archer(String n,int pV,int dA,int ptPar,int paAtt,int paPar,int dMax,Point2D p,int nbFleches,int argent , int inventaire){
+        super(n,pV,dA,ptPar,paAtt,paPar,dMax,p,argent ,inventaire);
         this.nbFleches = nbFleches; 
     }
     
@@ -28,10 +30,11 @@ public class Archer extends Personnage{
     }
     
     public void combattre(Creature c){
-      if (this.getdegAtt()-c.getptPar() > 0 && this.nbFleches > 0){
-          c.setptVie(c.getptVie() - this.getdegAtt() + c.getptPar());
-          this.nbFleches = this.nbFleches - 1;
-      }
-  }
-    
+      if (this.distance(c)>1 && this.distance(c)<= this.getdistM() ){
+          Random genAlé = new Random();
+          int pourcAtt = genAlé.nextInt(100);
+          if (pourcAtt <= this.getpageAtt() ){
+              c.setptVie(c.getptVie() - this.getdegAtt());
+    }
 }
+}}

@@ -27,4 +27,6 @@ public class Loup extends Monstre{
           c.setptVie(c.getptVie() - this.getdegAtt() + c.getptPar());
       }
   }
+  
+  
 }
