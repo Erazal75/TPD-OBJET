@@ -26,6 +26,8 @@ public class Personnage extends Creature{
     
     private String nom ;
     private int distAttMax;
+    private int inventaire;
+    private int argent;
 
     /**
      * Permier constructeur de personnage
@@ -40,10 +42,12 @@ public class Personnage extends Creature{
      * @param p sa position sur la carte
      */
     
-    public Personnage(String nom,int ptVie,int dAtt, int ptP,int pageA, int pageP, int distAttM,Point2D p){
+    public Personnage(String nom,int ptVie,int dAtt, int ptP,int pageA, int pageP, int distAttM,Point2D p,int argent,int inventaire){
         super(ptVie,dAtt,ptP,pageA,pageP,p);
         this.nom = nom;
         distAttMax = distAttM;
+        this.argent = argent;
+        this.inventaire = inventaire;
     }
     
     /**
@@ -54,8 +58,10 @@ public class Personnage extends Creature{
     
     public Personnage(Personnage p){
         super(p);
-        nom = p.nom;
-        distAttMax = p.distAttMax;
+        this.nom = p.nom;
+        this.distAttMax = p.distAttMax;
+        this.argent = p.argent;
+        this.inventaire = p.inventaire ;
     }
     
     /**
@@ -65,6 +71,8 @@ public class Personnage extends Creature{
     public Personnage(){
         this.nom = "";
         distAttMax = 0;
+        this.argent = 0;
+        this.inventaire = 0;
     }
     
     /**
@@ -87,6 +95,13 @@ public class Personnage extends Creature{
         return nom;
     } 
     
+    public int getArgent(){
+        return argent;
+    }
+    
+    public int getInventaire(){
+        return inventaire;
+    }
     /**
      * getptVie renvoie le nombre de point de vie du presonnage
      * @return int 
@@ -140,6 +155,13 @@ public class Personnage extends Creature{
         this.nom = nom;
     }
     
+    public void setArgent(int argen){
+        argent = argen;
+    }
+    
+    public void setInventaire(int invent){
+        inventaire = invent;
+    }
     /**
      * setptVie change le nombre de point de vie du personnage
      * @param ptVie 

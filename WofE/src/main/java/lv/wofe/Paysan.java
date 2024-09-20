@@ -10,8 +10,8 @@ package lv.wofe;
  */
 public class Paysan extends Personnage{
     
-    public Paysan(String n,int pV,int dA,int ptPar,int paAtt,int paPar,int dMax,Point2D p,int nbFleches){
-        super(n,pV,dA,ptPar,paAtt,paPar,dMax,p);
+    public Paysan(String n,int pV,int dA,int ptPar,int paAtt,int paPar,int dMax,Point2D p,int argent,int inventaire){
+        super(n,pV,dA,ptPar,paAtt,paPar,dMax,p,argent,inventaire);
     }
     
     public Paysan(Paysan p){
