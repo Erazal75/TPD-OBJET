@@ -13,9 +13,11 @@ import java.util.*;
 public class World {
     
     public Archer robin = new Archer();
+    public Archer guillaumeT = new Archer(robin);
     public Paysan peon = new Paysan();
     public Lapin bugs = new Lapin();
     public Lapin bugy = new Lapin();
+    
     
     public World(){
     robin = new Archer();

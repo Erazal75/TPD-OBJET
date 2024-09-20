@@ -117,4 +117,7 @@ public class Monstre {
                 " pagePar: "+pagePar+" et de position: ["+ pos.getX()+";"+pos.getY()+"]");
     }
     
+    public void affichePos(){
+        System.out.println("Votre monstre est en position: ["+ pos.getX()+";"+pos.getY()+"]");
+    }
 }

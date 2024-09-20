@@ -134,11 +134,19 @@ public class Personnage {
         Random genAlé = new Random();
         int x = genAlé.nextInt(21)-10;
         int y = genAlé.nextInt(21)-10;
+        deplace(x,y);
+    }
+    
+    public void deplace(int x , int y){
         pos.setPosition(pos.getX() + x, pos.getY() + y);
     }
     
     public void affiche(){
         System.out.println("Votre personnage s'appelle: "+nom+" point de vie: "+ptVie+" dégat d'attaque: "+degAtt+" point de Par: "+ptPar+" pageAtt: "+pageAtt+" pagePar: "+pagePar+" distance maximale d'attaque: "+distAttMax+" et de position: ["+ pos.getX()+";"+pos.getY()+"]");
+    }
+    
+    public void affichePos(){
+        System.out.println("Votre personnage est en position: ["+ pos.getX()+";"+pos.getY()+"]");
     }
     
 }
