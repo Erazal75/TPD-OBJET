@@ -8,18 +8,23 @@ package lv.wofe;
  *
  * @author lazaregrail
  */
-public class Lapin extends Monstre{
+public class Objet {
     
-    public Lapin(int pV,int dA,int ptPar,int paAtt,int paPar,Point2D p){
-        super(pV,dA,ptPar,paAtt,paPar,p);
+    private int place;
+    
+    public Objet(int place){
+        this.place = place;
     }
     
-    public Lapin(Lapin l){
-        super(l);
+    public Objet(){
+        this.place = 0;
     }
     
-    public Lapin(){
-        super();
+    public int getPlace(){
+        return place;
     }
     
+    public void setPalce(int place){
+        this.place = place;
+    }
 }

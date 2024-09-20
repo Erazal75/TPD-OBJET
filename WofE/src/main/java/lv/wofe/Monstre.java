@@ -10,111 +10,139 @@ import java.util.Random;
  *
  * @author lazaregrail
  */
-public class Monstre {
+public class Monstre extends Creature{
     
-    private int ptVie ; 
-    private int degAtt;
-    private int ptPar;
-    private int pageAtt;
-    private int pagePar;
-    private Point2D pos;
+    /**
+     * ptVie est son nombre de point de vie
+     * degAtt est les dégats qu'il inflige
+     * ptPar est le point de dégat qu'il pare a chaque attaque
+     * 
+     * 
+     * pos est 
+     */
 
+    /**
+     * Permier constructeur de monstre
+     * 
+     * @param ptVie son nombre de point de vie
+     * @param dAtt ses dégats d'attaque
+     * @param ptP ses point de parade
+     * @param pageA 
+     * @param pageP
+     * @param p sa position sur la carte
+     */
     
     public Monstre(int ptVie,int dAtt, int ptP,int pageA, int pageP,Point2D p){
-        this.ptVie = ptVie; 
-        degAtt = dAtt;
-        ptPar = ptP;
-        pageAtt = pageA;
-        pagePar = pageP;
-        pos = p;
+        super(ptVie,dAtt,ptP,pageA,pageP,p);
     }
+    
+    /**
+     * deuxième contruscteur de monstre
+     * 
+     * @param m recopie un autre monstre
+     */
     
     public Monstre(Monstre m){
-        ptVie = m.ptVie;
-        degAtt = m.degAtt;
-        ptPar = m.ptPar;
-        pageAtt = m.pageAtt;
-        pagePar = m.pagePar;
-        pos = new Point2D(m.pos);
+        super(m);
     }
+    
+    /**
+     * Troisème contructeur monstre qui met 0 à toutes les attributs
+     */
     
     public Monstre(){
-        this.ptVie = 0; 
-        degAtt = 0;
-        ptPar = 0;
-        pageAtt = 0;
-        pagePar = 0;
-        pos = new Point2D();
+        super();
     }
     
-    public int getptVie(){
-        return ptVie;
-    }
+    /**
+     * getptVie renvoie le nombre de point de vie du presonnage
+     * @return int 
+     */
 
-    public int getdegAtt(){
-        return degAtt;
-    } 
+    /**
+     * getdegAtt renvoie le nombre de dégat d'attaque du monstre
+     * @return int
+     */
     
-    public int getptPar(){
-        return ptPar;
-    }
+    /**
+     * getptPar renvoie le nombre de point de parade du monstre
+     * @return int
+     */
     
-    public int getpageAtt(){
-        return pageAtt;
-    }
+    /**
+     * getpageAttt renvoie le pageAtt du monstre
+     * @return int
+     */
     
-    public int getpagePar(){
-        return pagePar;
-    }
+    /**
+     * getpagePar renvoie le pagePar ud perosnnage
+     * @return int 
+     */
     
-    public int getposX(){
-        return pos.getX();
-    }
     
-    public int getposY(){
-        return pos.getY();
-    }
+    /**
+     * getposX renvoie la coordonnée x de la position du monstre
+     * @return int
+     */
+    
+    /**
+     * getposY renvoie la coordonnée y de la position du monstre
+     * @return int
+     */
         
-    public void setptVie(int ptVie){
-        this.ptVie = ptVie;
-    } 
+    /**
+     * setptVie change le nombre de point de vie du monstre
+     * @param ptVie 
+     */ 
     
-    public void setdegAtt(int dAtt){
-        degAtt = dAtt;
-    } 
+    /**
+     * setdetAtt change les dégats d'attaque du monstre
+     * @param dAtt 
+     */ 
     
-    public void setptPar(int ptP){
-        ptPar = ptP;
-    }
+    /**
+     * setptPar change le nombre de point de parade du monstre
+     * @param ptP 
+     */
     
-    public void setpageAtt(int pageA){
-        pageAtt = pageA;
-    }
+    /**
+     * setpageAtt change la valeur de pageAtt du monstre
+     * @param pageA 
+     */
     
-    public void setpagePar(int pageP){
-        pagePar = pageP;
-    }
+    /**
+     * setpagePar change la valeur de pagePar du monstre
+     * @param pageP 
+     */
     
-    public void setpos(int x,int y){
-        pos.setPosition(x, y);
-    }
+    /**
+     * setpos change les coordonnées x et y du monstre
+     * @param x
+     * @param y 
+     */
     
-    public void deplace(){
-        Random genAlé = new Random();
-        int x = genAlé.nextInt(21)-10;
-        int y = genAlé.nextInt(21)-10;
-        deplace(x,y);
-    }
+    /**
+     * la preimère méthode deplace fait bouger de manière aléatoire le monstre
+     */
     
-    public void deplace(int x , int y){
-        pos.setPosition(pos.getX() + x, pos.getY() + y);
-    }
+    /**
+     * la deuxième méthode déplace fait bouger le perosnnage d'une valeur précise x et y
+     * @param x
+     * @param y 
+     */
+    
+    /**
+     * la méthode affiche permet d'afficher toutes les valeurs du monstre
+     */
     
     public void affiche(){
         System.out.println("Votre monstre a point de vie: "
-                +ptVie+" dégat d'attaque: "+degAtt
-                +" point de Par: "+ptPar+" pageAtt: "+pageAtt+
-                " pagePar: "+pagePar+" et de position: ["+ pos.getX()+";"+pos.getY()+"]");
+                +this.getptVie()+" dégat d'attaque: "
+                +this.getdegAtt()+" point de Par: "
+                +this.getptPar()+" pageAtt: "
+                +this.getpageAtt()+" pagePar: "
+                +this.getpagePar()+" et de position: ["
+                + this.getposX()+";"+this.getposY()+"]");
     }
     
 }
