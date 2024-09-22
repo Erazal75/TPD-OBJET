@@ -36,14 +36,15 @@ public class World {
     tableauCreature.add(warwick);
     tableauCreature.add(bugs); 
     tableauCreature.add(bugy); 
+    
     }
     
     public void creerMondeAlea(){
         Random genAlé = new Random();
         for(Creature c : tableauCreature){
             boolean noOneThere = false;
-            int x;
-            int y;
+            int x = genAlé.nextInt(100);
+            int y = genAlé.nextInt(100);
             int compteur = 0;
             while (noOneThere != true) {
                 x = genAlé.nextInt(100);

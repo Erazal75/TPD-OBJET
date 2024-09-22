@@ -113,6 +113,7 @@ public class Creature {
     
     public float distance (Creature c){
         return this.pos.distance(c.pos);
+    }
 
     /* renvoie un booléen traduissant si les deux créatures sont sur la même case */
     public boolean coincide(Creature c){
