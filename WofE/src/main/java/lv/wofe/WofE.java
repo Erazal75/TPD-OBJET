@@ -75,6 +75,24 @@ public class WofE {
         monMonde.warwick.affiche();
         */
         
+        // TEST N°7
         
+        monMonde.aragorn.setpos(0, 0);
+        monMonde.robin.setpos(0, 1);
+        
+        monMonde.aragorn.setdegAtt(30);
+        monMonde.aragorn.setpageAtt(0);
+        
+        monMonde.robin.setptVie(100);
+        monMonde.robin.setpagePar(30);
+        monMonde.robin.setptPar(10);
+        
+        monMonde.robin.affiche();
+        monMonde.aragorn.affiche();
+        
+        monMonde.aragorn.combattre(monMonde.robin);
+        
+        monMonde.robin.affiche();
+        monMonde.aragorn.affiche();
     }
 }

@@ -39,3 +39,4 @@ public class Loup extends Monstre{
   
   
 }
+}
