@@ -27,4 +27,13 @@ public class PotionSoin extends Objet {
         c.setptVie(c.getptVie() + nbPVRendu);
         System.out.println("Vous avez regagné des points de vie");
     }
+    
+    
+    public int getnbPVRendu(){
+        return nbPVRendu;
+    }
+    
+    public void setnbPVRendu(int nb){
+        nbPVRendu = nb;
+    }
 }

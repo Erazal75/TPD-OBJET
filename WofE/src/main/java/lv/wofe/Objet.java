@@ -23,11 +23,13 @@ abstract class Objet {
     public Objet(Objet o){
         this.place = o.place;
         this.prix = o.prix;
+        this.pos = o.pos;
     }
     
     public Objet(){
         this.place = 0;
         this.prix = 0;
+        this.pos = new Point2D();
     }
     
     public int getPlace(){

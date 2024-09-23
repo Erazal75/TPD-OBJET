@@ -43,12 +43,5 @@ public class Guerrier extends Personnage{
               System.out.println("l'attaque du Guerrier est contrée");
           }
     }
-        
-        
-        
-        
-        /*if (this.arme.getdegAtt() + this.getdegAtt() - c.getptPar() > 0){
-          c.setptVie(c.getptVie() - this.getdegAtt() - this.arme.getdegAtt() + c.getptPar());
-      }*/
   }
 }

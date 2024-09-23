@@ -34,6 +34,7 @@ public class World {
     
     heal = new PotionSoin();
     heal.setpos(0,2);
+    heal.setnbPVRendu(20);
     
     tableauCreature.add(robin);
     tableauCreature.add(peon); 

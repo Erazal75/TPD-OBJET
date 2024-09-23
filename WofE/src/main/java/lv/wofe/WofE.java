@@ -13,11 +13,10 @@ public class WofE {
     
     public static void main(String[] args) {
         
+        // TEST N°1 
+        //System.out.println("Test des Classes : Archer, Paysan et Lapin");
         monMonde = new World();
         
-        /* TEST N°1 
-        System.out.println("Test des Classes : Archer, Paysan et Lapin");
-        */
         
         /* TEST n°1)a) 
         System.out.println("Test Robin");
@@ -101,6 +100,7 @@ public class WofE {
       
         // TEST N°7.2
         /*
+        
         monMonde.aragorn.setpos(0, 0);
         monMonde.robin.setpos(3, 0);
         monMonde.robin.setnbFleches(10);
@@ -125,6 +125,8 @@ public class WofE {
         */
         
         // TEST N°8
+        
+        
         System.out.println("Test du Systeme des Potions");
         
         monMonde.aragorn.setpos(0, 0);
@@ -146,5 +148,6 @@ public class WofE {
         
         monMonde.robin.affiche();
         monMonde.aragorn.affiche();
+        System.out.println(monMonde.tableauObjet.size());
     }
 }

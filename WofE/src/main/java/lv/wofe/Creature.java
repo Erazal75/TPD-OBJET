@@ -109,10 +109,10 @@ public class Creature {
     
     public void deplace(int x , int y){
         pos.setPosition(pos.getX() + x, pos.getY() + y);
-        ArrayList<Objet> tableauObjet = World.gettableauObjet();
-        for (Objet o : tableauObjet){
+        for (Objet o : World.gettableauObjet()){
             if (x == o.getposX()&& y == o.getposY()){
                 o.activation(this);
+                World.gettableauObjet().remove(o);
             }
         }
     }
