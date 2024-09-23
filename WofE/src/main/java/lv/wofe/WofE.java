@@ -13,9 +13,10 @@ public class WofE {
     
     public static void main(String[] args) {
         
+        monMonde = new World();
+        
         /* TEST N°1 
         System.out.println("Test des Classes : Archer, Paysan et Lapin");
-        monMonde = new World();
         */
         
         /* TEST n°1)a) 

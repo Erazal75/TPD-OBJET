@@ -55,4 +55,6 @@ abstract class Objet {
     }
     
     public abstract void activation(Creature c);
+    
+    
 }
