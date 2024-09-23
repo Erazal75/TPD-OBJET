@@ -41,12 +41,5 @@ public class Guerrier extends Personnage{
               c.setptVie(c.getptVie() - this.getdegAtt() + c.getptPar());
           }
     }
-        
-        
-        
-        
-        /*if (this.arme.getdegAtt() + this.getdegAtt() - c.getptPar() > 0){
-          c.setptVie(c.getptVie() - this.getdegAtt() - this.arme.getdegAtt() + c.getptPar());
-      }*/
   }
 }

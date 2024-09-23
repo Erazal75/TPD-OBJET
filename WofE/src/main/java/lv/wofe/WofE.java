@@ -98,7 +98,7 @@ public class WofE {
         */
         
         // TEST N°7.2
-        
+        /*
         
         monMonde.aragorn.setpos(0, 0);
         monMonde.robin.setpos(3, 0);
@@ -121,6 +121,7 @@ public class WofE {
         monMonde.robin.affiche();
         System.out.println(monMonde.robin.getnbFleches());
         monMonde.aragorn.affiche();
+        */
         
     }
 }
