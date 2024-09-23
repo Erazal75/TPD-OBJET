@@ -109,6 +109,12 @@ public class Creature {
     
     public void deplace(int x , int y){
         pos.setPosition(pos.getX() + x, pos.getY() + y);
+        for (Objet o : World.gettableauObjet()){
+            if (x == o.getposX()&& y == o.getposY()){
+                o.activation(this);
+                World.gettableauObjet().remove(o);
+            }
+        }
     }
     
     public float distance (Creature c){

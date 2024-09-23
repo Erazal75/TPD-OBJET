@@ -13,8 +13,8 @@ public class Epee extends Objet {
     private int nbMain;
     private int degAtt;
     
-    public Epee(int nbMain, int degAtt, int place,int prix){
-        super(place,prix);
+    public Epee(int nbMain, int degAtt, int place,int prix, Point2D p){
+        super(place,prix, p);
         this.nbMain = nbMain;
         this.degAtt = degAtt;
     }
@@ -44,5 +44,10 @@ public class Epee extends Objet {
     }
     public void setdegAtt(int degAtt){
         this.degAtt = degAtt;
+    }
+    
+    @Override
+    public void activation(Creature c) {
+        System.out.println("L'épée est activée, elle augmente votre force.");
     }
 }

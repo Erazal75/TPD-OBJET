@@ -12,8 +12,8 @@ public class PotionSoin extends Objet {
     
     private int nbPVRendu;
     
-    public PotionSoin(int nbPVRendu, int place,int prix){
-        super(place,prix);
+    public PotionSoin(int nbPVRendu, int place,int prix,Point2D p){
+        super(place,prix,p);
         this.nbPVRendu = nbPVRendu;
     }
     
@@ -22,5 +22,18 @@ public class PotionSoin extends Objet {
         nbPVRendu = 0;
     }
     
+    @Override
+    public void activation(Creature c) {
+        c.setptVie(c.getptVie() + nbPVRendu);
+        System.out.println("Vous avez regagné des points de vie");
+    }
     
+    
+    public int getnbPVRendu(){
+        return nbPVRendu;
+    }
+    
+    public void setnbPVRendu(int nb){
+        nbPVRendu = nb;
+    }
 }

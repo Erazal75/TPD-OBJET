@@ -48,3 +48,4 @@ public class Archer extends Personnage{
         nbFleches = nb;
     }
 }
+

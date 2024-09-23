@@ -8,32 +8,32 @@ package lv.wofe;
  *
  * @author lazaregrail
  */
-public class Objet {
+abstract class Objet {
     
     private int place;
     private int prix;
+    private Point2D pos;
     
-    public Objet(int place,int prix ){
+    public Objet(int place,int prix, Point2D p){
         this.place = place;
         this.prix = prix;
+        this.pos = p;
     }
     
     public Objet(Objet o){
         this.place = o.place;
         this.prix = o.prix;
+        this.pos = o.pos;
     }
     
     public Objet(){
         this.place = 0;
         this.prix = 0;
+        this.pos = new Point2D();
     }
     
     public int getPlace(){
         return place;
-    }
-    
-    public void setPalce(int place){
-        this.place = place;
     }
     
     public int getPrix(){
@@ -43,4 +43,18 @@ public class Objet {
     public void setPrix(int pris){
         prix = pris;
     }
+    
+    public void setpos(int x, int y){
+        pos.setPosition(x,y);
+    }
+    
+    public int getposX(){
+        return pos.getX();
+    }
+    
+    public int getposY(){
+        return pos.getY();
+    }
+    
+    public abstract void activation(Creature c);
 }
