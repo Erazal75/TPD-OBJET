@@ -148,6 +148,6 @@ public class WofE {
         
         monMonde.robin.affiche();
         monMonde.aragorn.affiche();
-        System.out.println(monMonde.tableauObjet.size());
+        //System.out.println(monMonde.tableauObjet.size());
     }
 }

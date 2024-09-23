@@ -112,7 +112,6 @@ public class Creature {
         for (Objet o : World.gettableauObjet()){
             if (x == o.getposX()&& y == o.getposY()){
                 o.activation(this);
-                World.gettableauObjet().remove(o);
             }
         }
     }
