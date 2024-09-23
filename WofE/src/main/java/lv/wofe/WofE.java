@@ -76,17 +76,17 @@ public class WofE {
         monMonde.warwick.affiche();
         */
         
-        // TEST N°7
+        // TEST N°7.1
         
         /*
         monMonde.aragorn.setpos(0, 0);
-        monMonde.robin.setpos(0, 1);
+        monMonde.robin.setpos(1, 1);
         
         monMonde.aragorn.setdegAtt(30);
-        monMonde.aragorn.setpageAtt(0);
+        monMonde.aragorn.setpageAtt(80);
         
         monMonde.robin.setptVie(100);
-        monMonde.robin.setpagePar(30);
+        monMonde.robin.setpagePar(40);
         monMonde.robin.setptPar(10);
         
         monMonde.robin.affiche();
@@ -97,9 +97,34 @@ public class WofE {
         monMonde.robin.affiche();
         monMonde.aragorn.affiche();
         */
+      
+        // TEST N°7.2
+        /*
+        monMonde.aragorn.setpos(0, 0);
+        monMonde.robin.setpos(3, 0);
+        monMonde.robin.setnbFleches(10);
+        
+        monMonde.aragorn.setptVie(100);
+        monMonde.aragorn.setpagePar(100);
+        monMonde.aragorn.setptPar(20);
+        
+        monMonde.robin.setdegAtt(15);
+        monMonde.robin.setpageAtt(100);
+        monMonde.robin.setdistM(4);
+        
+        monMonde.robin.affiche();
+        System.out.println(monMonde.robin.getnbFleches());
+        monMonde.aragorn.affiche();
+        
+        monMonde.robin.combattre(monMonde.aragorn);
+        
+        monMonde.robin.affiche();
+        System.out.println(monMonde.robin.getnbFleches());
+        monMonde.aragorn.affiche();
+        */
         
         // TEST N°8
-        System.out.println("Test du Système de Combat");
+        System.out.println("Test du Systeme des Potions");
         
         monMonde.aragorn.setpos(0, 0);
         monMonde.robin.setpos(0, 1);
