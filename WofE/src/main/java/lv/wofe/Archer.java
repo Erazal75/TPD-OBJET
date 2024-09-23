@@ -30,11 +30,15 @@ public class Archer extends Personnage{
     }
     
     public void combattre(Creature c){
-      if (this.distance(c)>1 && this.distance(c)<= this.getdistM() ){
-          Random genAlé = new Random();
-          int pourcAtt = genAlé.nextInt(100);
-          if (pourcAtt <= this.getpageAtt() ){
-              c.setptVie(c.getptVie() - this.getdegAtt());
+        if (this.distance(c)>1 && this.distance(c)<= this.getdistM() ){
+            Random genAlé = new Random();
+            int pourcAtt = genAlé.nextInt(100);
+            if (pourcAtt <= this.getpageAtt() ){
+                c.setptVie(c.getptVie() - this.getdegAtt());
+                System.out.println("l'attaque de l'Archer est un succès");
+            }
+            else{System.out.println("l'attaque de l'Archer est un échec");}
+        }
     }
 }
-}}
+

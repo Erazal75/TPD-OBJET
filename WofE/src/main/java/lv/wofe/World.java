@@ -20,6 +20,8 @@ public class World {
     public Lapin bugs = new Lapin();
     public Lapin bugy = new Lapin();
     public ArrayList<Creature> tableauCreature = new ArrayList<>();
+    static ArrayList<Objet> tableauObjet = new ArrayList<>();
+    public PotionSoin heal = new PotionSoin();
 
     public World(){
         
@@ -30,6 +32,9 @@ public class World {
     bugs = new Lapin();
     bugy = new Lapin();
     
+    heal = new PotionSoin();
+    heal.setpos(0,2);
+    
     tableauCreature.add(robin);
     tableauCreature.add(peon); 
     tableauCreature.add(aragorn);
@@ -37,6 +42,12 @@ public class World {
     tableauCreature.add(bugs); 
     tableauCreature.add(bugy); 
     tableauCreature.add(guillaumeT); 
+    
+    tableauObjet.add(heal);
+    }
+    
+    static ArrayList<Objet> gettableauObjet(){
+        return tableauObjet;
     }
     
     public void creerMondeAlea(){

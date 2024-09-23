@@ -13,9 +13,10 @@ public class WofE {
     
     public static void main(String[] args) {
         
-        /* TEST N°1 */
+        /* TEST N°1 
         System.out.println("Test des Classes : Archer, Paysan et Lapin");
         monMonde = new World();
+        */
         
         /* TEST n°1)a) 
         System.out.println("Test Robin");
@@ -77,6 +78,7 @@ public class WofE {
         
         // TEST N°7
         
+        /*
         monMonde.aragorn.setpos(0, 0);
         monMonde.robin.setpos(0, 1);
         
@@ -91,6 +93,30 @@ public class WofE {
         monMonde.aragorn.affiche();
         
         monMonde.aragorn.combattre(monMonde.robin);
+        
+        monMonde.robin.affiche();
+        monMonde.aragorn.affiche();
+        */
+        
+        // TEST N°8
+        System.out.println("Test du Système de Combat");
+        
+        monMonde.aragorn.setpos(0, 0);
+        monMonde.robin.setpos(0, 1);
+        
+        monMonde.aragorn.setdegAtt(30);
+        monMonde.aragorn.setpageAtt(0);
+        
+        monMonde.robin.setptVie(100);
+        monMonde.robin.setpagePar(30);
+        monMonde.robin.setptPar(10);
+        
+        monMonde.robin.affiche();
+        monMonde.aragorn.affiche();
+        
+        monMonde.aragorn.combattre(monMonde.robin);
+        
+        monMonde.robin.deplace(0,2);
         
         monMonde.robin.affiche();
         monMonde.aragorn.affiche();
