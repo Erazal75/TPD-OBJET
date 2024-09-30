@@ -11,7 +11,7 @@ package lv.wofe;
 
 import java.util.*;
 
-public class Creature {
+public abstract class Creature {
     
     private int ptVie ; 
     private int degAtt;
@@ -108,10 +108,29 @@ public class Creature {
     }
     
     public void deplace(int x , int y){
-        pos.setPosition(pos.getX() + x, pos.getY() + y);
-        for (Objet o : World.gettableauObjet()){
-            if (x == o.getposX()&& y == o.getposY()){
-                o.activation(this);
+        boolean noOneThere = false;
+        int compteur = 0;
+        while (!noOneThere){
+            for(Creature d : World.gettableauCreature()){
+                if (!(this.equals(d)) ){
+                    if (x == d.getposX()&& y == d.getposY()){
+                        break;
+                    }
+                    else{
+                        compteur = compteur + 1;
+                        }
+                    if (compteur == World.gettableauCreature().size()-1) {
+                        noOneThere = true;
+                    }
+                }
+            }
+        }    
+        if (noOneThere) {
+            pos.setPosition(pos.getX() + x, pos.getY() + y);
+            for (Objet o : World.gettableauObjet()){
+                if (x == o.getposX()&& y == o.getposY()){
+                    o.activation(this);
+                }
             }
         }
     }
@@ -124,5 +143,12 @@ public class Creature {
         boolean reponse = (this.getposX()== c.getposX() && this.getposY()== c.getposY());
         return(reponse);
     }
+    
+    public void affichePos(){
+        System.out.println("Votre créature est un: "+this.getClass()+" et est en position: ["+ this.getposX()+";"+this.getposY()+"]");
+    }
+    
+    public abstract void affiche();
+    
 }
 

@@ -4,19 +4,21 @@
 
 package lv.wofe;
 
+import java.util.Random;
+
 /**
  *
  * @author lazaregrail
  */
 public class WofE {
+    
     static World monMonde;
     
     public static void main(String[] args) {
         
         // TEST N°1 
         //System.out.println("Test des Classes : Archer, Paysan et Lapin");
-        monMonde = new World();
-        
+        monMonde = new World(1001);
         
         /* TEST n°1)a) 
         System.out.println("Test Robin");
@@ -126,7 +128,7 @@ public class WofE {
         
         // TEST N°8
         
-        
+        /*
         System.out.println("Test du Systeme des Potions");
         
         monMonde.aragorn.setpos(0, 0);
@@ -149,5 +151,30 @@ public class WofE {
         monMonde.robin.affiche();
         monMonde.aragorn.affiche();
         //System.out.println(monMonde.tableauObjet.size());
+    */
+        
+        //TP 4
+        Random genAlé = new Random();  
+        long debut1 = System.nanoTime();
+        int compteur = 0;
+        for (Creature c: World.gettableauCreature()){
+            //c.affichePos();
+            c.setptVie(genAlé.nextInt(200));
+            //c.affiche();
+            compteur=compteur+c.getptVie();
+        }
+        long fin1 = System.nanoTime();
+        System.out.println("le nombre de PV total est "+compteur+" via les itérateurs cela a pris: "+(fin1-debut1)+"ns");
+        long debut2 = System.nanoTime();
+        compteur = 0;
+        for (int i = 0; i<World.gettableauCreature().size()-1;i=i+1){
+            //c.affichePos();
+            World.gettableauCreature().get(i).setptVie(genAlé.nextInt(200));
+            //c.affiche();
+            compteur=compteur+World.gettableauCreature().get(i).getptVie();
+        }
+        long fin2 = System.nanoTime();
+        System.out.println("le nombre de PV total est "+compteur+" via la taille du tableau cela a pris: "+(fin2-debut2)+"ns");
+        
     }
 }

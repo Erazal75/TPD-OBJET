@@ -134,8 +134,10 @@ public class Monstre extends Creature{
      * la méthode affiche permet d'afficher toutes les valeurs du monstre
      */
     
+    @Override
     public void affiche(){
-        System.out.println("Votre monstre a point de vie: "
+        System.out.println("Votre monstre est un: "+this.getClass()+
+                "a point de vie: "
                 +this.getptVie()+" dégat d'attaque: "
                 +this.getdegAtt()+" point de Par: "
                 +this.getptPar()+" pageAtt: "
@@ -144,7 +146,5 @@ public class Monstre extends Creature{
                 + this.getposX()+";"+this.getposY()+"]");
     }
     
-    public void affichePos(){
-        System.out.println("Votre monstre est en position: ["+ this.getposX()+";"+this.getposY()+"]");
-    }
 }
+

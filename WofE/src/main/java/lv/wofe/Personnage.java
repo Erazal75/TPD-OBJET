@@ -9,7 +9,6 @@ package lv.wofe;
  * @author lazaregrail
  */
 
-import java.util.*;
 
 public class Personnage extends Creature{
     
@@ -63,7 +62,7 @@ public class Personnage extends Creature{
         this.argent = p.argent;
         this.inventaire = p.inventaire ;
     }
-    
+
     /**
      * Troisème contructeur personnage qui met 0 à toutes les attributs
      */
@@ -224,8 +223,10 @@ public class Personnage extends Creature{
      * la méthode affiche permet d'afficher toutes les valeurs du personnage
      */
     
+    @Override
     public void affiche(){
-        System.out.println("Votre personnage s'appelle: "+nom
+        System.out.println("Votre personnage est un: "+this.getClass()+
+                " il s'appelle : "+nom
                 +" point de vie: "+this.getptVie()
                 +" dégat d'attaque: "+this.getdegAtt()
                 +" point de Par: "+this.getptPar()
@@ -233,10 +234,6 @@ public class Personnage extends Creature{
                 +" pagePar: "+this.getpagePar()
                 +" distance maximale d'attaque: "+distAttMax
                 +" et de position: ["+ this.getposX()+";"+this.getposY()+"]");
-    }
-    
-    public void affichePos(){
-        System.out.println("Votre personnage est en position: ["+ this.getposX()+";"+this.getposY()+"]");
     }
     
 }
