@@ -13,6 +13,7 @@ import java.util.*;
 
 public class World {
     
+
     public Archer robin = new Archer();
     public Archer guillaumeT = new Archer(robin);
     public Paysan peon = new Paysan();
@@ -20,12 +21,26 @@ public class World {
     public Loup warwick = new Loup();
     public Lapin bugs = new Lapin();
     public Lapin bugy = new Lapin();
-    public ArrayList<Creature> tableauCreature = new ArrayList<>();
+    static ArrayList<Creature> tableauCreature = new ArrayList<>();
     static ArrayList<Objet> tableauObjet = new ArrayList<>();
     public PotionSoin heal = new PotionSoin();
+    public int taille;
 
-    public World(){
-        
+    public World(int nb){
+    taille = nb;
+    Random genAlé = new Random();   
+    creerNPaysan(100);
+    //creerNGuerrier(100);
+    /*
+    creerNArcher(genAlé.nextInt(10));
+    creerNLoup(genAlé.nextInt(10));
+    creerNLapin(genAlé.nextInt(10));
+    creerNPotion(genAlé.nextInt(10));
+    creerNEpee(genAlé.nextInt(10));
+    */
+    creerMondeAlea();
+    
+    /*
     robin = new Archer();
     peon = new Paysan();
     aragorn = new Guerrier();
@@ -37,6 +52,7 @@ public class World {
     heal.setpos(0,2);
     heal.setnbPVRendu(20);
     
+    
     tableauCreature.add(robin);
     tableauCreature.add(peon); 
     tableauCreature.add(aragorn);
@@ -46,10 +62,16 @@ public class World {
     tableauCreature.add(guillaumeT); 
     
     tableauObjet.add(heal);
+    */
+
     }
     
     static ArrayList<Objet> gettableauObjet(){
         return tableauObjet;
+    }
+    
+    static ArrayList<Creature> gettableauCreature(){
+        return tableauCreature;
     }
     
     /**
@@ -59,29 +81,92 @@ public class World {
     public void creerMondeAlea(){
         Random genAlé = new Random();
         for(Creature c : tableauCreature){
-            boolean noOneThere = false;
-            int x=genAlé.nextInt(201)-100;
-            int y=genAlé.nextInt(201)-100;
-            int compteur = 0;
-            while (noOneThere != true) {
-                x = genAlé.nextInt(201)-100;
-                y = genAlé.nextInt(201)-100;
-                for(Creature d : tableauCreature){
-                    if (!(c.equals(d))){
-                        if (x == d.getposX()&& y == d.getposY()){
-                            noOneThere = false;
-                            compteur = 0;
-                        }
-                        else{
-                            compteur = compteur + 1;
-                        }
-                    if (compteur == tableauCreature.size()-1) {
-                        noOneThere = true;
-                        }
-                    }
-                }
-            }
+            int x=genAlé.nextInt(taille);
+            int y=genAlé.nextInt(taille);
             c.deplace(x,y);
+            while (c.getposX()!= x && c.getposY()!=y){
+                x=genAlé.nextInt(51);
+                y=genAlé.nextInt(51);
+                c.deplace(x,y);
+            }
+            
         }   
+    }
+    
+    /**
+     * Cree nbGuerrier Guerriers
+     * @param nbGuerrier 
+     */
+    
+    public void creerNGuerrier(int nbGuerrier){
+        for (int i=0 ; i<nbGuerrier ; i=i+1){
+            tableauCreature.add(new Guerrier());
+        }
+    }
+    
+    /**
+     * Cree nbPaysan Paysans
+     * @param nbPaysan 
+     */
+    
+    public void creerNPaysan(int nbPaysan){
+        for (int i=0 ; i<nbPaysan ; i=i+1){
+            tableauCreature.add(new Paysan());
+        }
+    }
+    
+    /**
+     * Cree nbArcher Archers
+     * @param nbArcher 
+     */
+    
+    public void creerNArcher(int nbArcher){
+        for (int i=0 ; i<nbArcher ; i=i+1){
+            tableauCreature.add(new Archer());
+        }
+    }
+    
+    /**
+     * Cree nbLoup Loups
+     * @param nbLoup 
+     */
+    
+    public void creerNLoup(int nbLoup){
+        for (int i=0 ; i<nbLoup ; i=i+1){
+            tableauCreature.add(new Loup());
+        }
+    }
+    
+    /**
+     * Cree nbLapin Lapins
+     * @param nbLapin 
+     */
+    
+    public void creerNLapin(int nbLapin){
+        for (int i=0 ; i<nbLapin ; i=i+1){
+            tableauCreature.add(new Lapin());
+        }
+    }
+    
+    /**
+     * Cree nbPotion PotionSoins
+     * @param nbPotion 
+     */
+    
+    public void creerNPotion(int nbPotion){
+        for (int i=0 ; i<nbPotion ; i=i+1){
+            tableauObjet.add(new PotionSoin());
+        }
+    }
+    
+    /**
+     * Cree nbEpee Epees
+     * @param nbEpee 
+     */
+    
+    public void creerNEpee(int nbEpee){
+        for (int i=0 ; i<nbEpee ; i=i+1){
+            tableauObjet.add(new Epee());
+        }
     }
 }

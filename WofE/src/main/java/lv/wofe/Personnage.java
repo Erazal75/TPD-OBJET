@@ -10,7 +10,6 @@ package lv.wofe;
  * 
  */
 
-import java.util.*;
 
 public class Personnage extends Creature{
     
@@ -60,7 +59,7 @@ public class Personnage extends Creature{
         this.argent = p.argent;
         this.inventaire = p.inventaire ;
     }
-    
+
     /**
      * Troisème contructeur de Personnage, permet d'initialiser tous les attributs avec leur valeur par défaut.
      */
@@ -119,8 +118,10 @@ public class Personnage extends Creature{
      * affiche permet d'afficher les informations du Personnage.
      */
     
+    @Override
     public void affiche(){
-        System.out.println("Votre personnage s'appelle: "+nom
+        System.out.println("Votre personnage est un: "+this.getClass()+
+                " il s'appelle : "+nom
                 +" point de vie: "+this.getptVie()
                 +" dégat d'attaque: "+this.getdegAtt()
                 +" point de Par: "+this.getptPar()
