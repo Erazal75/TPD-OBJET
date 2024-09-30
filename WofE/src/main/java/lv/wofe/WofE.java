@@ -19,7 +19,7 @@ public class WofE {
     
     public static void main(String[] args) {
         
-        monMonde = new World(1001);
+        monMonde = new World(50);
         
 //////////////////////////////////// TP 3 //////////////////////////////////////
         
@@ -160,7 +160,7 @@ public class WofE {
     */
         
 //////////////////////////////////// TP 4 //////////////////////////////////////
-
+/*
         Random genAlé = new Random();  
         long debut1 = System.nanoTime();
         int compteur = 0;
@@ -182,6 +182,10 @@ public class WofE {
         }
         long fin2 = System.nanoTime();
         System.out.println("le nombre de PV total est "+compteur+" via la taille du tableau cela a pris: "+(fin2-debut2)+"ns");
-        
+        */
+
+//////////////////////////////////// TP 5 //////////////////////////////////////
+    
+    Joueur Joueur1 = new Joueur();
     }
 }

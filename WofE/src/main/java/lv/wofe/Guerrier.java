@@ -28,7 +28,7 @@ public class Guerrier extends Personnage{
      * @param paPar est le pourcentage de chance qu'une parade du Guerrier soit réussie
      * @param dMax est la distance maximun à laquelle le Guerrier peut attaquer 
      * @param p est la position du Guerrier
-     * @param place est la taille maximun de l'inventaire du Guerrier
+     * @param placeEpee est la place que prend l'epee dans l'inventaire du Guerrier
      * @param nbmain est le nombre de main du Guerrier occupées à manier une Epee
      * @param degEpee est la caractéristique de dégât bonus de l'Epee du Guerrier
      * @param prix est la caractéristique de prix de l'Epee du Guerrier
@@ -36,9 +36,9 @@ public class Guerrier extends Personnage{
      * @param inventaire est la taille maximun de l'inventaire du Guerrier
      */
     
-    public Guerrier(String n,int pV,int dA,int ptPar,int paAtt,int paPar,int dMax,Point2D p,int place,int nbmain,int degEpee,int prix,int argent,int inventaire){
+    public Guerrier(String n,int pV,int dA,int ptPar,int paAtt,int paPar,int dMax,Point2D p,int placeEpee,int nbmain,int degEpee,int prix,int argent,int inventaire){
         super(n,pV,dA,ptPar,paAtt,paPar,dMax,p,argent,inventaire);
-        arme = new Epee(nbmain,degEpee,place,prix,p);
+        arme = new Epee(nbmain,degEpee,placeEpee,prix,p);
     }
     
     /**
