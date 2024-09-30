@@ -6,12 +6,22 @@ package lv.wofe;
 
 /**
  *
- * @author lazaregrail
+ * @author lazaregrail & victorsimon
  */
 
 import java.util.*;
 
 public class Creature {
+    
+    /**
+     * ptVie est le nombre de point de vie de la Creature
+     * degAtt est le nombre de dégats qu'inflige la Creature
+     * ptPar est le nombre de dégat que la Creature pare a chaque parade réussie
+     * pageAtt est le pourcentage de chance qu'une attaque de la Creature soit réussie
+     * pagePar est le pourcentage de chance qu'une parade de la Creature soit réussie
+     * pos est la position de la Creature
+     */
+     
     
     private int ptVie ; 
     private int degAtt;
@@ -19,7 +29,16 @@ public class Creature {
     private int pageAtt;
     private int pagePar;
     private Point2D pos;
-
+    
+    /**
+     * Premier constructeur de Creature
+     * @param ptVie est le nombre de point de vie de la Creature
+     * @param dAtt est le nombre de dégats qu'inflige la Creature
+     * @param ptP est le nombre de dégat que la Creature pare a chaque parade réussie
+     * @param pageA est le pourcentage de chance qu'une attaque de la Creature soit réussie
+     * @param pageP est le pourcentage de chance qu'une parade de la Creature soit réussie
+     * @param p est la position de la Creature
+     */
     
     public Creature(int ptVie,int dAtt, int ptP,int pageA, int pageP,Point2D p){
         this.ptVie = ptVie; 
@@ -30,14 +49,23 @@ public class Creature {
         pos = p;
     }
     
-    public Creature(Creature p){
-        ptVie = p.ptVie;
-        degAtt = p.degAtt;
-        ptPar = p.ptPar;
-        pageAtt = p.pageAtt;
-        pagePar = p.pagePar;
-        pos = new Point2D(p.pos);
+    /**
+     * Deuxième constructeur de Creature
+     * @param c est une autre Creature, à partir de laquel notre Creature sera créée
+     */
+    
+    public Creature(Creature c){
+        ptVie = c.ptVie;
+        degAtt = c.degAtt;
+        ptPar = c.ptPar;
+        pageAtt = c.pageAtt;
+        pagePar = c.pagePar;
+        pos = new Point2D(c.pos);
     }
+    
+    /**
+     * Troisème contructeur de Creature, permet d'initialiser tous les attributs avec leur valeur par défaut.
+     */
     
     public Creature(){
         this.ptVie = 0; 
@@ -48,57 +76,146 @@ public class Creature {
         pos = new Point2D();
     }
     
+    /**
+     * getptVie renvoie le nombre de point de vie de la Creature
+     * @return ptVie est le nombre de point de vie de la Creature 
+     */
+    
+    
     public int getptVie(){
         return ptVie;
     }
+    
+    /**
+     * getdegAtt renvoie le nombre de dégat d'attaque du personnage
+     * @return degAtt est le nombre de dégats qu'inflige la Creature
+     */
 
     public int getdegAtt(){
         return degAtt;
     } 
     
+    /**
+     * getptPar renvoie le nombre de dégat que la Creature pare a chaque parade réussie
+     * @return ptPar est le nombre de dégat que la Creature pare a chaque parade réussie
+     */
+    
     public int getptPar(){
         return ptPar;
     }
+    
+    /**
+     * getpageAttt renvoie le pourcentage de chance qu'une attaque de la Creature soit réussie
+     * @return pageAtt est le pourcentage de chance qu'une attaque de la Creature soit réussie
+     */
     
     public int getpageAtt(){
         return pageAtt;
     }
     
+    /**
+     * getpagePar renvoie le pourcentage de chance qu'une parade de la Creature soit réussie
+     * @return pagePar est le pourcentage de chance qu'une parade de la Creature soit réussie
+     */
+    
     public int getpagePar(){
         return pagePar;
     }
+    
+    /**
+     * getposX renvoie l'abscisse de la Creature.
+     * @return
+     */
     
     public int getposX(){
         return pos.getX();
     }
     
+    /**
+     * getposY renvoie l'ordonnée de la Creature.
+     * @return
+     */
+    
     public int getposY(){
         return pos.getY();
     }
+    
+    /**
+     * setptVie permet d'attribuer la valeur ptVie aux point de Vie ptVie de la Creature
+     * @param ptVie est un nombre de point de vie
+     */
         
     public void setptVie(int ptVie){
         this.ptVie = ptVie;
     } 
     
+    /**
+     * setdegAtt permet d'attribuer la valeur dAtt aux dégât d'attaque degAtt de la Creature
+     * @param dAtt est le nombre de dégats qu'inflige la Creature
+     */
+    
     public void setdegAtt(int dAtt){
         degAtt = dAtt;
     } 
+    
+    /**
+     * setptPar permet d'attribuer la valeur ptP aux dégât parés ptPar de la Creature
+     * @param ptP est le nombre de dégat que la Creature pare a chaque parade réussie
+     */
     
     public void setptPar(int ptP){
         ptPar = ptP;
     }
     
+    /**
+     * setpageAtt permet d'attribuer la valeur pageA aux pourcentages d'attaque réussie pageAtt de la Creature
+     * @param pageA est le pourcentage de chance qu'une attaque de la Creature soit réussie
+     */
+    
     public void setpageAtt(int pageA){
         pageAtt = pageA;
     }
+    
+    /**
+     * setpagePar permet d'attribuer la valeur pageP aux pourcentages de parade réussie pagePar de la Creature
+     * @param pageP est le pourcentage de chance qu'une parade de la Creature soit réussie
+     */
     
     public void setpagePar(int pageP){
         pagePar = pageP;
     }
     
+    /**
+     * setpos permet d'attribuer la valeur (x,y) à la position pos de la Creature
+     * @param x est l'abscisse des coordonnées
+     * @param y est l'ordonnée des coordonéees
+     */
+    
     public void setpos(int x, int y){
         pos.setPosition(x,y);
     }
+    
+    /**
+     * deplace permet de déplacer la Creature aux coordonnées (x,y) désirées.
+     * Simultanément, nous vérifions que lors du déplacement : 
+     * 1) la Creature se déplace sur un Objet, si c'est le cas, l'Objet s'active
+     * 2) la Creature ne se déplace pas sur une case déjà occuppée par une autre Creature
+     * @param x est l'abscisse des coordonnées
+     * @param y est l'ordonnée des coordonéees 
+     */
+    
+    public void deplace(int x , int y){
+        pos.setPosition(pos.getX() + x, pos.getY() + y);
+        for (Objet o : World.gettableauObjet()){
+            if (x == o.getposX()&& y == o.getposY()){
+                o.activation(this);
+            }
+        }
+    }
+    
+    /**
+     * deplace permet d'attribuer des valeurs de coordonnées aléatoires à la Creature
+     */
     
     public void deplace(){
         Random genAlé = new Random();
@@ -107,20 +224,23 @@ public class Creature {
         deplace(x,y);
     }
     
-    public void deplace(int x , int y){
-        pos.setPosition(pos.getX() + x, pos.getY() + y);
-        for (Objet o : World.gettableauObjet()){
-            if (x == o.getposX()&& y == o.getposY()){
-                o.activation(this);
-                World.gettableauObjet().remove(o);
-            }
-        }
-    }
+    /**
+     * distance permet de calculer la distance entre deux Creatures
+     * @param c est la Creature avec laquelle nous calculons la distance
+     * @return 
+     */
     
     public float distance (Creature c){
         return this.pos.distance(c.pos);
     }
-    /* renvoie un booléen traduissant si les deux créatures sont sur la même case */
+    
+    /**
+     * coincide permet de vérifier si deux Creatures sont sur la même case
+     * c'est-à-dire si elle possède les mêmes coordonnées
+     * @param c est la Creature avec laquelle nous vérifions la position
+     * @return reponse est un booléen traduissant si oui ou non les Creatures sont sur la même case
+     */
+    
     public boolean coincide(Creature c){
         boolean reponse = (this.getposX()== c.getposX() && this.getposY()== c.getposY());
         return(reponse);

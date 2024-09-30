@@ -8,28 +8,19 @@ import java.util.Random;
 
 /**
  *
- * @author lazaregrail
+ * @author lazaregrail & victorsimon
  */
 public class Monstre extends Creature{
-    
-    /**
-     * ptVie est son nombre de point de vie
-     * degAtt est les dégats qu'il inflige
-     * ptPar est le point de dégat qu'il pare a chaque attaque
-     * 
-     * 
-     * pos est 
-     */
 
     /**
-     * Permier constructeur de monstre
+     * Premier constructeur de Monstre
      * 
-     * @param ptVie son nombre de point de vie
-     * @param dAtt ses dégats d'attaque
-     * @param ptP ses point de parade
-     * @param pageA 
-     * @param pageP
-     * @param p sa position sur la carte
+     * @param ptVie est le nombre de point de vie du Monstre
+     * @param dAtt est le nombre de dégât d'attaque du Monstre
+     * @param ptP est le nombre de dégat que le Monstre pare a chaque parade réussie
+     * @param pageA est le pourcentage de chance qu'une attaque du Monstre soit réussie
+     * @param pageP est le pourcentage de chance qu'une parade du Monstre soit réussie
+     * @param p est la position du Monstre
      */
     
     public Monstre(int ptVie,int dAtt, int ptP,int pageA, int pageP,Point2D p){
@@ -37,9 +28,8 @@ public class Monstre extends Creature{
     }
     
     /**
-     * deuxième contruscteur de monstre
-     * 
-     * @param m recopie un autre monstre
+     * Deuxième constructeur de Monstre
+     * @param m est un autre Monstre, à partir de laquel notre Monstre sera créé
      */
     
     public Monstre(Monstre m){
@@ -47,91 +37,15 @@ public class Monstre extends Creature{
     }
     
     /**
-     * Troisème contructeur monstre qui met 0 à toutes les attributs
+     * Troisème contructeur de Monstre, permet d'initialiser tous les attributs avec leur valeur par défaut.
      */
     
     public Monstre(){
         super();
     }
     
-    /**
-     * getptVie renvoie le nombre de point de vie du presonnage
-     * @return int 
-     */
-
-    /**
-     * getdegAtt renvoie le nombre de dégat d'attaque du monstre
-     * @return int
-     */
-    
-    /**
-     * getptPar renvoie le nombre de point de parade du monstre
-     * @return int
-     */
-    
-    /**
-     * getpageAttt renvoie le pageAtt du monstre
-     * @return int
-     */
-    
-    /**
-     * getpagePar renvoie le pagePar ud perosnnage
-     * @return int 
-     */
-    
-    /**
-     * getposX renvoie la coordonnée x de la position du monstre
-     * @return int
-     */
-    
-    /**
-     * getposY renvoie la coordonnée y de la position du monstre
-     * @return int
-     */
-        
-    /**
-     * setptVie change le nombre de point de vie du monstre
-     * @param ptVie 
-     */ 
-    
-    /**
-     * setdetAtt change les dégats d'attaque du monstre
-     * @param dAtt 
-     */ 
-    
-    /**
-     * setptPar change le nombre de point de parade du monstre
-     * @param ptP 
-     */
-    
-    /**
-     * setpageAtt change la valeur de pageAtt du monstre
-     * @param pageA 
-     */
-    
-    /**
-     * setpagePar change la valeur de pagePar du monstre
-     * @param pageP 
-     */
-    
-    /**
-     * setpos change les coordonnées x et y du monstre
-     * @param x
-     * @param y 
-     */
-    
-    /**
-     * la preimère méthode deplace fait bouger de manière aléatoire le monstre
-     */
-    
-    /**
-     * la deuxième méthode déplace fait bouger le perosnnage d'une valeur précise x et y
-     * @param x
-     * @param y 
-     */
-    
-    /**
-     * la méthode affiche permet d'afficher toutes les valeurs du monstre
+    /** 
+     * affiche permet d'afficher les informations du Monstre.
      */
     
     public void affiche(){
@@ -143,6 +57,10 @@ public class Monstre extends Creature{
                 +this.getpagePar()+" et de position: ["
                 + this.getposX()+";"+this.getposY()+"]");
     }
+    
+    /** 
+     * affichePos permet d'afficher la position du Monstre.
+     */
     
     public void affichePos(){
         System.out.println("Votre monstre est en position: ["+ this.getposX()+";"+this.getposY()+"]");

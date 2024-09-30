@@ -6,9 +6,13 @@ package lv.wofe;
 
 /**
  *
- * @author lazaregrail
+ * @author lazaregrail & victorsimon
  */
 public class WofE {
+    
+    /**
+     * monMonde est une instance de World permettant de tester les différentes notions de notre jeu World Of ECN
+     */
     static World monMonde;
     
     public static void main(String[] args) {
