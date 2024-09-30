@@ -8,17 +8,23 @@ import java.util.Random;
 
 /**
  *
- * @author lazaregrail
+ * @author lazaregrail & victorsimon
  */
 public class WofE {
     
+    /**
+     * monMonde est une instance de World permettant de tester les différentes notions de notre jeu World Of ECN
+     */
     static World monMonde;
     
     public static void main(String[] args) {
         
+        monMonde = new World(1001);
+        
+//////////////////////////////////// TP 3 //////////////////////////////////////
+        
         // TEST N°1 
         //System.out.println("Test des Classes : Archer, Paysan et Lapin");
-        monMonde = new World(1001);
         
         /* TEST n°1)a) 
         System.out.println("Test Robin");
@@ -153,7 +159,8 @@ public class WofE {
         //System.out.println(monMonde.tableauObjet.size());
     */
         
-        //TP 4
+//////////////////////////////////// TP 4 //////////////////////////////////////
+
         Random genAlé = new Random();  
         long debut1 = System.nanoTime();
         int compteur = 0;

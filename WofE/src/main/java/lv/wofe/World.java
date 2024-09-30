@@ -6,7 +6,8 @@ package lv.wofe;
 
 /**
  *
- * @author lazaregrail
+ * @author lazaregrail & victorsimon
+ * 
  */
 import java.util.*;
 
@@ -71,6 +72,10 @@ public class World {
     static ArrayList<Creature> gettableauCreature(){
         return tableauCreature;
     }
+    
+    /**
+     * creerMondeAlea permet de modifier l'instance de World de sorte que chaque Protagonistes et Objets soient placés aléatoirement dans le Monde.
+     */
     
     public void creerMondeAlea(){
         Random genAlé = new Random();

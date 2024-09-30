@@ -6,21 +6,18 @@ package lv.wofe;
 
 /**
  *
- * @author lazaregrail
+ * @author lazaregrail & victorsimon
+ * 
  */
 
 
 public class Personnage extends Creature{
     
     /**
-     * nom est la nom du personnage
-     * ptVie est son nombre de point de vie
-     * degAtt est les dégats qu'il inflige
-     * ptPar est le point de dégat qu'il pare a chaque attaque
-     * 
-     * 
-     * distAttMax est la distance maximum à laquel il peut attaquer
-     * pos est la position personnage
+     * nom est le nom du Personnage
+     * distAttMax est la distance maximun à laquelle le Personnage peut attaquer
+     * inventaire est la taille maximun de l'inventaire du Personnage
+     * argent est la somme d'argent que le Personnage possède
      */
     
     private String nom ;
@@ -29,16 +26,17 @@ public class Personnage extends Creature{
     private int argent;
 
     /**
-     * Permier constructeur de personnage
+     * Premier constructeur de Personnage
      * 
-     * @param nom le nom du personnage
-     * @param ptVie son nombre de point de vie
-     * @param dAtt ses dégats d'attaque
-     * @param ptP ses point de parade
-     * @param pageA 
-     * @param pageP
-     * @param distAttM la distance maximum à laquel il peut attaquer
-     * @param p sa position sur la carte
+     * @param nom est le nom du Personnage
+     * @param ptVie est le nombre de point de vie du Personnage
+     * @param dAtt est le nombre de dégât d'attaque du Personnage
+     * @param ptP est le nombre de dégat que le Personnage pare a chaque parade réussie
+     * @param pageA est le pourcentage de chance qu'une attaque du Personnage soit réussie
+     * @param pageP est le pourcentage de chance qu'une parade du Personnage soit réussie
+     * @param distAttM est la distance maximun à laquelle le Personnage peut attaquer 
+     * @param argent est la somme d'argent que le Personnage possède
+     * @param inventaire est la taille maximun de l'inventaire du Personnage
      */
     
     public Personnage(String nom,int ptVie,int dAtt, int ptP,int pageA, int pageP, int distAttM,Point2D p,int argent,int inventaire){
@@ -50,9 +48,8 @@ public class Personnage extends Creature{
     }
     
     /**
-     * deuxième contruscteur de personnage
-     * 
-     * @param p recopie un autre personnage
+     * Deuxième constructeur de Personnage
+     * @param p est un autre Personnage, à partir de laquel notre Personnage sera créé
      */
     
     public Personnage(Personnage p){
@@ -64,7 +61,7 @@ public class Personnage extends Creature{
     }
 
     /**
-     * Troisème contructeur personnage qui met 0 à toutes les attributs
+     * Troisème contructeur de Personnage, permet d'initialiser tous les attributs avec leur valeur par défaut.
      */
     
     public Personnage(){
@@ -75,20 +72,15 @@ public class Personnage extends Creature{
     }
     
     /**
-     * La méthode renconter affiche 2 lignes de texte avec enchanetr et les noms des 2 personnages
+     * La méthode rencontrer affiche 2 lignes de texte avec le dialogue "Enchanté" et les noms des 2 personnages
      * @param p 
      */
     
     public void rencontrer(Personnage p){
        
-        System.out.println("Enchanter "+ p.nom);
-        System.out.println("Enchanter de même "+this.nom);
+        System.out.println("Enchanté "+ p.nom);
+        System.out.println("Enchanté de même "+this.nom);
     }
-    
-    /**
-     * getNom renvoie le nom du personnage
-     * @return String 
-     */
     
     public String getNom(){
         return nom;
@@ -101,57 +93,10 @@ public class Personnage extends Creature{
     public int getInventaire(){
         return inventaire;
     }
-    /**
-     * getptVie renvoie le nombre de point de vie du presonnage
-     * @return int 
-     */
-    
-    
-    /**
-     * getdegAtt renvoie le nombre de dégat d'attaque du personnage
-     * @return int
-     */
-    
-    /**
-     * getptPar renvoie le nombre de point de parade du personnage
-     * @return int
-     */
-    
-    /**
-     * getpageAttt renvoie le pageAtt du personnage
-     * @return int
-     */
-    
-    /**
-     * getpagePar renvoie le pagePar ud perosnnage
-     * @return int 
-     */
-    
-    /**
-     * getdistMax renvoie la distance maximum à laquel le perosnnage peut attaquer
-     * @return int
-     */
     
     public int getdistM(){
         return distAttMax;
     }
-    
-    /**
-     * getposX renvoie la coordonnée x de la position du personnage
-     * @return int
-     */
-    
-    
-    /**
-     * getposY renvoie la coordonnée y de la position du personnage
-     * @return int
-     */
-    
-    
-    /**
-     * setNom change le nom du personnage
-     * @param nom String le nouveau nom du personnage
-     */
     
     public void setNom(String nom){
         this.nom = nom;
@@ -165,62 +110,12 @@ public class Personnage extends Creature{
         inventaire = invent;
     }
     
-    
-    /**
-     * setptVie change le nombre de point de vie du personnage
-     * @param ptVie 
-     */
-    
-    /**
-     * setdetAtt change les dégats d'attaque du personnage
-     * @param dAtt 
-     */
-    
-    /**
-     * setptPar change le nombre de point de parade du personnage
-     * @param ptP 
-     */
-   
-    
-    /**
-     * setpageAtt change la valeur de pageAtt du personnage
-     * @param pageA 
-     */
-    
-    /**
-     * setpagePar change la valeur de pagePar du personnage
-     * @param pageP 
-     */
-    
-    /**
-     * setdistMax change la distance maximale à laquel le personnage peut attaquer
-     * @param distM 
-     */
-    
     public void setdistM(int distM){
         distAttMax = distM;
     }
     
-    /**
-     * setpos change les coordonnées x et y du personnage
-     * @param x
-     * @param y 
-     */
-    
-    /**
-     * la preimère méthode deplace fait bouger de manière aléatoire le personnage
-     */
-    
-    
-    /**
-     * la deuxième méthode déplace fait bouger le perosnnage d'une valeur précise x et y
-     * @param x
-     * @param y 
-     */
-    
-    
-    /**
-     * la méthode affiche permet d'afficher toutes les valeurs du personnage
+    /** 
+     * affiche permet d'afficher les informations du Personnage.
      */
     
     @Override
@@ -234,6 +129,14 @@ public class Personnage extends Creature{
                 +" pagePar: "+this.getpagePar()
                 +" distance maximale d'attaque: "+distAttMax
                 +" et de position: ["+ this.getposX()+";"+this.getposY()+"]");
+    }
+    
+    /** 
+     * affichePos permet d'afficher la position du Personnage.
+     */
+    
+    public void affichePos(){
+        System.out.println("Votre personnage est en position: ["+ this.getposX()+";"+this.getposY()+"]");
     }
     
 }
