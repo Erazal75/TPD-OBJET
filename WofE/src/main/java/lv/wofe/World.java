@@ -25,6 +25,7 @@ public class World {
     static ArrayList<Objet> tableauObjet = new ArrayList<>();
     public PotionSoin heal = new PotionSoin();
     public int taille;
+    public int currentTour = 0; 
 
     public World(int nb){
     taille = nb;
@@ -32,12 +33,13 @@ public class World {
     creerNPaysan(10000);
     //creerNGuerrier(100);
     /*
+    creerNGuerrier(genAlé.nextInt(10));
     creerNArcher(genAlé.nextInt(10));
     creerNLoup(genAlé.nextInt(10));
-    creerNLapin(genAlé.nextInt(10));
-    creerNPotion(genAlé.nextInt(10));
-    creerNEpee(genAlé.nextInt(10));
-    */
+    creerNLapin(genAlé.nextInt(10));*/
+    //creerNPotion(genAlé.nextInt(10));
+    //creerNEpee(genAlé.nextInt(10));
+    
     creerMondeAlea();
     
     /*
@@ -85,8 +87,8 @@ static ArrayList<Creature> gettableauCreature(){
             int y=genAlé.nextInt(taille);
             c.deplace(x,y);
             while (c.getposX()!= x && c.getposY()!=y){
-                x=genAlé.nextInt(51);
-                y=genAlé.nextInt(51);
+                x=genAlé.nextInt(taille);
+                y=genAlé.nextInt(taille);
                 c.deplace(x,y);
             }
             
@@ -168,5 +170,23 @@ static ArrayList<Creature> gettableauCreature(){
         for (int i=0 ; i<nbEpee ; i=i+1){
             tableauObjet.add(new Epee());
         }
+    }
+    
+    public Joueur creationJoueur(){
+        System.out.println("Un joueur rentre dans le Monde, Bienvenu !");    
+        Joueur();
+    }
+    
+    public void afficheWorld(){
+        System.out.println("Affichons le Monde");    
+    }
+    
+    public void tourDeJeu(){
+        System.out.println("Le Tour commence ...");    
+        
+        System.out.println("les Actions sont effectuées ...");    
+        
+        System.out.println("Le Tour se termine ...");    
+        this.currentTour++; 
     }
 }

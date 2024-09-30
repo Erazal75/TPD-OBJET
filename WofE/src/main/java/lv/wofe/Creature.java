@@ -11,7 +11,7 @@ package lv.wofe;
 
 import java.util.*;
 
-public abstract class Creature {
+public abstract class Creature implements Deplacable{
     
     /**
      * ptVie est le nombre de point de vie de la Creature
