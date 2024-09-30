@@ -29,7 +29,7 @@ public class World {
     public World(int nb){
     taille = nb;
     Random genAlé = new Random();   
-    creerNPaysan(100);
+    creerNPaysan(10000);
     //creerNGuerrier(100);
     /*
     creerNArcher(genAlé.nextInt(10));
@@ -70,7 +70,7 @@ public class World {
         return tableauObjet;
     }
     
-    static ArrayList<Creature> gettableauCreature(){
+static ArrayList<Creature> gettableauCreature(){
         return tableauCreature;
     }
     

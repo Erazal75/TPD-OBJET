@@ -68,12 +68,7 @@ public abstract class Creature {
      */
     
     public Creature(){
-        this.ptVie = 0; 
-        degAtt = 0;
-        ptPar = 0;
-        pageAtt = 0;
-        pagePar = 0;
-        pos = new Point2D();
+        this(0,0,0,0,0,new Point2D());
     }
     
     /**

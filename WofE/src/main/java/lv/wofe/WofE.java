@@ -171,7 +171,7 @@ public class WofE {
             compteur=compteur+c.getptVie();
         }
         long fin1 = System.nanoTime();
-        System.out.println("le nombre de PV total est "+compteur+" via les itérateurs cela a pris: "+(fin1-debut1)+"ns");
+        System.out.println("le nombre de PV total est "+compteur+" via les iterateurs cela a pris: "+(fin1-debut1)+"ns");
         long debut2 = System.nanoTime();
         compteur = 0;
         for (int i = 0; i<World.gettableauCreature().size()-1;i=i+1){
