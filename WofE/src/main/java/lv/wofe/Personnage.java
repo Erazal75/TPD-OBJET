@@ -65,6 +65,7 @@ public class Personnage extends Creature{
      */
     
     public Personnage(){
+        super();
         this.nom = "";
         distAttMax = 0;
         this.argent = 0;

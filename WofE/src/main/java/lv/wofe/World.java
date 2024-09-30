@@ -29,11 +29,12 @@ public class World {
     public World(int nb){
     taille = nb;
     Random genAlé = new Random();   
-    creerNPaysan(genAlé.nextInt(10));
+    creerNPaysan(100000);
+    /*
     creerNGuerrier(genAlé.nextInt(10));
     creerNArcher(genAlé.nextInt(10));
     creerNLoup(genAlé.nextInt(10));
-    creerNLapin(genAlé.nextInt(10));
+    creerNLapin(genAlé.nextInt(10));*/
     //creerNPotion(genAlé.nextInt(10));
     //creerNEpee(genAlé.nextInt(10));
     
