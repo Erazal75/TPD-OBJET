@@ -38,10 +38,11 @@ public abstract class Creature extends ElementDeJeu implements Deplacable{
      * @param pageA est le pourcentage de chance qu'une attaque de la Creature soit réussie
      * @param pageP est le pourcentage de chance qu'une parade de la Creature soit réussie
      * @param p est la position de la Creature
+     * @param jeu
      */
     
-    public Creature(int ptVie,int dAtt, int ptP,int pageA, int pageP,Point2D p){ 
-        super(p);
+    public Creature(int ptVie,int dAtt, int ptP,int pageA, int pageP,Point2D p,World jeu){ 
+        super(p,jeu);
         this.ptVie = ptVie; 
         degAtt = dAtt;
         ptPar = ptP;
@@ -55,20 +56,21 @@ public abstract class Creature extends ElementDeJeu implements Deplacable{
      */
     
     public Creature(Creature c){
+        super(c);
         ptVie = c.ptVie;
         degAtt = c.degAtt;
         ptPar = c.ptPar;
         pageAtt = c.pageAtt;
         pagePar = c.pagePar;
-        pos = new Point2D(c.pos);
     }
     
     /**
      * Troisème contructeur de Creature, permet d'initialiser tous les attributs avec leur valeur par défaut.
+     * @param jeu
      */
     
-    public Creature(){
-        this(0,0,0,0,0,new Point2D());
+    public Creature(World jeu){
+        this(0,0,0,0,0,new Point2D(),jeu);
     }
     
     /**
@@ -122,6 +124,7 @@ public abstract class Creature extends ElementDeJeu implements Deplacable{
      * @return
      */
     
+    @Override
     public int getposX(){
         return pos.getX();
     }
@@ -131,6 +134,7 @@ public abstract class Creature extends ElementDeJeu implements Deplacable{
      * @return
      */
     
+    @Override
     public int getposY(){
         return pos.getY();
     }
@@ -202,7 +206,7 @@ public abstract class Creature extends ElementDeJeu implements Deplacable{
     
     @Override
     public void deplace(int x , int y){
-        if (jeu.getmatrice[x][y] != 1 && jeu.getmatrice[x][y] != 2){
+        if (this.getjeu().getmatrice(x,y) != 1 && this.getjeu().getmatrice(x,y) != 2){
             this.setpos(x, y);
         } 
     }

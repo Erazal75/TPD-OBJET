@@ -29,8 +29,8 @@ abstract class Objet extends ElementDeJeu {
      * @param p est la position de l'Objet
      */
     
-    public Objet(int place,int prix, Point2D p){
-        super(p);
+    public Objet(int place,int prix, Point2D p,World jeu){
+        super(p,jeu);
         this.place = place;
         this.prix = prix;
     }
@@ -41,6 +41,7 @@ abstract class Objet extends ElementDeJeu {
      */
     
     public Objet(Objet o){
+        super(new Point2D(o.pos),o.getjeu());
         this.place = o.place;
         this.prix = o.prix;
         this.pos = o.pos;
@@ -50,10 +51,8 @@ abstract class Objet extends ElementDeJeu {
      * Troisème contructeur d'Objet, permet d'initialiser tous les attributs avec leur valeur par défaut.
      */
     
-    public Objet(){
-        this.place = 0;
-        this.prix = 0;
-        this.pos = new Point2D();
+    public Objet(World jeu){
+        this(0,0,new Point2D(),jeu);
     }
     
     public int getPlace(){

@@ -33,8 +33,8 @@ public class Archer extends Personnage implements Combattant{
      * @param argent est la somme d'argent que l'Archer possède
      */
     
-    public Archer(String n,int pV,int dA,int ptPar,int paAtt,int paPar,int dMax,Point2D p,int nbFleches,int argent){
-        super(n,pV,dA,ptPar,paAtt,paPar,dMax,p,argent);
+    public Archer(String n,int pV,int dA,int ptPar,int paAtt,int paPar,int dMax,Point2D p,int nbFleches,int argent,World jeu){
+        super(n,pV,dA,ptPar,paAtt,paPar,dMax,p,argent,jeu);
         this.nbFleches = nbFleches; 
     }
     
@@ -52,8 +52,8 @@ public class Archer extends Personnage implements Combattant{
      * Troisème contructeur d'Archer, permet d'initialiser tous les attributs avec leur valeur par défaut.
      */
     
-    public Archer(){
-        super();
+    public Archer(World jeu){
+        super(jeu);
         nbFleches = 0;
     }
     

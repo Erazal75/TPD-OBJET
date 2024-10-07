@@ -23,8 +23,8 @@ public class Monstre extends Creature{
      * @param p est la position du Monstre
      */
     
-    public Monstre(int ptVie,int dAtt, int ptP,int pageA, int pageP,Point2D p){
-        super(ptVie,dAtt,ptP,pageA,pageP,p);
+    public Monstre(int ptVie,int dAtt, int ptP,int pageA, int pageP,Point2D p,World jeu){
+        super(ptVie,dAtt,ptP,pageA,pageP,p,jeu);
     }
     
     /**
@@ -40,8 +40,8 @@ public class Monstre extends Creature{
      * Troisème contructeur de Monstre, permet d'initialiser tous les attributs avec leur valeur par défaut.
      */
     
-    public Monstre(){
-        super();
+    public Monstre(World jeu){
+        super(jeu);
     }
     
     /** 

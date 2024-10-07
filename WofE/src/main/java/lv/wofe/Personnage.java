@@ -37,8 +37,8 @@ abstract public class Personnage extends Creature{
      * @param argent est la somme d'argent que le Personnage possède
      */
     
-    public Personnage(String nom,int ptVie,int dAtt, int ptP,int pageA, int pageP, int distAttM,Point2D p,int argent){
-        super(ptVie,dAtt,ptP,pageA,pageP,p);
+    public Personnage(String nom,int ptVie,int dAtt, int ptP,int pageA, int pageP, int distAttM,Point2D p,int argent,World jeu){
+        super(ptVie,dAtt,ptP,pageA,pageP,p,jeu);
         this.nom = nom;
         distAttMax = distAttM;
         this.argent = argent;
@@ -58,10 +58,11 @@ abstract public class Personnage extends Creature{
 
     /**
      * Troisème contructeur de Personnage, permet d'initialiser tous les attributs avec leur valeur par défaut.
+     * @param jeu
      */
     
-    public Personnage(){
-        super();
+    public Personnage(World jeu){
+        super(jeu);
         this.nom = "";
         distAttMax = 0;
         this.argent = 0;

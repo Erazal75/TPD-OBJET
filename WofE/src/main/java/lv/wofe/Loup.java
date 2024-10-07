@@ -23,8 +23,8 @@ public class Loup extends Monstre implements Combattant{
      * @param p est la position du Loup
      */
     
-    public Loup(int pV,int dA,int ptPar,int paAtt,int paPar,Point2D p){
-      super(pV,dA,ptPar,paAtt,paPar,p);
+    public Loup(int pV,int dA,int ptPar,int paAtt,int paPar,Point2D p,World jeu){
+      super(pV,dA,ptPar,paAtt,paPar,p,jeu);
     }
     
     /**
@@ -40,8 +40,8 @@ public class Loup extends Monstre implements Combattant{
      * Troisème contructeur de Loup, permet d'initialiser tous les attributs avec leur valeur par défaut.
      */
 
-    public Loup(){
-      super();
+    public Loup(World jeu){
+      super(jeu);
     }
     
     /**

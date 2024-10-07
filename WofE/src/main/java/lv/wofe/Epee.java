@@ -28,8 +28,8 @@ public class Epee extends Objet implements Utilisable {
      * @param p est la position de l'Epee
      */
     
-    public Epee(int nbmain,int degEpee, int placeEpee,int prix, Point2D p){
-        super(placeEpee,prix, p);
+    public Epee(int nbmain,int degEpee, int placeEpee,int prix, Point2D p,World jeu){
+        super(placeEpee,prix, p,jeu);
         this.nbMain = nbmain;
         this.degAtt = degEpee;
     }
@@ -39,8 +39,8 @@ public class Epee extends Objet implements Utilisable {
      * @param degAtt 
      */
     
-    public Epee(int degAtt){
-        super();
+    public Epee(int degAtt,World jeu){
+        super(jeu);
         this.nbMain = 0;
         this.degAtt = degAtt;
     }
@@ -51,7 +51,7 @@ public class Epee extends Objet implements Utilisable {
      */
     
     public Epee(Epee e){
-        super();
+        super(e);
         this.nbMain = e.getPlace();
         this.degAtt = e.getdegAtt();
     }
@@ -60,8 +60,8 @@ public class Epee extends Objet implements Utilisable {
      * Troisème contructeur d'Epee, permet d'initialiser tous les attributs avec leur valeur par défaut.
      */
     
-    public Epee(){
-        super();
+    public Epee(World jeu){
+        super(jeu);
         nbMain = 0;
         degAtt = 0;
     }

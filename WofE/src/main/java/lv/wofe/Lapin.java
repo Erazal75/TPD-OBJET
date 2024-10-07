@@ -21,8 +21,8 @@ public class Lapin extends Monstre{
      * @param p est la position du Lapin
      */
     
-    public Lapin(int pV,int dA,int ptPar,int paAtt,int paPar,Point2D p){
-        super(pV,dA,ptPar,paAtt,paPar,p);
+    public Lapin(int pV,int dA,int ptPar,int paAtt,int paPar,Point2D p,World jeu){
+        super(pV,dA,ptPar,paAtt,paPar,p,jeu);
     }
     
     /**
@@ -36,10 +36,11 @@ public class Lapin extends Monstre{
     
     /**
      * Troisème contructeur de Lapin, permet d'initialiser tous les attributs avec leur valeur par défaut.
+     * @param jeu
      */
     
-    public Lapin(){
-        super();
+    public Lapin(World jeu){
+        super(jeu);
     }
     
 }

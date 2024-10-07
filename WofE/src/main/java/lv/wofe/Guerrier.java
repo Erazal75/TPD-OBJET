@@ -35,9 +35,10 @@ public class Guerrier extends Personnage implements Combattant{
      * @param argent est la somme d'argent que le Guerrier possède
      */
     
-    public Guerrier(String n,int pV,int dA,int ptPar,int paAtt,int paPar,int dMax,Point2D p,int placeEpee,int nbmain,int degEpee,int prix,int argent){
-        super(n,pV,dA,ptPar,paAtt,paPar,dMax,p,argent);
-        arme = new Epee(nbmain,degEpee,placeEpee,prix,p);
+    public Guerrier(String n,int pV,int dA,int ptPar,int paAtt,int paPar,int dMax,Point2D p,
+            int placeEpee,int nbmain,int degEpee,int prix,int argent, World jeu){
+        super(n,pV,dA,ptPar,paAtt,paPar,dMax,p,argent,jeu);
+        arme = new Epee(nbmain,degEpee,placeEpee,prix,p,jeu);
     }
     
     /**
@@ -54,9 +55,9 @@ public class Guerrier extends Personnage implements Combattant{
      * Troisème contructeur de Guerrier, permet d'initialiser tous les attributs avec leur valeur par défaut.
      */
     
-    public Guerrier(){
-        super();
-        arme = new Epee();
+    public Guerrier(World jeu){
+        super(jeu);
+        arme = new Epee(jeu);
     }
     
     /**
