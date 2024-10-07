@@ -40,13 +40,13 @@ public abstract class Creature extends ElementDeJeu implements Deplacable{
      * @param p est la position de la Creature
      */
     
-    public Creature(int ptVie,int dAtt, int ptP,int pageA, int pageP,Point2D p){
+    public Creature(int ptVie,int dAtt, int ptP,int pageA, int pageP,Point2D p){ 
+        super(p);
         this.ptVie = ptVie; 
         degAtt = dAtt;
         ptPar = ptP;
         pageAtt = pageA;
         pagePar = pageP;
-        pos = p;
     }
     
     /**

@@ -1,0 +1,48 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package lv.wofe;
+
+/**
+ *
+ * @author lazareGrail & victorSimon
+ */
+abstract class Nourriture extends Objet implements Utilisable{
+    
+    /**
+     * nbTour est la durée en tour de l'effet de la Nourriture, une fois consommée, sur la Creature
+     * 1 signifie utilisation instantanée et unique (par exemple pour la PotionSoin)
+     * 0 signifie que la Nourriture ne sera pas consommée
+     */
+    
+    private int nbTour; 
+    
+    /**
+     * Premier constructeur de Nourriture
+     * @param nbTour est la durée en tour de l'effet de la Nourriture, une fois consommée, sur la Creature
+     */
+    
+    public Nourriture(int nbTour){
+        this.nbTour = nbTour; 
+    }
+    
+    /**
+     * Deuxième constructeur de Nourriture, par copie
+     * @param n est une autre Nourriture, à partir de laquel notre Nourriture sera créée
+     */
+    
+    public Nourriture(Nourriture n){
+        super(n);
+    }
+    
+    /**
+     * Troisieme constructeur de Nourriture, par defautL. 
+     */
+    
+    public Nourriture(){
+        super();
+        this.nbTour = 0;
+    }
+    
+}

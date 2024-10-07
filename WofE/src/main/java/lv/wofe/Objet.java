@@ -31,9 +31,9 @@ abstract class Objet extends ElementDeJeu {
      */
     
     public Objet(int place,int prix, Point2D p){
+        super(p);
         this.place = place;
         this.prix = prix;
-        this.pos = p;
     }
     
     /**

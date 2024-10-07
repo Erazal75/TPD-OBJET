@@ -11,37 +11,34 @@ package lv.wofe;
 abstract class ElementDeJeu {
     
     /**
-     * c est la Creature associée à l'ElementDeJeu (NULL si il s'agit d'un Objet)
-     * o est l'Objet associé à l'ElementDeJeu (NULL si il s'agit d'une Creature)
+     * pos est la position de l'ElementDeJeu
      */
     
-    public Creature c;
-    public Objet o;
+    private Point2D pos;
     
     /** 
-     * Constructeur par défaut
+     * Premier constructeur de ElementDeJeu
+     *@param p est la position de l'ElementDeJeu
      */
+    public ElementDeJeu(Point2D p){
+        this.pos = p;
+    }
+    
+    /**
+     * Deuxième constructeur de Monstre
+     * @param e est un autre ElementDeJeu, à partir de laquel notre ElementDeJeu sera créé
+     */
+    
+    public ElementDeJeu(ElementDeJeu e){
+        this.pos = e.pos;
+    }
+    
+    /**
+     * Troisème contructeur de Monstre, permet d'initialiser tous les attributs avec leur valeur par défaut.
+     */
+    
     public ElementDeJeu(){
-        this.o = null;
-        this.c = null;
-    }
-    
-    /** 
-     * Constructeur de Creature
-     * @param c est la Creature correspondante à l'ElementDeJeu
-     */
-    public ElementDeJeu(Creature c){
-        this.c = c;
-        this.o = null;
-    }
-    
-    /** 
-     * Constructeur d'Objet
-     * @param o est l'Objet correspondant à l'ElementDeJeu
-     */
-    public ElementDeJeu(Objet o){
-        this.o = o;
-        this.c = null;
+        this.pos = new Point2D();
     }
     
     /**
@@ -49,12 +46,7 @@ abstract class ElementDeJeu {
      */
     
     public boolean isObjet(){
-        if (this.o != null){
-            return true;
-        }
-        else {
-            return false;
-        }
+        return (this instanceof Objet);
     }
     
     /**
@@ -62,27 +54,6 @@ abstract class ElementDeJeu {
      */
     
     public boolean isCreature(){
-        if (this.c != null){
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-    
-    /**
-     * getter de l'Objet.
-     */
-    
-    public Objet getObjet(){
-        return this.o;
-    }
-    
-    /**
-     * getter de la Creature.
-     */
-    
-    public Creature getCreature(){
-        return this.c;
+        return (this instanceof Creature);
     }
 }
