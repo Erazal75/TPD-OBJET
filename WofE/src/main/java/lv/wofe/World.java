@@ -25,8 +25,7 @@ public class World {
     */
     
     Joueur joueur;
-    static ArrayList<Creature> tableauCreature = new ArrayList<>();
-    static ArrayList<Objet> tableauObjet = new ArrayList<>();
+    static ArrayList<ElementDeJeu> tableauElement = new ArrayList<>();
     
     public int taille;
     public int currentTour = 0; 
@@ -69,13 +68,10 @@ public class World {
 
     }
     
-    static ArrayList<Objet> gettableauObjet(){
-        return tableauObjet;
+    static ArrayList<ElementDeJeu> gettableauElement(){
+        return tableauElement;
     }
-    
-static ArrayList<Creature> gettableauCreature(){
-        return tableauCreature;
-    }
+
     
     /**
      * creerMondeAlea permet de modifier l'instance de World de sorte que chaque Protagonistes et Objets soient placés aléatoirement dans le Monde.
@@ -83,11 +79,11 @@ static ArrayList<Creature> gettableauCreature(){
     
     public void creerMondeAlea(){
         Random genAlé = new Random();
-        for(Creature c : tableauCreature){
+        for(ElementDeJeu e : tableauELement){
             int x=genAlé.nextInt(taille);
             int y=genAlé.nextInt(taille);
-            c.deplace(x,y);
-            while (c.getposX()!= x && c.getposY()!=y){
+            e.deplace(x,y);
+            while (e.getposX()!= x && e.getposY()!=y){
                 x=genAlé.nextInt(taille);
                 y=genAlé.nextInt(taille);
                 c.deplace(x,y);
@@ -184,7 +180,7 @@ static ArrayList<Creature> gettableauCreature(){
     
     public void tourDeJeu(){
         System.out.println("Le Tour commence ...");    
-        
+      
         System.out.println("les Actions sont effectuées ...");    
         
         System.out.println("Le Tour se termine ...");    

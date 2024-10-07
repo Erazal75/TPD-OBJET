@@ -10,7 +10,7 @@ package lv.wofe;
  * 
  */
 
-abstract class Objet {
+abstract class Objet extends ElementDeJeu {
     
     /**
      * place est le nombre de place que l'objet occupe dans l'inventaire d'un Personnage

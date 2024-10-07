@@ -11,7 +11,7 @@ package lv.wofe;
 
 import java.util.*;
 
-public abstract class Creature implements Deplacable{
+public abstract class Creature extends ElementDeJeu implements Deplacable{
     
     /**
      * ptVie est le nombre de point de vie de la Creature
@@ -204,25 +204,31 @@ public abstract class Creature implements Deplacable{
         boolean noOneThere = false;
         int compteur = 0;
         while (!noOneThere){
-            for(Creature d : World.gettableauCreature()){
-                if (!(this.equals(d)) ){
-                    if (x == d.getposX()&& y == d.getposY()){
-                        break;
-                    }
-                    else{
-                        compteur = compteur + 1;
+            for(ElementDeJeu e : World.gettableauElement()){
+                if (e.isCreature()){
+                    c = e.getCreature();
+                    if (!(this.equals(e)) ){
+                        if (x == c.getposX()&& y == c.getposY()){
+                            break;
                         }
-                    if (compteur == World.gettableauCreature().size()-1) {
-                        noOneThere = true;
+                        else{
+                            compteur = compteur + 1;
+                            }
+                        if (compteur == World.gettableauElement().size()-1) {
+                            noOneThere = true;
+                        }
                     }
                 }
             }
         }    
         if (noOneThere) {
             pos.setPosition(pos.getX() + x, pos.getY() + y);
-            for (Objet o : World.gettableauObjet()){
-                if (x == o.getposX()&& y == o.getposY()){
+            for (ElementDeJeu e : World.gettableauElement()){
+                if (e.isObjet()){
+                    o = e.getObjet();
+                    if (x == o.getposX()&& y == o.getposY()){
                     o.activation(this);
+                    }   
                 }
             }
         }
