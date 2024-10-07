@@ -70,7 +70,7 @@ public abstract class Creature extends ElementDeJeu implements Deplacable{
      */
     
     public Creature(World jeu){
-        this(0,0,0,0,0,new Point2D(),jeu);
+        this(0,0,0,0,0,new Point2D(0,0),jeu);
     }
     
     /**

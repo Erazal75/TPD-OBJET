@@ -25,12 +25,14 @@ public class Joueur implements Deplacable{
     private Personnage role;
     private int priorité;
     private Scanner scanner = new Scanner(System.in);
+    private World jeu;
 
     /**
      * permet de créer un joueur en fonction de la classe qu'il a chosi de jouer  
      */
         
     public Joueur(World jeu){
+        this.jeu = jeu;
         System.out.print("Entrez votre rôle entre Archer(1) et Guerrier(2): ");
         String classe = scanner.nextLine();
         System.out.print("Entrez votre nom: ");
@@ -86,11 +88,51 @@ public class Joueur implements Deplacable{
                 }
             }
         } else if(choix.equals("1")){
-            for (int i = 1; i <= role.getdistM(); i++){
-                
+            int x = this.role.getposX();
+            int y = this.role.getposY();
+            ArrayList<Integer> list = new ArrayList<>();
+            range(list,x,y,0,role.getdistM());
+            for (int ind: list){
+                System.out.println("Vous pouvez attaquez la créature en case: [" +x+";"+y+"], pour l'attquer tapez "+ind);
             }
         }
     }
+    
+    public ArrayList<Integer> range(ArrayList<Integer> list, int x , int y,int dist,int distMax){
+        if (jeu.getmatrice(x-1, y)>1 && jeu.getmatrice(x-1, y)<1000){
+            if (!list.contains(jeu.getmatrice(x-1, y))){
+                list.add(jeu.getmatrice(x-1, y));
+                if (dist == distMax){
+                    range(list,x-1,y,dist,distMax+1);
+                }
+            }
+        }
+        if (jeu.getmatrice(x+1, y)>1 && jeu.getmatrice(x+1, y)<1000){
+            if (!list.contains(jeu.getmatrice(x+1, y))){
+                list.add(jeu.getmatrice(x+1, y));
+                if (dist == distMax){
+                    range(list,x+1,y,dist,distMax+1);
+                }
+            }
+        }
+        if (jeu.getmatrice(x, y+1)>1 && jeu.getmatrice(x, y+1)<1000){
+            if (!list.contains(jeu.getmatrice(x, y+1))){
+                list.add(jeu.getmatrice(x, y+1));
+                if (dist == distMax){
+                    range(list,x,y+1,dist,distMax+1);
+                }
+            }
+        }
+        if (jeu.getmatrice(x, y-1)>1 && jeu.getmatrice(x, y-1)<1000){
+            if (list.contains(jeu.getmatrice(x, y-1))){
+                list.add(jeu.getmatrice(x, y-1));
+                if (dist == distMax){
+                    range(list,x,y-1,dist,distMax+1);
+                }
+            }
+        }
+        return list;
+    } 
 
     /**
      * déplace le joueur de manière aléatoire

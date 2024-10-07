@@ -39,6 +39,7 @@ public class Paysan extends Personnage{
     
     /**
      * Troisème contructeur de Paysan, permet d'initialiser tous les attributs avec leur valeur par défaut.
+     * @param jeu
      */
     
     public Paysan(World jeu){

@@ -65,6 +65,7 @@ abstract class ElementDeJeu {
         return jeu;
     }
     
+    
     public abstract int getposX();
     public abstract int getposY();
     public abstract void setpos(int x, int y);

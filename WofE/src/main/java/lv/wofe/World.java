@@ -85,6 +85,10 @@ public class World {
         for(int ind : list){
             int x=genAlé.nextInt(taille);
             int y=genAlé.nextInt(taille);
+            System.out.println(ind);
+            System.out.println(dicoPerso.get(ind).getClass());
+            Creature p = (Creature) dicoPerso.get(ind);
+            p.affiche();
             while (dicoPerso.get(ind).getposX()!= x && dicoPerso.get(ind).getposY()!=y){
                 x=genAlé.nextInt(taille);
                 y=genAlé.nextInt(taille);
@@ -93,7 +97,8 @@ public class World {
                     map[x][y] = ind;
                 }
             }
-        }           
+        }
+        int i = 0;
     }
     
     /**

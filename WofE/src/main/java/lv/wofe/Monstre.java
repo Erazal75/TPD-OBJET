@@ -21,6 +21,7 @@ public class Monstre extends Creature{
      * @param pageA est le pourcentage de chance qu'une attaque du Monstre soit réussie
      * @param pageP est le pourcentage de chance qu'une parade du Monstre soit réussie
      * @param p est la position du Monstre
+     * @param jeu
      */
     
     public Monstre(int ptVie,int dAtt, int ptP,int pageA, int pageP,Point2D p,World jeu){
@@ -38,6 +39,7 @@ public class Monstre extends Creature{
     
     /**
      * Troisème contructeur de Monstre, permet d'initialiser tous les attributs avec leur valeur par défaut.
+     * @param jeu
      */
     
     public Monstre(World jeu){
