@@ -21,16 +21,27 @@ public class Epee extends Objet implements Utilisable {
     /**
      * Premier constructeur d'Epee
      * 
-     * @param nbMain est le nombre de Main nécessaire pour manier l'Epee
-     * @param degAtt est le bonus de dégât d'attaque engendré par l'Epee
-     * @param place est le nombre de place que l'objet occupe dans l'inventaire d'un Personnage
-     * @param prix est la quantité d'argent que vaut l'Epee
+     * @param nbmain
+     * @param degEpee est le bonus de dégât d'attaque engendré par l'Epee
+     * @param placeEpee place prise par l'epee
+     * @param prix pric de l'epee
      * @param p est la position de l'Epee
      */
     
-    public Epee(int nbMain, int degAtt, int place,int prix, Point2D p){
-        super(place,prix, p);
-        this.nbMain = nbMain;
+    public Epee(int nbmain,int degEpee, int placeEpee,int prix, Point2D p){
+        super(placeEpee,prix, p);
+        this.nbMain = nbmain;
+        this.degAtt = degEpee;
+    }
+    
+    /**
+     * crée une épee
+     * @param degAtt 
+     */
+    
+    public Epee(int degAtt){
+        super();
+        this.nbMain = 0;
         this.degAtt = degAtt;
     }
     

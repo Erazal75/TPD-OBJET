@@ -26,15 +26,17 @@ public class Joueur implements Deplacable{
     private int priorité;
     private Scanner scanner = new Scanner(System.in);
 
-        // Demander quelque chose à l'utilisateur
+    /**
+     * permet de créer un joueur en fonction de la classe qu'il a chosi de jouer  
+     */
         
     public Joueur(){
-        System.out.print("Entrez votre rôle entre Archer et Guerrier: ");
+        System.out.print("Entrez votre rôle entre Archer(1) et Guerrier(2): ");
         String classe = scanner.nextLine();
         System.out.print("Entrez votre nom: ");
         String nom = scanner.nextLine();
         Random genAlé = new Random();
-        if (classe.equals("Archer")){
+        if (classe.equals("1")){
             
             int ptVie = genAlé.nextInt(21)+90;
             int DA = genAlé.nextInt(11)+25;
@@ -47,7 +49,7 @@ public class Joueur implements Deplacable{
             int argent = genAlé.nextInt(501);
             role = new Archer(nom,ptVie,DA,ptPar,paAtt,paPar,dMax,pos,nbF,argent);
         }
-        else if (classe.equals("Guerrier")){
+        else if (classe.equals("2")){
             int ptVie = genAlé.nextInt(21)+190;
             int DA = genAlé.nextInt(11)+55;
             int ptPar = genAlé.nextInt(11)+30;
@@ -64,22 +66,45 @@ public class Joueur implements Deplacable{
         }
     }
     
+    /**
+     * cette méthode permet au joueur de chosir quelles seront ses actions à chaque tour 
+     */
+    
     public void joue(){
         System.out.println("Le joueur joue"); 
-        System.out.println("Voulez vous combattre ou vous déplacer:");
+        System.out.println("Voulez vous combattre(1) ou vous déplacer(2):");
         String choix = scanner.nextLine();
-        if (choix.equals("deplacer")){
-            
-        } else if(choix.equals("combattre")){
+        if (choix.equals("2")){
+            System.out.println("Voulez vous aller à droite(1), à gauche(2), en bas(3) ou en haut(4)");
+            String deplacement = scanner.nextLine();
+            switch (deplacement) {
+                case "1" -> this.deplace(this.role.getposX()+1,this.role.getposY());
+                case "2" -> this.deplace(this.role.getposX()-1,this.role.getposY());
+                case "3" -> this.deplace(this.role.getposX(),this.role.getposY()+1);
+                case "4" -> this.deplace(this.role.getposX(),this.role.getposY()-1);
+                default -> {
+                }
+            }
+        } else if(choix.equals("1")){
 
         }
     }
 
+    /**
+     * déplace le joueur de manière aléatoire
+     */
+    
     @Override
     public void deplace(){
         System.out.println("Le joueur se déplace");
         this.role.deplace();
     }
+    
+    /**
+     * premet de déplacer le joueur à la case de coordonée x y 
+     * @param x
+     * @param y 
+     */
     
     @Override
     public void deplace(int x,int y){

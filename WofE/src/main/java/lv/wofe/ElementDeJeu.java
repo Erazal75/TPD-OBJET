@@ -56,4 +56,8 @@ abstract class ElementDeJeu {
     public boolean isCreature(){
         return (this instanceof Creature);
     }
+    
+    public abstract int getposX();
+    public abstract int getposY();
+    public abstract void setpos(int x, int y);
 }

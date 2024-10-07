@@ -186,6 +186,7 @@ public abstract class Creature extends ElementDeJeu implements Deplacable{
      * @param y est l'ordonnée des coordonéees
      */
     
+    @Override
     public void setpos(int x, int y){
         pos.setPosition(x,y);
     }
@@ -205,33 +206,19 @@ public abstract class Creature extends ElementDeJeu implements Deplacable{
         int compteur = 0;
         while (!noOneThere){
             for(ElementDeJeu e : World.gettableauElement()){
-                if (e.isCreature()){
-                    c = e.getCreature();
-                    if (!(this.equals(e)) ){
-                        if (x == c.getposX()&& y == c.getposY()){
-                            break;
+                if (!(this.equals(e)) ){
+                    if (x == e.getposX() && y == e.getposY()){
+                        break;
+                    }
+                    else{
+                        compteur = compteur + 1;
                         }
-                        else{
-                            compteur = compteur + 1;
-                            }
-                        if (compteur == World.gettableauElement().size()-1) {
-                            noOneThere = true;
-                        }
+                    if (compteur == World.gettableauElement().size()-1) {
+                        noOneThere = true;
                     }
                 }
             }
         }    
-        if (noOneThere) {
-            pos.setPosition(pos.getX() + x, pos.getY() + y);
-            for (ElementDeJeu e : World.gettableauElement()){
-                if (e.isObjet()){
-                    o = e.getObjet();
-                    if (x == o.getposX()&& y == o.getposY()){
-                    o.activation(this);
-                    }   
-                }
-            }
-        }
     }
     
     /**

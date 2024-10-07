@@ -186,8 +186,7 @@ public class WofE {
 
 //////////////////////////////////// TP 5 //////////////////////////////////////
     
-    Joueur Joueur1 = new Joueur();
-    
-    
+    monMonde.afficheWorld();
+    //monMonde.tourDeJeu();
     }
 }
