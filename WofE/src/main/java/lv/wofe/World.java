@@ -32,48 +32,27 @@ public class World {
     public int currentTour = 0; 
 
     public World(int nb){
-    taille = nb;
-    Random genAlé = new Random();   
-    creerNPaysan(genAlé.nextInt(10));
-    creerNGuerrier(genAlé.nextInt(10));
-    creerNArcher(genAlé.nextInt(10));
-    creerNLoup(genAlé.nextInt(10));
-    creerNLapin(genAlé.nextInt(10));
-    //creerNPotion(genAlé.nextInt(10));
-    //creerNEpee(genAlé.nextInt(10));
-    creerMondeAlea();
-    
-    /*
-    robin = new Archer();
-    peon = new Paysan();
-    aragorn = new Guerrier();
-    warwick = new Loup();
-    bugs = new Lapin();
-    bugy = new Lapin();
-    
-    heal = new PotionSoin();
-    heal.setpos(0,2);
-    heal.setnbPVRendu(20);
-    
-    
-    tableauCreature.add(robin);
-    tableauCreature.add(peon); 
-    tableauCreature.add(aragorn);
-    tableauCreature.add(warwick);
-    tableauCreature.add(bugs); 
-    tableauCreature.add(bugy); 
-    tableauCreature.add(guillaumeT); 
-    
-    tableauObjet.add(heal);
-    */
-
+        
+        taille = nb;
+        Random genAlé = new Random(); 
+        
+        creerNPaysan(genAlé.nextInt(10)+10);
+        creerNGuerrier(genAlé.nextInt(10)+10);
+        creerNArcher(genAlé.nextInt(10)+10);
+        creerNLoup(genAlé.nextInt(10)+10);
+        creerNLapin(genAlé.nextInt(10)+10);
+        creerNPotion(genAlé.nextInt(10)+10);
+        creerNEpee(genAlé.nextInt(10)+10);
+        
+        joueur = new Joueur();
+        creerMondeAlea();
     }
     
     static ArrayList<Objet> gettableauObjet(){
         return tableauObjet;
     }
     
-static ArrayList<Creature> gettableauCreature(){
+    static ArrayList<Creature> gettableauCreature(){
         return tableauCreature;
     }
     
@@ -82,6 +61,7 @@ static ArrayList<Creature> gettableauCreature(){
      */
     
     public void creerMondeAlea(){
+        
         Random genAlé = new Random();
         for(Creature c : tableauCreature){
             int x=genAlé.nextInt(taille);
@@ -93,7 +73,47 @@ static ArrayList<Creature> gettableauCreature(){
                 c.deplace(x,y);
             }
             
-        }   
+        }
+        
+        int compteurO = 0;
+        int compteurC = 0;
+        
+        for(Objet o : tableauObjet){
+            compteurO = 0;
+            compteurC = 0;
+            while (compteurO < tableauObjet.size()-1 && compteurC < tableauCreature.size()){
+                int x=genAlé.nextInt(taille);
+                int y=genAlé.nextInt(taille);
+                compteurO = 0;
+                compteurC = 0;
+                for(Objet p : tableauObjet){
+                    if (!p.equals(o)){
+                        if (p.getposX() == x && p.getposY() == y){
+                            break;
+                        } else {
+                            compteurO ++;
+                        }
+                    }
+                }
+                
+                for(Creature p : tableauCreature){
+                    if (p.getposX() == x && p.getposY() == y){
+                        break;
+                    } else {
+                        compteurC ++;
+                    }
+                }
+                
+//                System.out.println(compteurO);
+//                System.out.println(tableauObjet.size()-1);
+//                System.out.println(compteurC);
+//                System.out.println(tableauCreature.size());
+                
+                if (compteurO == tableauObjet.size()-1 && compteurC == tableauCreature.size()){
+                    o.setpos(x, y);
+                }
+            }
+        } 
     }
     
     /**
@@ -158,7 +178,8 @@ static ArrayList<Creature> gettableauCreature(){
     
     public void creerNPotion(int nbPotion){
         for (int i=0 ; i<nbPotion ; i=i+1){
-            tableauObjet.add(new PotionSoin());
+            Random genAlé = new Random();
+            tableauObjet.add(new PotionSoin(genAlé.nextInt(20)+20));
         }
     }
     
@@ -169,22 +190,33 @@ static ArrayList<Creature> gettableauCreature(){
     
     public void creerNEpee(int nbEpee){
         for (int i=0 ; i<nbEpee ; i=i+1){
-            tableauObjet.add(new Epee());
+            Random genAlé = new Random();
+            tableauObjet.add(new Epee(genAlé.nextInt(20)+20)); 
         }
     }
     
-    public void creationJoueur(){
-        System.out.println("Un joueur rentre dans le Monde, Bienvenu !");    
-        joueur = new Joueur();
-    }
+    /**
+     * ecrit toute les cases occupé et par quel type de créature ou d'objet
+     */
     
     public void afficheWorld(){
-        System.out.println("Affichons le Monde");    
+        System.out.println("Affichons le Monde"); 
+        for (Creature c: tableauCreature){
+            System.out.println(c.getClass() +"  ["+ c.getposX()+ ";" + c.getposY()+"]");
+        }
+        for (Objet o: tableauObjet){
+            System.out.println(o.getClass() +"  ["+ o.getposX()+ ";" + o.getposY()+"]");
+        }
     }
     
+    /**
+     * methode que nous allons appelé a chaque début de tour et qui nous permet de faire toutes les actions à chqaue tour
+     */
+    
     public void tourDeJeu(){
-        System.out.println("Le Tour commence ...");    
+        System.out.println("Le Tour commence ...");
         
+        joueur.joue();
         System.out.println("les Actions sont effectuées ...");    
         
         System.out.println("Le Tour se termine ...");    

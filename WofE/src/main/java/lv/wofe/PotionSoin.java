@@ -30,6 +30,16 @@ public class PotionSoin extends Objet implements Utilisable {
     }
     
     /**
+     * crée une potion de soin
+     * @param nbPVRendu 
+     */
+    
+    public PotionSoin(int nbPVRendu){
+        super();
+        this.nbPVRendu = nbPVRendu;
+    }
+    
+    /**
      * Deuxième constructeur d'Objet, permet d'initialiser tous les attributs avec leur valeur par défaut.
      */
     
