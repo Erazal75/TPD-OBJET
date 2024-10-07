@@ -25,7 +25,7 @@ public class PotionSoin extends Nourriture {
      */
     
     public PotionSoin(int nbPVRendu, int place,int prix,Point2D p){
-        super(0);
+        super(1,p);
         this.nbPVRendu = nbPVRendu;
     }
     

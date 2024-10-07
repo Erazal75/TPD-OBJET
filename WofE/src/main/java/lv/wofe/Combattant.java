@@ -11,7 +11,7 @@ package lv.wofe;
 public interface Combattant {
     
     /**
-     * Permet à une Créature ou à un Joueur d'attaquer une crétaure ou un joueur
+     * Permet à une Créature ou à un Joueur d'attaquer une créature ou un joueur
      * @param c 
      */
     
