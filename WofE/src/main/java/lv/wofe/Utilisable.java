@@ -6,8 +6,15 @@ package lv.wofe;
 
 /**
  *
- * @author lazaregrail
+ * @author lazaregrail & victorsimon
  */
 public interface Utilisable {
     
+    /**
+     * Permet à l'Objet de s'activer sur une Creature
+     * @param c est la Creature sur laquelle l'Objet s'active
+     */
+    
+    void activation(Creature c);
+
 }

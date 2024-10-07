@@ -17,13 +17,16 @@ abstract class Nourriture extends Objet implements Utilisable{
      */
     
     private int nbTour; 
+    private Point2D pos;
     
     /**
      * Premier constructeur de Nourriture
      * @param nbTour est la durée en tour de l'effet de la Nourriture, une fois consommée, sur la Creature
+     * @param pos est la position de la Nourriture
      */
     
-    public Nourriture(int nbTour){
+    public Nourriture(int nbTour, Point2D pos){
+        super(0,0,pos);
         this.nbTour = nbTour; 
     }
     

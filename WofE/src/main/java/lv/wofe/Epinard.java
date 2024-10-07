@@ -12,16 +12,20 @@ public class Epinard extends Nourriture{
     
     /**
      * bonusDegAtt est le bonus de dégât d'attaque engendré par la consommation d'un Epinard
+     * dure 5 tours par défaut.
      */
     
     private int bonusDegAtt;
+    private Point2D pos;
     
     /**
      * Premier constructeur d'Epinard
      * @param bonusDegAtt est le bonus de dégât d'attaque engendré par la consommation d'un Epinard
+     * @param pos est la position de l'Epinard
      */
     
-    public Epinard(int bonusDegAtt){
+    public Epinard(int bonusDegAtt, Point2D pos){
+        super(5, pos);
         this.bonusDegAtt = bonusDegAtt; 
     }
     
