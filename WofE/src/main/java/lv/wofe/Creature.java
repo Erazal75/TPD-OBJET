@@ -20,6 +20,7 @@ public abstract class Creature extends ElementDeJeu implements Deplacable{
      * pageAtt est le pourcentage de chance qu'une attaque de la Creature soit réussie
      * pagePar est le pourcentage de chance qu'une parade de la Creature soit réussie
      * pos est la position de la Creature
+     * effets est une Collection d'Utilisable contenant les différents effets actifs sur le joueur pendant le tour
      */
      
     
@@ -29,6 +30,7 @@ public abstract class Creature extends ElementDeJeu implements Deplacable{
     private int pageAtt;
     private int pagePar;
     private Point2D pos;
+    private List<Utilisable> effets;
     
     /**
      * Premier constructeur de Creature
@@ -38,15 +40,17 @@ public abstract class Creature extends ElementDeJeu implements Deplacable{
      * @param pageA est le pourcentage de chance qu'une attaque de la Creature soit réussie
      * @param pageP est le pourcentage de chance qu'une parade de la Creature soit réussie
      * @param p est la position de la Creature
+     * @param effets est une Collection d'Utilisable contenant les différents effets actifs sur le joueur pendant le tour
      */
     
-    public Creature(int ptVie,int dAtt, int ptP,int pageA, int pageP,Point2D p){ 
+    public Creature(int ptVie,int dAtt, int ptP,int pageA, int pageP,Point2D p, List<Utilisable> effets){ 
         super(p);
         this.ptVie = ptVie; 
         degAtt = dAtt;
         ptPar = ptP;
         pageAtt = pageA;
         pagePar = pageP;
+        this.effets = effets;
     }
     
     /**
@@ -61,6 +65,7 @@ public abstract class Creature extends ElementDeJeu implements Deplacable{
         pageAtt = c.pageAtt;
         pagePar = c.pagePar;
         pos = new Point2D(c.pos);
+        effets = c.effets;
     }
     
     /**
@@ -68,7 +73,7 @@ public abstract class Creature extends ElementDeJeu implements Deplacable{
      */
     
     public Creature(){
-        this(0,0,0,0,0,new Point2D());
+        this(0,0,0,0,0,new Point2D(), new ArrayList<Utilisable>());
     }
     
     /**
