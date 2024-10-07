@@ -41,7 +41,7 @@ public class Joueur implements Deplacable{
             int ptPar = genAlé.nextInt(10)+1;
             int paAtt = genAlé.nextInt(11)+75;
             int paPar = genAlé.nextInt(11)+15;
-            int dMax = genAlé.nextInt(5)+8;
+            int dMax = genAlé.nextInt(4)+2;
             Point2D pos = new Point2D(0,0);
             int nbF = genAlé.nextInt(21)+20;
             int argent = genAlé.nextInt(501);
@@ -84,7 +84,9 @@ public class Joueur implements Deplacable{
                 }
             }
         } else if(choix.equals("1")){
-
+            for (int i = 1; i <= role.getdistM(); i++){
+                
+            }
         }
     }
 

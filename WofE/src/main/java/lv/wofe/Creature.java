@@ -76,7 +76,7 @@ public abstract class Creature extends ElementDeJeu implements Deplacable{
      */
     
     public Creature(World jeu){
-        this(0,0,0,0,0,new Point2D(),jeu, new ArrayList<Utilisable>());
+        this(0,0,0,0,0,new Point2D(),jeu, new ArrayList<>());
     }
     
     /**
@@ -216,8 +216,9 @@ public abstract class Creature extends ElementDeJeu implements Deplacable{
         if ( c >= 1000 || c <= 0){ // accès à la case autorisé
             this.setpos(x, y);
             if (c >= 1000 && c < 2000) { // il y a un objet à activer sur la case
-                this.getjeu().getdico().get(c).activation(); 
-                this.effets.add(this.getjeu().getdico().get(c).activation());
+                Utilisable o = (Utilisable) this.getjeu().getdico().get(c);
+                o.activation(this); 
+                this.effets.add(o);
             }
         } 
     }

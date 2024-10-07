@@ -30,11 +30,11 @@ public class World {
     2 = PNJ
     3 = Objet
     */
-    
+  
     private int[][] map;
     private Joueur joueur;
     
-    private ArrayList<ElementDeJeu> tableauElement = new ArrayList<>();
+    private HashMap<Integer,ElementDeJeu> dicoPerso = new HashMap<>();
     
     public int taille;
     public int currentTour = 0; 
@@ -61,8 +61,16 @@ public class World {
      * @return tableauélément
      */
     
-    public ArrayList<ElementDeJeu> gettableauElement(){
-        return tableauElement;
+    public HashMap<Integer,ElementDeJeu> getdico(){
+        return dicoPerso;
+    }
+    
+    public void setmatrice(int x,int y, int valeur){
+        map[x][y] = valeur;
+    }
+    
+    public int getmatrice(int x,int y){
+        return map[x][y];
     }
     
     public void setmatrice(int x,int y, int valeur){
@@ -81,19 +89,16 @@ public class World {
     public void creerMondeAlea(){
         
         Random genAlé = new Random();
-        for(ElementDeJeu e : tableauElement){
+        Set<Integer> list = dicoPerso.keySet();
+        for(int ind : list){
             int x=genAlé.nextInt(taille);
             int y=genAlé.nextInt(taille);
-            while (e.getposX()!= x && e.getposY()!=y){
+            while (dicoPerso.get(ind).getposX()!= x && dicoPerso.get(ind).getposY()!=y){
                 x=genAlé.nextInt(taille);
                 y=genAlé.nextInt(taille);
                 if (map[x][y] == 0){
-                    e.setpos(x,y);
-                    if (e.isCreature()){
-                        map[x][y] = 2;
-                    } else {
-                        map[x][y] = 3;
-                    }
+                    dicoPerso.get(ind).setpos(x,y);
+                    map[x][y] = ind;
                 }
             }
         }           
@@ -106,7 +111,8 @@ public class World {
     
     public void creerNGuerrier(int nbGuerrier){
         for (int i=0 ; i<nbGuerrier ; i=i+1){
-            tableauElement.add(new Guerrier(this));
+            int indice = 100 + i;
+            dicoPerso.put(indice,new Guerrier(this));
         }
     }
     
@@ -117,7 +123,8 @@ public class World {
     
     public void creerNPaysan(int nbPaysan){
         for (int i=0 ; i<nbPaysan ; i=i+1){
-            tableauElement.add(new Paysan(this));
+            int indice = 300 + i;
+            dicoPerso.put(indice,new Paysan(this));
         }
     }
     
@@ -128,7 +135,8 @@ public class World {
     
     public void creerNArcher(int nbArcher){
         for (int i=0 ; i<nbArcher ; i=i+1){
-            tableauElement.add(new Archer(this));
+            int indice = 200 + i;
+            dicoPerso.put(indice,new Archer(this));
         }
     }
     
@@ -139,7 +147,8 @@ public class World {
     
     public void creerNLoup(int nbLoup){
         for (int i=0 ; i<nbLoup ; i=i+1){
-            tableauElement.add(new Loup(this));
+            int indice = 400 + i;
+            dicoPerso.put(indice,new Loup(this));
         }
     }
     
@@ -150,7 +159,8 @@ public class World {
     
     public void creerNLapin(int nbLapin){
         for (int i=0 ; i<nbLapin ; i=i+1){
-            tableauElement.add(new Lapin(this));
+            int indice = 500 + i;
+            dicoPerso.put(indice,new Lapin(this));
         }
     }
     
@@ -162,7 +172,8 @@ public class World {
     public void creerNPotion(int nbPotion){
         for (int i=0 ; i<nbPotion ; i=i+1){
             Random genAlé = new Random();
-            tableauElement.add(new PotionSoin(genAlé.nextInt(20)+20,this));
+            int indice = 1000 + i;
+            dicoPerso.put(indice,new PotionSoin(genAlé.nextInt(20)+20,this));
         }
     }
     
@@ -174,7 +185,8 @@ public class World {
     public void creerNEpee(int nbEpee){
         for (int i=0 ; i<nbEpee ; i=i+1){
             Random genAlé = new Random();
-            tableauElement.add(new Epee(genAlé.nextInt(20)+20,this)); 
+            int indice = 1100 + i;
+            dicoPerso.put(indice,new Epee(genAlé.nextInt(20)+20,this)); 
         }
     }
     
@@ -183,9 +195,10 @@ public class World {
      */
     
     public void afficheWorld(){
-        System.out.println("Affichons le Monde"); 
-        for (ElementDeJeu c: tableauElement){
-            System.out.println(c.getClass() +"  ["+ c.getposX()+ ";" + c.getposY()+"]");
+        System.out.println("Affichons le Monde");
+        Set<Integer> list = dicoPerso.keySet();
+        for (Integer ind: list){
+            System.out.println(dicoPerso.get(ind).getClass() +"  ["+ dicoPerso.get(ind).getposX()+ ";" + dicoPerso.get(ind).getposY()+"]");
         }
     }
     
