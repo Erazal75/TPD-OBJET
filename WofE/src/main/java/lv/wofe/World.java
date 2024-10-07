@@ -24,9 +24,17 @@ public class World {
     public PotionSoin heal = new PotionSoin();
     */
     
-    Joueur joueur;
-    static ArrayList<Creature> tableauCreature = new ArrayList<>();
-    static ArrayList<Objet> tableauObjet = new ArrayList<>();
+    /*
+    0 = case vide
+    1 = Joueur
+    2 = PNJ
+    3 = Objet
+    */
+    
+    private int[][] matrice;
+    private Joueur joueur;
+    
+    static ArrayList<ElementDeJeu> tableauElement = new ArrayList<>();
     
     public int taille;
     public int currentTour = 0; 
@@ -48,13 +56,10 @@ public class World {
         creerMondeAlea();
     }
     
-    static ArrayList<Objet> gettableauObjet(){
-        return tableauObjet;
+    static ArrayList<ElementDeJeu> gettableauElement(){
+        return tableauElement;
     }
-    
-    static ArrayList<Creature> gettableauCreature(){
-        return tableauCreature;
-    }
+
     
     /**
      * creerMondeAlea permet de modifier l'instance de World de sorte que chaque Protagonistes et Objets soient placés aléatoirement dans le Monde.
@@ -63,57 +68,41 @@ public class World {
     public void creerMondeAlea(){
         
         Random genAlé = new Random();
-        for(Creature c : tableauCreature){
+        for(ElementDeJeu e : tableauElement){
             int x=genAlé.nextInt(taille);
             int y=genAlé.nextInt(taille);
-            c.deplace(x,y);
-            while (c.getposX()!= x && c.getposY()!=y){
-                x=genAlé.nextInt(taille);
-                y=genAlé.nextInt(taille);
+            if (e.isCreature()){
+                Creature c = e.getCreature();
                 c.deplace(x,y);
-            }
+                while (e.getposX()!= x && e.getposY()!=y){
+                    x=genAlé.nextInt(taille);
+                    y=genAlé.nextInt(taille);
+                    c.deplace(x,y);
+                }
+                matrice[x][y] = 2;
+            } else {
+                int compteur = 0;
+                while (compteur < tableauElement.size() - 1){
+                    x = genAlé.nextInt(taille);
+                    y = genAlé.nextInt(taille);
+                    compteur = 0;
+                    for (ElementDeJeu f: tableauElement){
+                        if (!e.equals(f)){
+                            if (f.getposX() == x && f.getposY() == y){
+                                break;
+                            } else {
+                                compteur ++;
+                            }
+                        }
+                    }  
+                }
+                if (compteur == tableauElement.size() - 1){
+                    e.setpos(x, y);
+                }
+                matrice[x][y] = 3;
+            } 
             
         }
-        
-        int compteurO = 0;
-        int compteurC = 0;
-        
-        for(Objet o : tableauObjet){
-            compteurO = 0;
-            compteurC = 0;
-            while (compteurO < tableauObjet.size()-1 && compteurC < tableauCreature.size()){
-                int x=genAlé.nextInt(taille);
-                int y=genAlé.nextInt(taille);
-                compteurO = 0;
-                compteurC = 0;
-                for(Objet p : tableauObjet){
-                    if (!p.equals(o)){
-                        if (p.getposX() == x && p.getposY() == y){
-                            break;
-                        } else {
-                            compteurO ++;
-                        }
-                    }
-                }
-                
-                for(Creature p : tableauCreature){
-                    if (p.getposX() == x && p.getposY() == y){
-                        break;
-                    } else {
-                        compteurC ++;
-                    }
-                }
-                
-//                System.out.println(compteurO);
-//                System.out.println(tableauObjet.size()-1);
-//                System.out.println(compteurC);
-//                System.out.println(tableauCreature.size());
-                
-                if (compteurO == tableauObjet.size()-1 && compteurC == tableauCreature.size()){
-                    o.setpos(x, y);
-                }
-            }
-        } 
     }
     
     /**
@@ -123,7 +112,7 @@ public class World {
     
     public void creerNGuerrier(int nbGuerrier){
         for (int i=0 ; i<nbGuerrier ; i=i+1){
-            tableauCreature.add(new Guerrier());
+            tableauElement.add(new Guerrier());
         }
     }
     
@@ -134,7 +123,7 @@ public class World {
     
     public void creerNPaysan(int nbPaysan){
         for (int i=0 ; i<nbPaysan ; i=i+1){
-            tableauCreature.add(new Paysan());
+            tableauElement.add(new Paysan());
         }
     }
     
@@ -145,7 +134,7 @@ public class World {
     
     public void creerNArcher(int nbArcher){
         for (int i=0 ; i<nbArcher ; i=i+1){
-            tableauCreature.add(new Archer());
+            tableauElement.add(new Archer());
         }
     }
     
@@ -156,7 +145,7 @@ public class World {
     
     public void creerNLoup(int nbLoup){
         for (int i=0 ; i<nbLoup ; i=i+1){
-            tableauCreature.add(new Loup());
+            tableauElement.add(new Loup());
         }
     }
     
@@ -167,7 +156,7 @@ public class World {
     
     public void creerNLapin(int nbLapin){
         for (int i=0 ; i<nbLapin ; i=i+1){
-            tableauCreature.add(new Lapin());
+            tableauElement.add(new Lapin());
         }
     }
     
@@ -179,7 +168,7 @@ public class World {
     public void creerNPotion(int nbPotion){
         for (int i=0 ; i<nbPotion ; i=i+1){
             Random genAlé = new Random();
-            tableauObjet.add(new PotionSoin(genAlé.nextInt(20)+20));
+            tableauElement.add(new PotionSoin(genAlé.nextInt(20)+20));
         }
     }
     
@@ -191,7 +180,7 @@ public class World {
     public void creerNEpee(int nbEpee){
         for (int i=0 ; i<nbEpee ; i=i+1){
             Random genAlé = new Random();
-            tableauObjet.add(new Epee(genAlé.nextInt(20)+20)); 
+            tableauElement.add(new Epee(genAlé.nextInt(20)+20)); 
         }
     }
     
@@ -201,11 +190,8 @@ public class World {
     
     public void afficheWorld(){
         System.out.println("Affichons le Monde"); 
-        for (Creature c: tableauCreature){
+        for (ElementDeJeu c: tableauElement){
             System.out.println(c.getClass() +"  ["+ c.getposX()+ ";" + c.getposY()+"]");
-        }
-        for (Objet o: tableauObjet){
-            System.out.println(o.getClass() +"  ["+ o.getposX()+ ";" + o.getposY()+"]");
         }
     }
     

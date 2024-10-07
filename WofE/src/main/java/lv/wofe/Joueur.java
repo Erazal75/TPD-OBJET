@@ -119,4 +119,8 @@ public class Joueur implements Deplacable{
             this.role.combattre(c);
         }
     }
+    
+    public void affiche(){
+        System.out.println("Le joueur se déplace");
+    }
 }

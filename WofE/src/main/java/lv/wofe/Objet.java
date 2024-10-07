@@ -10,7 +10,7 @@ package lv.wofe;
  * 
  */
 
-abstract class Objet {
+abstract class Objet extends ElementDeJeu {
     
     /**
      * place est le nombre de place que l'objet occupe dans l'inventaire d'un Personnage
@@ -24,7 +24,6 @@ abstract class Objet {
     
     /**
      * Premier constructeur d'Objet
-     * 
      * @param place est le nombre de place que l'objet occupe dans l'inventaire d'un Personnage
      * @param prix est la quantité d'argent que vaut l'Objet
      * @param p est la position de l'Objet
@@ -69,14 +68,17 @@ abstract class Objet {
         prix = pris;
     }
     
+    @Override
     public void setpos(int x, int y){
         pos.setPosition(x,y);
     }
     
+    @Override
     public int getposX(){
         return pos.getX();
     }
     
+    @Override
     public int getposY(){
         return pos.getY();
     }

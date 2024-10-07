@@ -11,7 +11,7 @@ package lv.wofe;
 
 import java.util.*;
 
-public abstract class Creature implements Deplacable{
+public abstract class Creature extends ElementDeJeu implements Deplacable{
     
     /**
      * ptVie est le nombre de point de vie de la Creature
@@ -186,6 +186,7 @@ public abstract class Creature implements Deplacable{
      * @param y est l'ordonnée des coordonéees
      */
     
+    @Override
     public void setpos(int x, int y){
         pos.setPosition(x,y);
     }
@@ -204,28 +205,20 @@ public abstract class Creature implements Deplacable{
         boolean noOneThere = false;
         int compteur = 0;
         while (!noOneThere){
-            for(Creature d : World.gettableauCreature()){
-                if (!(this.equals(d)) ){
-                    if (x == d.getposX()&& y == d.getposY()){
+            for(ElementDeJeu e : World.gettableauElement()){
+                if (!(this.equals(e)) ){
+                    if (x == e.getposX() && y == e.getposY()){
                         break;
                     }
                     else{
                         compteur = compteur + 1;
                         }
-                    if (compteur == World.gettableauCreature().size()-1) {
+                    if (compteur == World.gettableauElement().size()-1) {
                         noOneThere = true;
                     }
                 }
             }
         }    
-        if (noOneThere) {
-            pos.setPosition(pos.getX() + x, pos.getY() + y);
-            for (Objet o : World.gettableauObjet()){
-                if (x == o.getposX()&& y == o.getposY()){
-                    o.activation(this);
-                }
-            }
-        }
     }
     
     /**
