@@ -8,7 +8,7 @@ package lv.wofe;
  *
  * @author lazaregrail & victorsimon
  */
-public class PotionSoin extends Objet implements Utilisable {
+public class PotionSoin extends Nourriture {
     
     /**
      * nbPVRendu est le nombre de point de vie que la PotionSoin peut rendre à une Creature
@@ -25,7 +25,7 @@ public class PotionSoin extends Objet implements Utilisable {
      */
     
     public PotionSoin(int nbPVRendu, int place,int prix,Point2D p){
-        super(place,prix,p);
+        super(0);
         this.nbPVRendu = nbPVRendu;
     }
     
