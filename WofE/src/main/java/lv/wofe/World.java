@@ -31,10 +31,10 @@ public class World {
     3 = Objet
     */
     
-    private int[][] matrice;
+    private int[][] map;
     private Joueur joueur;
     
-    static ArrayList<ElementDeJeu> tableauElement = new ArrayList<>();
+    private ArrayList<ElementDeJeu> tableauElement = new ArrayList<>();
     
     public int taille;
     public int currentTour = 0; 
@@ -56,8 +56,21 @@ public class World {
         creerMondeAlea();
     }
     
-    static ArrayList<ElementDeJeu> gettableauElement(){
+    /**
+     *
+     * @return tableauélément
+     */
+    
+    public ArrayList<ElementDeJeu> gettableauElement(){
         return tableauElement;
+    }
+    
+    public void setmatrice(int x,int y, int valeur){
+        map[x][y] = valeur;
+    }
+    
+    public int getmatrice(int x,int y){
+        return map[x][y];
     }
 
     
@@ -79,7 +92,7 @@ public class World {
                     y=genAlé.nextInt(taille);
                     c.deplace(x,y);
                 }
-                matrice[x][y] = 2;
+                map[x][y] = 2;
             } else {
                 int compteur = 0;
                 while (compteur < tableauElement.size() - 1){
@@ -99,7 +112,7 @@ public class World {
                 if (compteur == tableauElement.size() - 1){
                     e.setpos(x, y);
                 }
-                matrice[x][y] = 3;
+                map[x][y] = 3;
             } 
             
         }

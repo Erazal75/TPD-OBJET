@@ -202,23 +202,9 @@ public abstract class Creature extends ElementDeJeu implements Deplacable{
     
     @Override
     public void deplace(int x , int y){
-        boolean noOneThere = false;
-        int compteur = 0;
-        while (!noOneThere){
-            for(ElementDeJeu e : World.gettableauElement()){
-                if (!(this.equals(e)) ){
-                    if (x == e.getposX() && y == e.getposY()){
-                        break;
-                    }
-                    else{
-                        compteur = compteur + 1;
-                        }
-                    if (compteur == World.gettableauElement().size()-1) {
-                        noOneThere = true;
-                    }
-                }
-            }
-        }    
+        if (jeu.getmatrice[x][y] != 1 && jeu.getmatrice[x][y] != 2){
+            this.setpos(x, y);
+        } 
     }
     
     /**
