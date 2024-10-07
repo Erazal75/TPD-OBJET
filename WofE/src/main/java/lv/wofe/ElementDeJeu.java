@@ -15,13 +15,15 @@ abstract class ElementDeJeu {
      */
     
     private Point2D pos;
+    private World jeu;
     
     /** 
      * Premier constructeur de ElementDeJeu
      *@param p est la position de l'ElementDeJeu
      */
-    public ElementDeJeu(Point2D p){
+    public ElementDeJeu(Point2D p,World jeu){
         this.pos = p;
+        this.jeu = jeu;
     }
     
     /**
@@ -31,6 +33,7 @@ abstract class ElementDeJeu {
     
     public ElementDeJeu(ElementDeJeu e){
         this.pos = e.pos;
+        this.jeu = e.jeu;
     }
     
     /**
@@ -39,6 +42,7 @@ abstract class ElementDeJeu {
     
     public ElementDeJeu(){
         this.pos = new Point2D();
+        jeu = null;
     }
     
     /**
@@ -55,6 +59,10 @@ abstract class ElementDeJeu {
     
     public boolean isCreature(){
         return (this instanceof Creature);
+    }
+    
+    public World getjeu(){
+        return jeu;
     }
     
     public abstract int getposX();

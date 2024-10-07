@@ -4,7 +4,7 @@
  */
 package lv.wofe;
 
-import java.util.Random;
+import java.util.*;
 
 /**
  *
@@ -31,10 +31,12 @@ public class Archer extends Personnage implements Combattant{
      * @param p est la position de l'Archer
      * @param nbFleches est le Nombre de Flèches que l'Archer possède
      * @param argent est la somme d'argent que l'Archer possède
+     * @param jeu est une représentation matricielle de la carte 
+     * @param effets est une Collection List de Utilisable contenant les effets appliqués aux joueurs pendant le tour 
      */
     
-    public Archer(String n,int pV,int dA,int ptPar,int paAtt,int paPar,int dMax,Point2D p,int nbFleches,int argent){
-        super(n,pV,dA,ptPar,paAtt,paPar,dMax,p,argent);
+    public Archer(String n,int pV,int dA,int ptPar,int paAtt,int paPar,int dMax,Point2D p,int nbFleches,int argent,World jeu, List<Utilisable> effets){
+        super(n,pV,dA,ptPar,paAtt,paPar,dMax,p,argent,jeu, effets);
         this.nbFleches = nbFleches; 
     }
     
@@ -52,8 +54,8 @@ public class Archer extends Personnage implements Combattant{
      * Troisème contructeur d'Archer, permet d'initialiser tous les attributs avec leur valeur par défaut.
      */
     
-    public Archer(){
-        super();
+    public Archer(World jeu){
+        super(jeu);
         nbFleches = 0;
     }
     

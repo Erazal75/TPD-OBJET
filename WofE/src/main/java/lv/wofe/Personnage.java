@@ -4,6 +4,8 @@
  */
 package lv.wofe;
 
+import java.util.*;
+
 /**
  *
  * @author lazaregrail & victorsimon
@@ -34,11 +36,14 @@ abstract public class Personnage extends Creature{
      * @param pageA est le pourcentage de chance qu'une attaque du Personnage soit réussie
      * @param pageP est le pourcentage de chance qu'une parade du Personnage soit réussie
      * @param distAttM est la distance maximun à laquelle le Personnage peut attaquer 
+     * @param p est la position du Personnage
+     * @param jeu est la représentation matricielle de la carte
      * @param argent est la somme d'argent que le Personnage possède
+     * @param effets est une Collection List de Utilisable contenant les effets appliqués aux joueurs pendant le tour  
      */
     
-    public Personnage(String nom,int ptVie,int dAtt, int ptP,int pageA, int pageP, int distAttM,Point2D p,int argent){
-        super(ptVie,dAtt,ptP,pageA,pageP,p);
+    public Personnage(String nom,int ptVie,int dAtt, int ptP,int pageA, int pageP, int distAttM,Point2D p,int argent,World jeu, List<Utilisable> effets){
+        super(ptVie,dAtt,ptP,pageA,pageP,p,jeu, effets);
         this.nom = nom;
         distAttMax = distAttM;
         this.argent = argent;
@@ -58,10 +63,11 @@ abstract public class Personnage extends Creature{
 
     /**
      * Troisème contructeur de Personnage, permet d'initialiser tous les attributs avec leur valeur par défaut.
+     * @param jeu
      */
     
-    public Personnage(){
-        super();
+    public Personnage(World jeu){
+        super(jeu);
         this.nom = "";
         distAttMax = 0;
         this.argent = 0;
