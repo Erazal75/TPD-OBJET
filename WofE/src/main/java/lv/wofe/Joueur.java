@@ -5,9 +5,7 @@
 package lv.wofe;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  *
@@ -49,7 +47,7 @@ public class Joueur implements Deplacable{
             Point2D pos = new Point2D(0,0);
             int nbF = genAlé.nextInt(21)+20;
             int argent = genAlé.nextInt(501);
-            role = new Archer(nom,ptVie,DA,ptPar,paAtt,paPar,dMax,pos,nbF,argent,jeu);
+            role = new Archer(nom,ptVie,DA,ptPar,paAtt,paPar,dMax,pos,nbF,argent,jeu,new ArrayList<Utilisable>());
         }
         else if (classe.equals("2")){
             int ptVie = genAlé.nextInt(21)+190;
@@ -64,7 +62,7 @@ public class Joueur implements Deplacable{
             int degEpee = 0;
             int prix = 0;
             int place = 0;
-            role = new Guerrier(nom,ptVie,DA,ptPar,paAtt,paPar,dMax,pos,place,nbMain,degEpee,prix,argent,jeu);
+            role = new Guerrier(nom,ptVie,DA,ptPar,paAtt,paPar,dMax,pos,place,nbMain,degEpee,prix,argent,jeu, new ArrayList<Utilisable>());
         }
     }
     

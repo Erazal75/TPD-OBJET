@@ -72,6 +72,14 @@ public class World {
     public int getmatrice(int x,int y){
         return map[x][y];
     }
+    
+    public void setmatrice(int x,int y, int valeur){
+        map[x][y] = valeur;
+    }
+    
+    public int getmatrice(int x,int y){
+        return map[x][y];
+    }
 
     
     /**

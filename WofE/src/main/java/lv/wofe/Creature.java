@@ -20,6 +20,7 @@ public abstract class Creature extends ElementDeJeu implements Deplacable{
      * pageAtt est le pourcentage de chance qu'une attaque de la Creature soit réussie
      * pagePar est le pourcentage de chance qu'une parade de la Creature soit réussie
      * pos est la position de la Creature
+     * effets est une Collection d'Utilisable contenant les différents effets actifs sur le joueur pendant le tour
      */
      
     
@@ -29,6 +30,7 @@ public abstract class Creature extends ElementDeJeu implements Deplacable{
     private int pageAtt;
     private int pagePar;
     private Point2D pos;
+    private List<Utilisable> effets;
     
     /**
      * Premier constructeur de Creature
@@ -39,15 +41,17 @@ public abstract class Creature extends ElementDeJeu implements Deplacable{
      * @param pageP est le pourcentage de chance qu'une parade de la Creature soit réussie
      * @param p est la position de la Creature
      * @param jeu
+     * @param effets est une Collection List de Utilisable contenant les effets appliqués aux joueurs pendant le tour
      */
     
-    public Creature(int ptVie,int dAtt, int ptP,int pageA, int pageP,Point2D p,World jeu){ 
+    public Creature(int ptVie,int dAtt, int ptP,int pageA, int pageP,Point2D p,World jeu, List<Utilisable> effets){ 
         super(p,jeu);
         this.ptVie = ptVie; 
         degAtt = dAtt;
         ptPar = ptP;
         pageAtt = pageA;
         pagePar = pageP;
+        this.effets = effets;
     }
     
     /**
@@ -62,6 +66,8 @@ public abstract class Creature extends ElementDeJeu implements Deplacable{
         ptPar = c.ptPar;
         pageAtt = c.pageAtt;
         pagePar = c.pagePar;
+        pos = new Point2D(c.pos);
+        effets = c.effets;
     }
     
     /**
@@ -70,7 +76,7 @@ public abstract class Creature extends ElementDeJeu implements Deplacable{
      */
     
     public Creature(World jeu){
-        this(0,0,0,0,0,new Point2D(0,0),jeu);
+        this(0,0,0,0,0,new Point2D(),jeu, new ArrayList<>());
     }
     
     /**
@@ -206,8 +212,14 @@ public abstract class Creature extends ElementDeJeu implements Deplacable{
     
     @Override
     public void deplace(int x , int y){
-        if (this.getjeu().getmatrice(x,y) != 1 && this.getjeu().getmatrice(x,y) != 2){
+        int c = this.getjeu().getmatrice(x,y); // la valeur de la case d'arrivée
+        if ( c >= 1000 || c <= 0){ // accès à la case autorisé
             this.setpos(x, y);
+            if (c >= 1000 && c < 2000) { // il y a un objet à activer sur la case
+                Utilisable o = (Utilisable) this.getjeu().getdico().get(c);
+                o.activation(this); 
+                this.effets.add(o);
+            }
         } 
     }
     

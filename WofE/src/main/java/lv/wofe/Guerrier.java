@@ -4,7 +4,7 @@
  */
 package lv.wofe;
 
-import java.util.Random;
+import java.util.*;
 
 /**
  *
@@ -33,11 +33,13 @@ public class Guerrier extends Personnage implements Combattant{
      * @param degEpee est la caractéristique de dégât bonus de l'Epee du Guerrier
      * @param prix est la caractéristique de prix de l'Epee du Guerrier
      * @param argent est la somme d'argent que le Guerrier possède
+     * @param jeu est une représentation matricielle de la carte
+     * @param effets est une Collection List de Utilisable contenant les effets appliqués aux joueurs pendant le tour
      */
     
     public Guerrier(String n,int pV,int dA,int ptPar,int paAtt,int paPar,int dMax,Point2D p,
-            int placeEpee,int nbmain,int degEpee,int prix,int argent, World jeu){
-        super(n,pV,dA,ptPar,paAtt,paPar,dMax,p,argent,jeu);
+            int placeEpee,int nbmain,int degEpee,int prix,int argent, World jeu, List<Utilisable> effets){
+        super(n,pV,dA,ptPar,paAtt,paPar,dMax,p,argent,jeu, effets);
         arme = new Epee(nbmain,degEpee,placeEpee,prix,p,jeu);
     }
     

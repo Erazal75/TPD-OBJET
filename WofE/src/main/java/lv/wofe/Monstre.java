@@ -4,7 +4,7 @@
  */
 package lv.wofe;
 
-import java.util.Random;
+import java.util.*;
 
 /**
  *
@@ -21,11 +21,12 @@ public class Monstre extends Creature{
      * @param pageA est le pourcentage de chance qu'une attaque du Monstre soit réussie
      * @param pageP est le pourcentage de chance qu'une parade du Monstre soit réussie
      * @param p est la position du Monstre
-     * @param jeu
+     * @param jeu est la représentation matricielle de la carte
+     * @param effets est une Collection List de Utilisable contenant les effets appliqués aux joueurs pendant le tour
      */
     
-    public Monstre(int ptVie,int dAtt, int ptP,int pageA, int pageP,Point2D p,World jeu){
-        super(ptVie,dAtt,ptP,pageA,pageP,p,jeu);
+    public Monstre(int ptVie,int dAtt, int ptP,int pageA, int pageP,Point2D p,World jeu, List<Utilisable> effets){
+        super(ptVie,dAtt,ptP,pageA,pageP,p,jeu, effets);
     }
     
     /**

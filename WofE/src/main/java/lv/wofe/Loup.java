@@ -4,7 +4,7 @@
  */
 package lv.wofe;
 
-import java.util.Random;
+import java.util.*;
 
 /**
  *
@@ -21,10 +21,12 @@ public class Loup extends Monstre implements Combattant{
      * @param paAtt est le pourcentage de chance qu'une attaque du Loup soit réussie
      * @param paPar est le pourcentage de chance qu'une parade du Loup soit réussie
      * @param p est la position du Loup
+     * @param jeu est la représentation matricielle de la carte
+     * @param effets est une Collection List de Utilisable contenant les effets appliqués aux joueurs pendant le tour 
      */
     
-    public Loup(int pV,int dA,int ptPar,int paAtt,int paPar,Point2D p,World jeu){
-      super(pV,dA,ptPar,paAtt,paPar,p,jeu);
+    public Loup(int pV,int dA,int ptPar,int paAtt,int paPar,Point2D p,World jeu, List<Utilisable> effets){
+      super(pV,dA,ptPar,paAtt,paPar,p,jeu, effets);
     }
     
     /**

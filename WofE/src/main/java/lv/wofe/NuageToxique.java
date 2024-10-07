@@ -71,7 +71,8 @@ public class NuageToxique extends Objet implements Deplacable {
     
     @Override
     public void deplace(int x , int y){
-        if (this.getjeu().getmatrice(x,y) != 1 && this.getjeu().getmatrice(x,y) != 2){
+        int c = this.getjeu().getmatrice(x,y); // la valeur de la case d'arrivée
+        if ( c >= 1000 || c <= 0){ // accès à la case autorisé
             this.setpos(x, y);
         } 
     }
