@@ -11,7 +11,7 @@ package lv.wofe;
  */
 
 
-public class Personnage extends Creature{
+abstract public class Personnage extends Creature{
     
     /**
      * nom est le nom du Personnage
@@ -22,7 +22,6 @@ public class Personnage extends Creature{
     
     private String nom ;
     private int distAttMax;
-    private int inventaire;
     private int argent;
 
     /**
@@ -36,15 +35,13 @@ public class Personnage extends Creature{
      * @param pageP est le pourcentage de chance qu'une parade du Personnage soit réussie
      * @param distAttM est la distance maximun à laquelle le Personnage peut attaquer 
      * @param argent est la somme d'argent que le Personnage possède
-     * @param inventaire est la taille maximun de l'inventaire du Personnage
      */
     
-    public Personnage(String nom,int ptVie,int dAtt, int ptP,int pageA, int pageP, int distAttM,Point2D p,int argent,int inventaire){
+    public Personnage(String nom,int ptVie,int dAtt, int ptP,int pageA, int pageP, int distAttM,Point2D p,int argent){
         super(ptVie,dAtt,ptP,pageA,pageP,p);
         this.nom = nom;
         distAttMax = distAttM;
         this.argent = argent;
-        this.inventaire = inventaire;
     }
     
     /**
@@ -57,7 +54,6 @@ public class Personnage extends Creature{
         this.nom = p.nom;
         this.distAttMax = p.distAttMax;
         this.argent = p.argent;
-        this.inventaire = p.inventaire ;
     }
 
     /**
@@ -69,7 +65,6 @@ public class Personnage extends Creature{
         this.nom = "";
         distAttMax = 0;
         this.argent = 0;
-        this.inventaire = 0;
     }
     
     /**
@@ -91,10 +86,6 @@ public class Personnage extends Creature{
         return argent;
     }
     
-    public int getInventaire(){
-        return inventaire;
-    }
-    
     public int getdistM(){
         return distAttMax;
     }
@@ -105,10 +96,6 @@ public class Personnage extends Creature{
     
     public void setArgent(int argen){
         argent = argen;
-    }
-    
-    public void setInventaire(int invent){
-        inventaire = invent;
     }
     
     public void setdistM(int distM){
@@ -136,9 +123,12 @@ public class Personnage extends Creature{
      * affichePos permet d'afficher la position du Personnage.
      */
     
+    @Override
     public void affichePos(){
         System.out.println("Votre personnage est en position: ["+ this.getposX()+";"+this.getposY()+"]");
     }
     
+    public abstract void combattre(Creature c);
+        
 }
 

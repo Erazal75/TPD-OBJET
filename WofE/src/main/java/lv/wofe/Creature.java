@@ -199,6 +199,7 @@ public abstract class Creature implements Deplacable{
      * @param y est l'ordonnée des coordonéees 
      */
     
+    @Override
     public void deplace(int x , int y){
         boolean noOneThere = false;
         int compteur = 0;
@@ -231,6 +232,7 @@ public abstract class Creature implements Deplacable{
      * deplace permet d'attribuer des valeurs de coordonnées aléatoires à la Creature
      */
     
+    @Override
     public void deplace(){
         Random genAlé = new Random();
         int x = genAlé.nextInt(21)-10;

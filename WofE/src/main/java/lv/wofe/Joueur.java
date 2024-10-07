@@ -4,6 +4,8 @@
  */
 package lv.wofe;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -19,9 +21,10 @@ public class Joueur implements Deplacable{
      * numeroJoueur est l'ordre de priorité du Joueur par rapport aux autres Joueurs
      */
     
-    Personnage role;
-    int priorité;
-    Scanner scanner = new Scanner(System.in);
+    private ArrayList<Objet> inventaire;
+    private Personnage role;
+    private int priorité;
+    private Scanner scanner = new Scanner(System.in);
 
         // Demander quelque chose à l'utilisateur
         
@@ -42,8 +45,7 @@ public class Joueur implements Deplacable{
             Point2D pos = new Point2D(0,0);
             int nbF = genAlé.nextInt(21)+20;
             int argent = genAlé.nextInt(501);
-            int inventaire = genAlé.nextInt(6)+5;
-            role = new Archer(nom,ptVie,DA,ptPar,paAtt,paPar,dMax,pos,nbF,argent,inventaire);
+            role = new Archer(nom,ptVie,DA,ptPar,paAtt,paPar,dMax,pos,nbF,argent);
         }
         else if (classe.equals("Guerrier")){
             int ptVie = genAlé.nextInt(21)+190;
@@ -54,20 +56,42 @@ public class Joueur implements Deplacable{
             int dMax = 1;
             Point2D pos = new Point2D(0,0);
             int argent = genAlé.nextInt(501);
-            int inventaire = genAlé.nextInt(6)+20;
             int nbMain = 0;
             int degEpee = 0;
             int prix = 0;
             int place = 0;
-            role = new Guerrier(nom,ptVie,DA,ptPar,paAtt,paPar,dMax,pos,place,nbMain,degEpee,prix,argent,inventaire);
+            role = new Guerrier(nom,ptVie,DA,ptPar,paAtt,paPar,dMax,pos,place,nbMain,degEpee,prix,argent);
         }
     }
     
     public void joue(){
-        System.out.println("Le joueur joue");    
+        System.out.println("Le joueur joue"); 
+        System.out.println("Voulez vous combattre ou vous déplacer:");
+        String choix = scanner.nextLine();
+        if (choix.equals("deplacer")){
+            
+        } else if(choix.equals("combattre")){
+
+        }
     }
 
     @Override
     public void deplace(){
         System.out.println("Le joueur se déplace");
+        this.role.deplace();
+    }
+    
+    @Override
+    public void deplace(int x,int y){
+        System.out.println("Le joueur se déplace");
+        this.role.deplace( x ,  y);
+    }
+    
+    public void combattre(Creature c){
+        if (this.role instanceof Guerrier){
+            this.role.combattre(c);
+        } else if (this.role instanceof Archer){
+            this.role.combattre(c);
+        }
+    }
 }

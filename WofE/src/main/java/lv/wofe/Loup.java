@@ -10,7 +10,7 @@ import java.util.Random;
  *
  * @author lazaregrail & victorsimon
  */
-public class Loup extends Monstre{
+public class Loup extends Monstre implements Combattant{
     
     /**
      * Premier constructeur de Loup
@@ -50,6 +50,7 @@ public class Loup extends Monstre{
      * @param c est la Creature que notre Loup va attaquer
      */
     
+    @Override
     public void combattre(Creature c){
         if (this.distance(c)<=1){
             Random genAlé = new Random();

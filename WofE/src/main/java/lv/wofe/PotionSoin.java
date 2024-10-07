@@ -8,7 +8,7 @@ package lv.wofe;
  *
  * @author lazaregrail & victorsimon
  */
-public class PotionSoin extends Objet {
+public class PotionSoin extends Objet implements Utilisable {
     
     /**
      * nbPVRendu est le nombre de point de vie que la PotionSoin peut rendre à une Creature

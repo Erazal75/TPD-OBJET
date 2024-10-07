@@ -10,7 +10,7 @@ import java.util.Random;
  *
  * @author lazaregrail & victorsimon
  */
-public class Guerrier extends Personnage{
+public class Guerrier extends Personnage implements Combattant{
     
     /**
      * arme est l'Epee maniée par le Guerrier
@@ -33,11 +33,10 @@ public class Guerrier extends Personnage{
      * @param degEpee est la caractéristique de dégât bonus de l'Epee du Guerrier
      * @param prix est la caractéristique de prix de l'Epee du Guerrier
      * @param argent est la somme d'argent que le Guerrier possède
-     * @param inventaire est la taille maximun de l'inventaire du Guerrier
      */
     
-    public Guerrier(String n,int pV,int dA,int ptPar,int paAtt,int paPar,int dMax,Point2D p,int placeEpee,int nbmain,int degEpee,int prix,int argent,int inventaire){
-        super(n,pV,dA,ptPar,paAtt,paPar,dMax,p,argent,inventaire);
+    public Guerrier(String n,int pV,int dA,int ptPar,int paAtt,int paPar,int dMax,Point2D p,int placeEpee,int nbmain,int degEpee,int prix,int argent){
+        super(n,pV,dA,ptPar,paAtt,paPar,dMax,p,argent);
         arme = new Epee(nbmain,degEpee,placeEpee,prix,p);
     }
     
@@ -66,13 +65,14 @@ public class Guerrier extends Personnage{
      * @param c est la Creature que notre Guerrier va attaquer
      */
     
+    @Override
     public void combattre(Creature c){
       if (this.distance(c)<=1){
           Random genAlé = new Random();
           int pourcAtt = genAlé.nextInt(100);
           int pourcPar = genAlé.nextInt(100);
           if (pourcAtt <= this.getpageAtt() && pourcPar>c.getpagePar()){
-              c.setptVie(c.getptVie() - this.getdegAtt());
+              c.setptVie(c.getptVie() - this.getdegAtt() - this.arme.getdegAtt());
               System.out.println("l'attaque du Guerrier est un succès");
           }
           else if (pourcAtt <= this.getpageAtt() && pourcPar<=c.getpagePar() && this.getdegAtt() - c.getptPar() >0){

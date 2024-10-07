@@ -11,12 +11,19 @@ package lv.wofe;
  */
 
 public interface Deplacable {
+    
     /**
      * Permet de déplacer les Joueurs et PNJ.
      * @param x est l'abscisse du déplacement
      * @param y est l'ordonnée du déplacement
      */
     
-    void deplacer(int x , int y);
+    void deplace(int x , int y);
+    
+    /**
+     * Permet de déplacer les Créatures ou le joueur vers une direction aléatoire
+     */
+    
+    void deplace();
 }
 

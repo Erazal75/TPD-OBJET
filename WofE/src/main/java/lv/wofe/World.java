@@ -13,7 +13,7 @@ import java.util.*;
 
 public class World {
     
-
+    /*
     public Archer robin = new Archer();
     public Archer guillaumeT = new Archer(robin);
     public Paysan peon = new Paysan();
@@ -21,9 +21,13 @@ public class World {
     public Loup warwick = new Loup();
     public Lapin bugs = new Lapin();
     public Lapin bugy = new Lapin();
+    public PotionSoin heal = new PotionSoin();
+    */
+    
+    Joueur joueur;
     static ArrayList<Creature> tableauCreature = new ArrayList<>();
     static ArrayList<Objet> tableauObjet = new ArrayList<>();
-    public PotionSoin heal = new PotionSoin();
+    
     public int taille;
     public int currentTour = 0; 
 
@@ -169,9 +173,9 @@ static ArrayList<Creature> gettableauCreature(){
         }
     }
     
-    public Joueur creationJoueur(){
+    public void creationJoueur(){
         System.out.println("Un joueur rentre dans le Monde, Bienvenu !");    
-        Joueur();
+        joueur = new Joueur();
     }
     
     public void afficheWorld(){

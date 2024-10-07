@@ -11,7 +11,7 @@ import java.util.Random;
  * @author lazaregrail & victorsimon
  * 
  */
-public class Archer extends Personnage{
+public class Archer extends Personnage implements Combattant{
     
     /**
      * nbFleches est le Nombre de Flèches que l'Archer possède
@@ -31,11 +31,10 @@ public class Archer extends Personnage{
      * @param p est la position de l'Archer
      * @param nbFleches est le Nombre de Flèches que l'Archer possède
      * @param argent est la somme d'argent que l'Archer possède
-     * @param inventaire est la taille maximun de l'inventaire de l'Archer
      */
     
-    public Archer(String n,int pV,int dA,int ptPar,int paAtt,int paPar,int dMax,Point2D p,int nbFleches,int argent , int inventaire){
-        super(n,pV,dA,ptPar,paAtt,paPar,dMax,p,argent ,inventaire);
+    public Archer(String n,int pV,int dA,int ptPar,int paAtt,int paPar,int dMax,Point2D p,int nbFleches,int argent){
+        super(n,pV,dA,ptPar,paAtt,paPar,dMax,p,argent);
         this.nbFleches = nbFleches; 
     }
     
@@ -65,6 +64,7 @@ public class Archer extends Personnage{
      * @param c est la Creature que notre Archer va attaquer
      */
     
+    @Override
     public void combattre(Creature c){
         if (this.distance(c)>1 && this.distance(c)<= this.getdistM() && nbFleches > 0){
             Random genAlé = new Random();

@@ -22,11 +22,10 @@ public class Paysan extends Personnage{
      * @param dMax est la distance maximun à laquelle le Paysan peut attaquer 
      * @param p est la positoin du Paysan
      * @param argent est la somme d'argent que le Paysan possède
-     * @param inventaire est la taille maximun de l'inventaire du Paysan
      */
     
-    public Paysan(String n,int pV,int dA,int ptPar,int paAtt,int paPar,int dMax,Point2D p,int argent,int inventaire){
-        super(n,pV,dA,ptPar,paAtt,paPar,dMax,p,argent,inventaire);
+    public Paysan(String n,int pV,int dA,int ptPar,int paAtt,int paPar,int dMax,Point2D p,int argent){
+        super(n,pV,dA,ptPar,paAtt,paPar,dMax,p,argent);
     }
     
     /**
@@ -44,5 +43,10 @@ public class Paysan extends Personnage{
     
     public Paysan(){
         super();
+    }
+    
+    @Override
+    public void combattre(Creature c){
+        System.out.println("Le paysan tremble devant l'adversité");
     }
 }

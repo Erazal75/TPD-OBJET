@@ -9,7 +9,7 @@ package lv.wofe;
  * @author lazaregrail & victorsimon
  * 
  */
-public class Epee extends Objet {
+public class Epee extends Objet implements Utilisable {
     
     /**
      * nbMain est le nombre de Main nécessaire pour manier l'Epee
