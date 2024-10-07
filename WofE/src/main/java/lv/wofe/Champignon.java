@@ -23,8 +23,8 @@ public class Champignon extends Nourriture{
      * @param pos est la position du Champignon
      */
     
-    public Champignon(int malusPageAtt, Point2D pos){
-        super(3, pos);
+    public Champignon(int malusPageAtt, Point2D pos,World jeu){
+        super(3, pos, jeu);
         this.malusPageAtt = malusPageAtt; 
     }
     
@@ -42,8 +42,8 @@ public class Champignon extends Nourriture{
      * Troisieme constructeur de Nourriture, par defautL. 
      */
     
-    public Champignon(){
-        super();
+    public Champignon(World jeu){
+        super(jeu);
         this.malusPageAtt = 0;
     }
     

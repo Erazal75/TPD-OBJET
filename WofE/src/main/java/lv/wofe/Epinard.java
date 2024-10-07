@@ -24,8 +24,8 @@ public class Epinard extends Nourriture{
      * @param pos est la position de l'Epinard
      */
     
-    public Epinard(int bonusDegAtt, Point2D pos){
-        super(5, pos);
+    public Epinard(int bonusDegAtt, Point2D pos,World jeu){
+        super(5, pos,jeu);
         this.bonusDegAtt = bonusDegAtt; 
     }
     
@@ -43,8 +43,8 @@ public class Epinard extends Nourriture{
      * Troisieme constructeur de Nourriture, par defautL. 
      */
     
-    public Epinard(){
-        super();
+    public Epinard(World jeu){
+        super(jeu);
         this.bonusDegAtt = 0;
     }
     

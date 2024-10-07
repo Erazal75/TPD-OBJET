@@ -25,8 +25,8 @@ abstract class Nourriture extends Objet implements Utilisable{
      * @param pos est la position de la Nourriture
      */
     
-    public Nourriture(int nbTour, Point2D pos){
-        super(0,0,pos);
+    public Nourriture(int nbTour, Point2D pos,World jeu){
+        super(0,0,pos,jeu);
         this.nbTour = nbTour; 
     }
     
@@ -43,8 +43,8 @@ abstract class Nourriture extends Objet implements Utilisable{
      * Troisieme constructeur de Nourriture, par defautL. 
      */
     
-    public Nourriture(){
-        super();
+    public Nourriture(World jeu){
+        super(jeu);
         this.nbTour = 0;
     }
     

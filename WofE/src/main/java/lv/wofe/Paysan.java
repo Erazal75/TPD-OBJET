@@ -24,8 +24,8 @@ public class Paysan extends Personnage{
      * @param argent est la somme d'argent que le Paysan possède
      */
     
-    public Paysan(String n,int pV,int dA,int ptPar,int paAtt,int paPar,int dMax,Point2D p,int argent){
-        super(n,pV,dA,ptPar,paAtt,paPar,dMax,p,argent);
+    public Paysan(String n,int pV,int dA,int ptPar,int paAtt,int paPar,int dMax,Point2D p,int argent,World jeu){
+        super(n,pV,dA,ptPar,paAtt,paPar,dMax,p,argent,jeu);
     }
     
     /**
@@ -41,8 +41,8 @@ public class Paysan extends Personnage{
      * Troisème contructeur de Paysan, permet d'initialiser tous les attributs avec leur valeur par défaut.
      */
     
-    public Paysan(){
-        super();
+    public Paysan(World jeu){
+        super(jeu);
     }
     
     @Override

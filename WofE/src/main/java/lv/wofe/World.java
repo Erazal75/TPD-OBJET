@@ -52,7 +52,7 @@ public class World {
         creerNPotion(genAlé.nextInt(10)+10);
         creerNEpee(genAlé.nextInt(10)+10);
         
-        joueur = new Joueur();
+        joueur = new Joueur(this);
         creerMondeAlea();
     }
     
@@ -84,38 +84,19 @@ public class World {
         for(ElementDeJeu e : tableauElement){
             int x=genAlé.nextInt(taille);
             int y=genAlé.nextInt(taille);
-            if (e.isCreature()){
-                Creature c = e.getCreature();
-                c.deplace(x,y);
-                while (e.getposX()!= x && e.getposY()!=y){
-                    x=genAlé.nextInt(taille);
-                    y=genAlé.nextInt(taille);
-                    c.deplace(x,y);
+            while (e.getposX()!= x && e.getposY()!=y){
+                x=genAlé.nextInt(taille);
+                y=genAlé.nextInt(taille);
+                if (map[x][y] == 0){
+                    e.setpos(x,y);
+                    if (e.isCreature()){
+                        map[x][y] = 2;
+                    } else {
+                        map[x][y] = 3;
+                    }
                 }
-                map[x][y] = 2;
-            } else {
-                int compteur = 0;
-                while (compteur < tableauElement.size() - 1){
-                    x = genAlé.nextInt(taille);
-                    y = genAlé.nextInt(taille);
-                    compteur = 0;
-                    for (ElementDeJeu f: tableauElement){
-                        if (!e.equals(f)){
-                            if (f.getposX() == x && f.getposY() == y){
-                                break;
-                            } else {
-                                compteur ++;
-                            }
-                        }
-                    }  
-                }
-                if (compteur == tableauElement.size() - 1){
-                    e.setpos(x, y);
-                }
-                map[x][y] = 3;
-            } 
-            
-        }
+            }
+        }           
     }
     
     /**
@@ -125,7 +106,7 @@ public class World {
     
     public void creerNGuerrier(int nbGuerrier){
         for (int i=0 ; i<nbGuerrier ; i=i+1){
-            tableauElement.add(new Guerrier());
+            tableauElement.add(new Guerrier(this));
         }
     }
     
@@ -136,7 +117,7 @@ public class World {
     
     public void creerNPaysan(int nbPaysan){
         for (int i=0 ; i<nbPaysan ; i=i+1){
-            tableauElement.add(new Paysan());
+            tableauElement.add(new Paysan(this));
         }
     }
     
@@ -147,7 +128,7 @@ public class World {
     
     public void creerNArcher(int nbArcher){
         for (int i=0 ; i<nbArcher ; i=i+1){
-            tableauElement.add(new Archer());
+            tableauElement.add(new Archer(this));
         }
     }
     
@@ -158,7 +139,7 @@ public class World {
     
     public void creerNLoup(int nbLoup){
         for (int i=0 ; i<nbLoup ; i=i+1){
-            tableauElement.add(new Loup());
+            tableauElement.add(new Loup(this));
         }
     }
     
@@ -169,7 +150,7 @@ public class World {
     
     public void creerNLapin(int nbLapin){
         for (int i=0 ; i<nbLapin ; i=i+1){
-            tableauElement.add(new Lapin());
+            tableauElement.add(new Lapin(this));
         }
     }
     
@@ -181,7 +162,7 @@ public class World {
     public void creerNPotion(int nbPotion){
         for (int i=0 ; i<nbPotion ; i=i+1){
             Random genAlé = new Random();
-            tableauElement.add(new PotionSoin(genAlé.nextInt(20)+20));
+            tableauElement.add(new PotionSoin(genAlé.nextInt(20)+20,this));
         }
     }
     
@@ -193,7 +174,7 @@ public class World {
     public void creerNEpee(int nbEpee){
         for (int i=0 ; i<nbEpee ; i=i+1){
             Random genAlé = new Random();
-            tableauElement.add(new Epee(genAlé.nextInt(20)+20)); 
+            tableauElement.add(new Epee(genAlé.nextInt(20)+20,this)); 
         }
     }
     

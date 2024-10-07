@@ -24,8 +24,8 @@ public class PotionSoin extends Nourriture {
      * @param p est la position de l'Objet
      */
     
-    public PotionSoin(int nbPVRendu, int place,int prix,Point2D p){
-        super(1,p);
+    public PotionSoin(int nbPVRendu, int place,int prix,Point2D p,World jeu){
+        super(1,p,jeu);
         this.nbPVRendu = nbPVRendu;
     }
     
@@ -34,8 +34,8 @@ public class PotionSoin extends Nourriture {
      * @param nbPVRendu 
      */
     
-    public PotionSoin(int nbPVRendu){
-        super();
+    public PotionSoin(int nbPVRendu,World jeu){
+        super(jeu);
         this.nbPVRendu = nbPVRendu;
     }
     
@@ -43,9 +43,18 @@ public class PotionSoin extends Nourriture {
      * Deuxième constructeur d'Objet, permet d'initialiser tous les attributs avec leur valeur par défaut.
      */
     
-    public PotionSoin(){
-        super();
+    public PotionSoin(World jeu){
+        super(jeu);
         nbPVRendu = 0;
+    }
+    
+    /**
+     * on crée une potion de soin a partir d'une autre potion de soin
+     * @param p 
+     */
+    
+    public PotionSoin(PotionSoin p){
+        super(p);
     }
     
     /**

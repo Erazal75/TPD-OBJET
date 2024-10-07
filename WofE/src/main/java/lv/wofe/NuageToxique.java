@@ -30,8 +30,8 @@ public class NuageToxique extends Objet implements Deplacable {
      * @param pos est la position du NuageToxique
      */
     
-    public NuageToxique(int degAtt, int vitesse, Point2D pos){
-        super(0, 0, pos);
+    public NuageToxique(int degAtt, int vitesse, Point2D pos,World jeu){
+        super(0, 0, pos,jeu);
         this.degAtt = degAtt;
         this.vitesse = vitesse;    
     }
@@ -42,7 +42,7 @@ public class NuageToxique extends Objet implements Deplacable {
      */
     
     public NuageToxique(NuageToxique n){
-        super();
+        super(n);
         this.degAtt = n.degAtt;
         this.vitesse = n.vitesse;
     }
@@ -51,8 +51,8 @@ public class NuageToxique extends Objet implements Deplacable {
      * Troisème contructeur de NuageToxique, permet d'initialiser tous les attributs avec leur valeur par défaut.
      */
     
-    public NuageToxique(){
-        super();
+    public NuageToxique(World jeu){
+        super(jeu);
         degAtt = 0;
         vitesse = 0;
     }
@@ -63,31 +63,17 @@ public class NuageToxique extends Objet implements Deplacable {
         System.out.println("Le Nuage Toxique blesse");
     }
     
+    /**
+     * déplace le nuage toxic en position x y
+     * @param x
+     * @param y 
+     */
+    
     @Override
     public void deplace(int x , int y){
-        boolean noOneThere = false;
-        int compteur = 0;
-        while (!noOneThere){
-            for(ElementDeJeu e : World.gettableauElement()){
-                if (e.isCreature()){
-                    c = e.getCreature();
-                    if (!(this.equals(e)) ){
-                        if (x == c.getposX()&& y == c.getposY()){
-                            break;
-                        }
-                        else{
-                            compteur = compteur + 1;
-                            }
-                        if (compteur == World.gettableauElement().size()-1) {
-                            noOneThere = true;
-                        }
-                    }
-                }
-            }
-        }    
-        if (noOneThere) {
-            pos.setPosition(pos.getX() + x, pos.getY() + y);
-        }
+        if (this.getjeu().getmatrice(x,y) != 1 && this.getjeu().getmatrice(x,y) != 2){
+            this.setpos(x, y);
+        } 
     }
     
     /**
