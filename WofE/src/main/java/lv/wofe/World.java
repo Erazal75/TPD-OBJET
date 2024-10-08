@@ -36,8 +36,8 @@ public class World {
     
     private HashMap<Integer,ElementDeJeu> dicoPerso = new HashMap<>();
     
-    public int taille;
-    public int currentTour = 0; 
+    private int taille;
+    private int currentTour = 0; 
 
     public World(int nb){
         
@@ -66,14 +66,29 @@ public class World {
         return dicoPerso;
     }
     
-    public void setmatrice(int x,int y, int valeur){
+    public void setmap(int x,int y, int valeur){
         map[x][y] = valeur;
     }
     
-    public int getmatrice(int x,int y){
+    public int getmap(int x,int y){
         return map[x][y];
     }
+    
+    public int getTour(){
+        return currentTour;
+    }
 
+    public void setTour(int t){
+        currentTour = t;
+    }
+    
+    public int getTaille(){
+        return taille;
+    }
+    
+    public void setTaille(int t){
+        taille = t;
+    }
     
     /**
      * creerMondeAlea permet de modifier l'instance de World de sorte que chaque Protagonistes et Objets soient placés aléatoirement dans le Monde.
@@ -207,5 +222,22 @@ public class World {
         
         System.out.println("Le Tour se termine ...");    
         this.currentTour++; 
+    }
+    
+    /**
+     * permet d'afficher le jue dans la console
+     */
+    
+    public void afficheJeu(){    
+        for (int i = 0;i <  map.length; i++ ) {
+            for (int j = 0; j < map.length; j++) {
+                if (map[j][i] == 0) {
+                    System.out.print("_ ");
+                } else {
+                    System.out.print(map[j][i]+" ");
+                }
+            }
+            System.out.println("");
+        }  
     }
 }

@@ -186,7 +186,9 @@ public class WofE {
 
 //////////////////////////////////// TP 5 //////////////////////////////////////
     
-    monMonde.afficheWorld();
-    //monMonde.tourDeJeu();
+    //monMonde.afficheWorld();
+    monMonde.afficheJeu();
+    monMonde.tourDeJeu();
+    monMonde.afficheJeu();
     }
 }

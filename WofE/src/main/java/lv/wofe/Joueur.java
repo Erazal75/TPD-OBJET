@@ -64,6 +64,18 @@ public class Joueur implements Deplacable{
             int place = 0;
             role = new Guerrier(nom,ptVie,DA,ptPar,paAtt,paPar,dMax,pos,place,nbMain,degEpee,prix,argent,jeu, new ArrayList<Utilisable>());
         }
+        
+        int x = genAlé.nextInt(jeu.getTaille());
+        int y = genAlé.nextInt(jeu.getTaille());
+        Set<Integer> list = jeu.getdico().keySet();
+        while (role.getposX()!= x && role.getposY()!=y){
+            x = genAlé.nextInt(jeu.getTaille());
+            y = genAlé.nextInt(jeu.getTaille());
+            if (jeu.getmap(x,y) == 0){
+                role.setpos(x,y);
+                jeu.setmap(x,y,1) ;
+            }
+        }
     }
     
     /**
@@ -75,6 +87,8 @@ public class Joueur implements Deplacable{
         System.out.println("Voulez vous combattre(1) ou vous déplacer(2):");
         String choix = scanner.nextLine();
         if (choix.equals("2")){
+            int x = role.getposX();
+            int y = role.getposY();
             System.out.println("Voulez vous aller à droite(1), à gauche(2), en bas(3) ou en haut(4)");
             String deplacement = scanner.nextLine();
             switch (deplacement) {
@@ -84,6 +98,10 @@ public class Joueur implements Deplacable{
                 case "4" -> this.deplace(this.role.getposX(),this.role.getposY()-1);
                 default -> {
                 }
+            } 
+            if (x != role.getposX() || y != role.getposY()){
+                jeu.setmap(x,y,0);
+                jeu.setmap(role.getposX(),role.getposY(),1);
             }
         } else if(choix.equals("1")){
             int x = this.role.getposX();
@@ -97,33 +115,33 @@ public class Joueur implements Deplacable{
     }
     
     public ArrayList<Integer> range(ArrayList<Integer> list, int x , int y,int dist,int distMax){
-        if (jeu.getmatrice(x-1, y)>1 && jeu.getmatrice(x-1, y)<1000){
-            if (!list.contains(jeu.getmatrice(x-1, y))){
-                list.add(jeu.getmatrice(x-1, y));
+        if (jeu.getmap(x-1, y)>1 && jeu.getmap(x-1, y)<1000){
+            if (!list.contains(jeu.getmap(x-1, y))){
+                list.add(jeu.getmap(x-1, y));
                 if (dist == distMax){
                     range(list,x-1,y,dist,distMax+1);
                 }
             }
         }
-        if (jeu.getmatrice(x+1, y)>1 && jeu.getmatrice(x+1, y)<1000){
-            if (!list.contains(jeu.getmatrice(x+1, y))){
-                list.add(jeu.getmatrice(x+1, y));
+        if (jeu.getmap(x+1, y)>1 && jeu.getmap(x+1, y)<1000){
+            if (!list.contains(jeu.getmap(x+1, y))){
+                list.add(jeu.getmap(x+1, y));
                 if (dist == distMax){
                     range(list,x+1,y,dist,distMax+1);
                 }
             }
         }
-        if (jeu.getmatrice(x, y+1)>1 && jeu.getmatrice(x, y+1)<1000){
-            if (!list.contains(jeu.getmatrice(x, y+1))){
-                list.add(jeu.getmatrice(x, y+1));
+        if (jeu.getmap(x, y+1)>1 && jeu.getmap(x, y+1)<1000){
+            if (!list.contains(jeu.getmap(x, y+1))){
+                list.add(jeu.getmap(x, y+1));
                 if (dist == distMax){
                     range(list,x,y+1,dist,distMax+1);
                 }
             }
         }
-        if (jeu.getmatrice(x, y-1)>1 && jeu.getmatrice(x, y-1)<1000){
-            if (list.contains(jeu.getmatrice(x, y-1))){
-                list.add(jeu.getmatrice(x, y-1));
+        if (jeu.getmap(x, y-1)>1 && jeu.getmap(x, y-1)<1000){
+            if (list.contains(jeu.getmap(x, y-1))){
+                list.add(jeu.getmap(x, y-1));
                 if (dist == distMax){
                     range(list,x,y-1,dist,distMax+1);
                 }
