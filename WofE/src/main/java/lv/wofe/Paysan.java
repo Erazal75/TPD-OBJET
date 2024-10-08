@@ -54,4 +54,5 @@ public class Paysan extends Personnage{
     public void combattre(Creature c){
         System.out.println("Le paysan tremble devant l'adversité");
     }
+    
 }

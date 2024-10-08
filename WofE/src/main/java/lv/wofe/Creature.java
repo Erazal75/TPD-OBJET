@@ -29,7 +29,6 @@ public abstract class Creature extends ElementDeJeu implements Deplacable{
     private int ptPar;
     private int pageAtt;
     private int pagePar;
-    private Point2D pos;
     private List<Utilisable> effets;
     
     /**
@@ -66,7 +65,6 @@ public abstract class Creature extends ElementDeJeu implements Deplacable{
         ptPar = c.ptPar;
         pageAtt = c.pageAtt;
         pagePar = c.pagePar;
-        pos = new Point2D(c.pos);
         effets = c.effets;
     }
     
@@ -126,26 +124,6 @@ public abstract class Creature extends ElementDeJeu implements Deplacable{
     }
     
     /**
-     * getposX renvoie l'abscisse de la Creature.
-     * @return
-     */
-    
-    @Override
-    public int getposX(){
-        return pos.getX();
-    }
-    
-    /**
-     * getposY renvoie l'ordonnée de la Creature.
-     * @return
-     */
-    
-    @Override
-    public int getposY(){
-        return pos.getY();
-    }
-    
-    /**
      * setptVie permet d'attribuer la valeur ptVie aux point de Vie ptVie de la Creature
      * @param ptVie est un nombre de point de vie
      */
@@ -191,17 +169,6 @@ public abstract class Creature extends ElementDeJeu implements Deplacable{
     }
     
     /**
-     * setpos permet d'attribuer la valeur (x,y) à la position pos de la Creature
-     * @param x est l'abscisse des coordonnées
-     * @param y est l'ordonnée des coordonéees
-     */
-    
-    @Override
-    public void setpos(int x, int y){
-        pos.setPosition(x,y);
-    }
-    
-    /**
      * deplace permet de déplacer la Creature aux coordonnées (x,y) désirées.
      * Simultanément, nous vérifions que lors du déplacement : 
      * 1) la Creature se déplace sur un Objet, si c'est le cas, l'Objet s'active
@@ -233,16 +200,6 @@ public abstract class Creature extends ElementDeJeu implements Deplacable{
         int x = genAlé.nextInt(21)-10;
         int y = genAlé.nextInt(21)-10;
         deplace(x,y);
-    }
-    
-    /**
-     * distance permet de calculer la distance entre deux Creatures
-     * @param c est la Creature avec laquelle nous calculons la distance
-     * @return 
-     */
-    
-    public float distance (Creature c){
-        return this.pos.distance(c.pos);
     }
     
     /**

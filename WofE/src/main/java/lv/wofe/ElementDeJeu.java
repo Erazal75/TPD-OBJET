@@ -66,7 +66,26 @@ abstract class ElementDeJeu {
     }
     
     
-    public abstract int getposX();
-    public abstract int getposY();
-    public abstract void setpos(int x, int y);
+    public void setpos(int x, int y){
+        pos.setPosition(x,y);
+    }
+    
+    public int getposX(){
+        return pos.getX();
+    }
+    
+    public int getposY(){
+        return pos.getY();
+    }
+    
+    /**
+     * distance permet de calculer la distance entre deux Creatures
+     * @param c est la Creature avec laquelle nous calculons la distance
+     * @return 
+     */
+    
+    
+    public float distance (ElementDeJeu c){
+        return this.pos.distance(c.pos);
+    }
 }

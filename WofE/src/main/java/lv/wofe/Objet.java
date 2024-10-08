@@ -20,7 +20,6 @@ abstract class Objet extends ElementDeJeu {
     
     private int place;
     private int prix;
-    private Point2D pos;
     
     /**
      * Premier constructeur d'Objet
@@ -41,10 +40,9 @@ abstract class Objet extends ElementDeJeu {
      */
     
     public Objet(Objet o){
-        super(new Point2D(o.pos),o.getjeu());
+        super(o);
         this.place = o.place;
         this.prix = o.prix;
-        this.pos = o.pos;
     }
     
     /**
@@ -65,22 +63,7 @@ abstract class Objet extends ElementDeJeu {
     
     public void setPrix(int pris){
         prix = pris;
-    }
-    
-    @Override
-    public void setpos(int x, int y){
-        pos.setPosition(x,y);
-    }
-    
-    @Override
-    public int getposX(){
-        return pos.getX();
-    }
-    
-    @Override
-    public int getposY(){
-        return pos.getY();
-    }
+    }   
     
     /**
      * activation permet d'activer l'Objet sur la Creature c.

@@ -42,6 +42,7 @@ public class World {
     public World(int nb){
         
         taille = nb;
+        map = new int[taille][taille];
         Random genAlé = new Random(); 
         
         creerNPaysan(genAlé.nextInt(10)+10);
@@ -72,14 +73,6 @@ public class World {
     public int getmatrice(int x,int y){
         return map[x][y];
     }
-    
-    public void setmatrice(int x,int y, int valeur){
-        map[x][y] = valeur;
-    }
-    
-    public int getmatrice(int x,int y){
-        return map[x][y];
-    }
 
     
     /**
@@ -93,10 +86,6 @@ public class World {
         for(int ind : list){
             int x=genAlé.nextInt(taille);
             int y=genAlé.nextInt(taille);
-            System.out.println(ind);
-            System.out.println(dicoPerso.get(ind).getClass());
-            Creature p = (Creature) dicoPerso.get(ind);
-            p.affiche();
             while (dicoPerso.get(ind).getposX()!= x && dicoPerso.get(ind).getposY()!=y){
                 x=genAlé.nextInt(taille);
                 y=genAlé.nextInt(taille);
@@ -106,7 +95,6 @@ public class World {
                 }
             }
         }
-        int i = 0;
     }
     
     /**
