@@ -52,7 +52,9 @@ public class World {
         creerNLapin(genAlé.nextInt(10)+10);
         creerNPotion(genAlé.nextInt(10)+10);
         creerNEpee(genAlé.nextInt(10)+10);
-        
+//        dicoPerso.put(101,new Guerrier(this));
+//        dicoPerso.get(101).setpos(5, 6);
+//        map[5][6] = 101;
         joueur = new Joueur(this);
         creerMondeAlea();
     }

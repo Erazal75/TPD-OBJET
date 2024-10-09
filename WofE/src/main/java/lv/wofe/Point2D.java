@@ -104,7 +104,7 @@ public class Point2D {
      * @return 
      */
     
-    public boolean egalite(Point2D p){
+    public boolean equals(Point2D p){
         return(this.x == p.x && this.y == p.y);
     }
 }

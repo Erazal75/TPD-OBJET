@@ -43,7 +43,7 @@ public class Joueur implements Deplacable{
             int ptPar = genAlé.nextInt(10)+1;
             int paAtt = genAlé.nextInt(11)+75;
             int paPar = genAlé.nextInt(11)+15;
-            int dMax = genAlé.nextInt(4)+2;
+            int dMax = genAlé.nextInt(1)+5;
             Point2D pos = new Point2D(0,0);
             int nbF = genAlé.nextInt(21)+20;
             int argent = genAlé.nextInt(501);
@@ -76,6 +76,8 @@ public class Joueur implements Deplacable{
                 jeu.setmap(x,y,1) ;
             }
         }
+//        role.setpos(6,6);
+//        jeu.setmap(6,6,1) ;
     }
     
     /**
@@ -106,48 +108,76 @@ public class Joueur implements Deplacable{
         } else if(choix.equals("1")){
             int x = this.role.getposX();
             int y = this.role.getposY();
-            ArrayList<Integer> list = new ArrayList<>();
-            range(list,x,y,0,role.getdistM());
-            for (int ind: list){
-                System.out.println("Vous pouvez attaquez la créature en case: [" +x+";"+y+"], pour l'attquer tapez "+ind);
+            ArrayList<Integer> listAttack = new ArrayList<>();
+            ArrayList<Point2D> listParc = new ArrayList<>();
+            role.affichePos();
+            //ArrayList<Point2D> listParc2 = new ArrayList<>();
+            //listParc2.add(new Point2D(3,6));
+            //Point2D a = new Point2D(3,6);
+            //Point2D B = new Point2D(3,6);
+            //System.out.println(containsP2D(listParc2,new Point2D(3,6)));
+            //System.out.println(a.equals(B));
+            System.out.println(role.getdistM());
+            System.out.println("rien");
+            range(listAttack,listParc,new Point2D(role.getposX(),role.getposY()),0,role.getdistM());
+            
+//            for (Point2D p : listParc ){
+//                p.affiche();
+//            }
+
+            Set<Integer> set = new HashSet<>(listAttack);
+            listAttack = new ArrayList<>(set);
+            
+            System.out.println(listAttack.size());
+            
+            for (int ind: listAttack){
+                System.out.println("Vous pouvez attaquez la créature en case: [" +jeu.getdico().get(ind).getposX()+";"+jeu.getdico().get(ind).getposY()+"], pour l'attquer tapez "+ind);
             }
         }
     }
     
-    public ArrayList<Integer> range(ArrayList<Integer> list, int x , int y,int dist,int distMax){
-        if (jeu.getmap(x-1, y)>1 && jeu.getmap(x-1, y)<1000){
-            if (!list.contains(jeu.getmap(x-1, y))){
-                list.add(jeu.getmap(x-1, y));
-                if (dist == distMax){
-                    range(list,x-1,y,dist,distMax+1);
-                }
+    public void range(ArrayList<Integer> listAttack,ArrayList<Point2D> listParc, Point2D p1,int dist,int distMax){
+        int x = p1.getX();
+        int y = p1.getY();
+        listParc.add(p1);
+        
+        if (jeu.getmap(x, y) > 1 && jeu.getmap(x, y) < 1000){
+            listAttack.add(jeu.getmap(x, y));
+        }
+        
+        ArrayList<Point2D> listAVenir = new ArrayList<>();
+        if (x-1 >= 0){
+            Point2D p = new Point2D(x-1, y);
+            //if (!containsP2D(listParc,p)){
+                listAVenir.add(p);
+            //}
+        }
+        if (x+1 <= jeu.getTaille()-1){
+            Point2D p = new Point2D(x+1, y);
+            //if (!containsP2D(listParc,p)){
+                listAVenir.add(p);
+            //}
+        }
+        if (y+1 <= jeu.getTaille()-1){
+            Point2D p = new Point2D(x, y+1);
+            //if (!containsP2D(listParc,p)){
+                listAVenir.add(p);
+            //}
+        }
+        if (y-1 >=0){
+            Point2D p = new Point2D(x, y-1);
+            //if (!containsP2D(listParc,p)){
+                listAVenir.add(p);
+            //}
+        }
+        if (dist < distMax){
+            while (!listAVenir.isEmpty()){
+                Point2D p3 = listAVenir.remove(0);
+                //if (!containsP2D(listParc,p3)){
+                    range(listAttack,listParc,p3,dist+1,distMax); 
+                //}
             }
         }
-        if (jeu.getmap(x+1, y)>1 && jeu.getmap(x+1, y)<1000){
-            if (!list.contains(jeu.getmap(x+1, y))){
-                list.add(jeu.getmap(x+1, y));
-                if (dist == distMax){
-                    range(list,x+1,y,dist,distMax+1);
-                }
-            }
-        }
-        if (jeu.getmap(x, y+1)>1 && jeu.getmap(x, y+1)<1000){
-            if (!list.contains(jeu.getmap(x, y+1))){
-                list.add(jeu.getmap(x, y+1));
-                if (dist == distMax){
-                    range(list,x,y+1,dist,distMax+1);
-                }
-            }
-        }
-        if (jeu.getmap(x, y-1)>1 && jeu.getmap(x, y-1)<1000){
-            if (list.contains(jeu.getmap(x, y-1))){
-                list.add(jeu.getmap(x, y-1));
-                if (dist == distMax){
-                    range(list,x,y-1,dist,distMax+1);
-                }
-            }
-        }
-        return list;
     } 
 
     /**
@@ -182,5 +212,16 @@ public class Joueur implements Deplacable{
     
     public void affiche(){
         System.out.println("Le joueur se déplace");
+    }
+    
+    private boolean containsP2D(ArrayList<Point2D> listParc,Point2D p){
+        boolean rep = false;
+        for (Point2D p2: listParc){
+            if(p.equals(p2)){
+                rep = true;
+                break;
+            }
+        }
+        return rep;
     }
 }
