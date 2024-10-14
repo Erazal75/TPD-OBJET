@@ -4,6 +4,9 @@
 
 package lv.wofe;
 
+import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -19,7 +22,7 @@ public class WofE {
     
     public static void main(String[] args) {
         
-        monMonde = new World(50);
+        // monMonde = new World(50);
         
 //////////////////////////////////// TP 3 //////////////////////////////////////
         
@@ -185,7 +188,160 @@ public class WofE {
         */
 
 //////////////////////////////////// TP 5 //////////////////////////////////////
+
+//////////////// Exceptions  ////////////////////
+
+    // NullPointerException
     
+    /*
+    
+        String str = null;  // Initialisation d'une variable avec la valeur null
+
+        try {
+            // Tentative d'accès à une méthode sur un objet null
+            System.out.println(str.length());  // Cela va lever une NullPointerException
+        } catch (NullPointerException e) {
+            // Gérer l'exception NullPointerException ici
+            System.out.println("Erreur : NullPointerException capturee !");
+        } finally {
+            // Ce bloc s'exécutera toujours, que l'exception soit levée ou non
+            System.out.println("Bloc finally executed.");
+        }
+        
+    */
+    
+    // ArrayIndexOutOfBoundsException
+    
+    /*
+    
+        int[] numbers = {1, 2, 3};  // Tableau avec 3 éléments
+
+        try {
+            // Tentative d'accès à un index hors limites
+            System.out.println(numbers[5]);  // Cela va lever une ArrayIndexOutOfBoundsException
+        } catch (ArrayIndexOutOfBoundsException e) {
+            // Gérer l'exception ArrayIndexOutOfBoundsException ici
+            System.out.println("Erreur : ArrayIndexOutOfBoundsException capturée !");
+        } finally {
+            // Ce bloc s'exécutera toujours, que l'exception soit levée ou non
+            System.out.println("Bloc finally execute.");
+        }
+
+    */
+    
+    // ArithmeticException
+    
+    /*
+    
+        int a = 10;
+        int b = 0;
+
+        try {
+            // Tentative de division par zero
+            int result = a / b;  // Cela va lever une ArithmeticException
+            System.out.println("Resultat : " + result);
+        } catch (ArithmeticException e) {
+            // Gerer l'exception ArithmeticException ici
+            System.out.println("Erreur : ArithmeticException capturee !");
+        } finally {
+            // Ce bloc s'executera toujours, que l'exception soit levee ou non
+            System.out.println("Bloc finally execute.");
+        }
+        
+    */
+            
+    // ClassCastException
+    
+    /*
+    
+        Object o = "Ceci est une chaine";  // Une chaine de caracteres
+
+        try {
+            // Tentative de conversion d'une chaine en Integer
+            Integer num = (Integer) o;  // Cela va lever une ClassCastException
+            System.out.println("Nombre : " + num);
+        } catch (ClassCastException e) {
+            // Gerer l'exception ClassCastException ici
+            System.out.println("Erreur : ClassCastException capturee !");
+        } finally {
+            // Ce bloc s'executera toujours, que l'exception soit levee ou non
+            System.out.println("Bloc finally execute.");
+        }
+    
+    */
+    
+    // NumberFormatException
+    
+    /*
+    
+        String str = "abc";  // Une chaine de caracteres non convertible en nombre
+
+        try {
+            // Tentative de conversion de la chaine en entier
+            int num = Integer.parseInt(str);  // Cela va lever une NumberFormatException
+            System.out.println("Nombre : " + num);
+        } catch (NumberFormatException e) {
+            // Gerer l'exception NumberFormatException ici
+            System.out.println("Erreur : NumberFormatException capturee !");
+        } finally {
+            // Ce bloc s'executera toujours, que l'exception soit levee ou non
+            System.out.println("Bloc finally execute.");
+        }
+
+    */
+    
+    // StackOverflowError
+    
+    /*
+    
+        try {
+            // Appel récursif sans condition d'arrêt, ce qui va provoquer une StackOverflowError
+            recursiveMethod();
+        } catch (StackOverflowError e) {
+            // Gérer l'erreur StackOverflowError ici
+            System.out.println("Erreur : StackOverflowError capturee !");
+        } finally {
+            // Ce bloc s'executera toujours, que l'erreur soit levee ou non
+            System.out.println("Bloc finally execute.");
+        }
+    }
+
+    public static void recursiveMethod() {
+        // Appel de la méthode elle-même sans condition d'arrêt
+        recursiveMethod();
+
+    */
+    
+    // ConcurrentModificationException
+    
+    /*
+    
+        List<Integer> numbers = new ArrayList<>();
+        numbers.add(1);
+        numbers.add(2);
+        numbers.add(3);
+
+        try {
+            // Tentative de modification de la liste pendant l'itération
+            for (Integer number : numbers) {
+                System.out.println("Nombre : " + number);
+                // Modifiez la liste pendant l'itération
+                if (number == 2) {
+                    numbers.remove(number);  // Cela va lever une ConcurrentModificationException
+                }
+            }
+        } catch (ConcurrentModificationException e) {
+            // Gerer l'exception ConcurrentModificationException ici
+            System.out.println("Erreur : ConcurrentModificationException capturee !");
+        } finally {
+            // Ce bloc s'executera toujours, que l'exception soit levee ou non
+            System.out.println("Bloc finally execute.");
+        }
+        
+        */
+    
+//////////////// WOE  ////////////////////
+
         //monMonde.afficheWorld();
         while (true){
             monMonde.afficheJeu();

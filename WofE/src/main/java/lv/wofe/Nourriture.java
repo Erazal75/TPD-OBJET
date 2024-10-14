@@ -17,7 +17,6 @@ abstract class Nourriture extends Objet implements Utilisable{
      */
     
     private int nbTour; 
-    private Point2D pos;
     
     /**
      * Premier constructeur de Nourriture

@@ -20,7 +20,6 @@ public class NuageToxique extends Objet implements Deplacable {
      
     private int degAtt;
     private int vitesse; 
-    private Point2D pos;
     
     /**
      * Premier constructeur d'Epee
