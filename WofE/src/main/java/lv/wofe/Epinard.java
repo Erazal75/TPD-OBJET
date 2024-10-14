@@ -17,7 +17,7 @@ public class Epinard extends Nourriture{
     
     private int bonusDegAtt;
     private Point2D pos;
-    
+    private int utilRestantes = 5;
     /**
      * Premier constructeur d'Epinard
      * @param bonusDegAtt est le bonus de dégât d'attaque engendré par la consommation d'un Epinard
@@ -52,6 +52,16 @@ public class Epinard extends Nourriture{
     public void activation(Creature c) {
         c.setdegAtt(c.getdegAtt() + bonusDegAtt);
         System.out.println("Vous avez gagné de la Force !");
+    }
+    
+    @Override
+    public int getutilRestantes(){
+        return(this.utilRestantes);
+    }
+    
+    @Override
+    public void setutilRestantes(int x){
+        this.utilRestantes = x;
     }
     
 }

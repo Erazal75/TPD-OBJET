@@ -189,6 +189,5 @@ public class WofE {
     //monMonde.afficheWorld();
     monMonde.afficheJeu();
     monMonde.tourDeJeu();
-    monMonde.afficheJeu();
     }
 }

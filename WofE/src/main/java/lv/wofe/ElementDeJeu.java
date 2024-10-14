@@ -4,6 +4,8 @@
  */
 package lv.wofe;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author lazareGrail & victorSimon
@@ -88,4 +90,49 @@ abstract class ElementDeJeu {
     public float distance (ElementDeJeu c){
         return this.pos.distance(c.pos);
     }
+    
+    public void range(ArrayList<Integer> listAttack, ArrayList<Point2D> listParc, Point2D p1,int dist,int distMax){
+        int x = p1.getX();
+        int y = p1.getY();
+        listParc.add(p1);
+        //World jeu = this.getjeu();
+        
+        if (jeu.getmap(x, y) > 1 && jeu.getmap(x, y) < 1000){
+            listAttack.add(jeu.getmap(x, y));
+        }
+        
+        ArrayList<Point2D> listAVenir = new ArrayList<>();
+        if (x-1 >= 0){
+            Point2D p = new Point2D(x-1, y);
+            //if (!containsP2D(listParc,p)){
+                listAVenir.add(p);
+            //}
+        }
+        if (x+1 <= jeu.getTaille()-1){
+            Point2D p = new Point2D(x+1, y);
+            //if (!containsP2D(listParc,p)){
+                listAVenir.add(p);
+            //}
+        }
+        if (y+1 <= jeu.getTaille()-1){
+            Point2D p = new Point2D(x, y+1);
+            //if (!containsP2D(listParc,p)){
+                listAVenir.add(p);
+            //}
+        }
+        if (y-1 >=0){
+            Point2D p = new Point2D(x, y-1);
+            //if (!containsP2D(listParc,p)){
+                listAVenir.add(p);
+            //}
+        }
+        if (dist < distMax){
+            while (!listAVenir.isEmpty()){
+                Point2D p3 = listAVenir.remove(0);
+                //if (!containsP2D(listParc,p3)){
+                    range(listAttack,listParc,p3,dist+1,distMax); 
+                //}
+            }
+        }
+    } 
 }

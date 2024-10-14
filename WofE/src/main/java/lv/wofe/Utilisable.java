@@ -16,5 +16,9 @@ public interface Utilisable {
      */
     
     void activation(Creature c);
+    
+    int getutilRestantes();
+    
+    void setutilRestantes(int x);
 
 }

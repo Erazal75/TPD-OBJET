@@ -179,15 +179,20 @@ public abstract class Creature extends ElementDeJeu implements Deplacable{
     
     @Override
     public void deplace(int x , int y){
-        int c = this.getjeu().getmap(x,y); // la valeur de la case d'arrivée
-        if ( c >= 1000 || c <= 0){ // accès à la case autorisé
-            this.setpos(x, y);
-            if (c >= 1000 && c < 2000) { // il y a un objet à activer sur la case
-                Utilisable o = (Utilisable) this.getjeu().getdico().get(c);
-                o.activation(this); 
-                this.effets.add(o);
+        if (0 <= x && x < this.getjeu().getTaille() && 0 <= y && y < this.getjeu().getTaille()) {
+            int c = this.getjeu().getmap(x,y); // la valeur de la case d'arrivée
+            if ( c >= 1000 || c <= 0){ // accès à la case autorisé
+                this.setpos(x, y);
+                if (c >= 1000 && c < 2000) { // il y a un objet à activer sur la case
+                    Utilisable o = (Utilisable) this.getjeu().getdico().get(c);
+                    o.activation(this); 
+                    this.effets.add(o);
+                }
             }
-        } 
+        }    
+        else {
+            deplace();
+        }
     }
     
     /**
@@ -220,5 +225,9 @@ public abstract class Creature extends ElementDeJeu implements Deplacable{
     
     public abstract void affiche();
     
+    public List<Utilisable> getEffets(){
+        return(this.effets);
+    }
+       
 }
 

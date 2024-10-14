@@ -119,7 +119,7 @@ public class Joueur implements Deplacable{
             //System.out.println(a.equals(B));
             System.out.println(role.getdistM());
             System.out.println("rien");
-            range(listAttack,listParc,new Point2D(role.getposX(),role.getposY()),0,role.getdistM());
+            role.range(listAttack,listParc,new Point2D(role.getposX(),role.getposY()),0,role.getdistM());
             
 //            for (Point2D p : listParc ){
 //                p.affiche();
@@ -139,50 +139,6 @@ public class Joueur implements Deplacable{
             role.combattre(c);
         }
     }
-    
-    public void range(ArrayList<Integer> listAttack,ArrayList<Point2D> listParc, Point2D p1,int dist,int distMax){
-        int x = p1.getX();
-        int y = p1.getY();
-        listParc.add(p1);
-        
-        if (jeu.getmap(x, y) > 1 && jeu.getmap(x, y) < 1000){
-            listAttack.add(jeu.getmap(x, y));
-        }
-        
-        ArrayList<Point2D> listAVenir = new ArrayList<>();
-        if (x-1 >= 0){
-            Point2D p = new Point2D(x-1, y);
-            //if (!containsP2D(listParc,p)){
-                listAVenir.add(p);
-            //}
-        }
-        if (x+1 <= jeu.getTaille()-1){
-            Point2D p = new Point2D(x+1, y);
-            //if (!containsP2D(listParc,p)){
-                listAVenir.add(p);
-            //}
-        }
-        if (y+1 <= jeu.getTaille()-1){
-            Point2D p = new Point2D(x, y+1);
-            //if (!containsP2D(listParc,p)){
-                listAVenir.add(p);
-            //}
-        }
-        if (y-1 >=0){
-            Point2D p = new Point2D(x, y-1);
-            //if (!containsP2D(listParc,p)){
-                listAVenir.add(p);
-            //}
-        }
-        if (dist < distMax){
-            while (!listAVenir.isEmpty()){
-                Point2D p3 = listAVenir.remove(0);
-                //if (!containsP2D(listParc,p3)){
-                    range(listAttack,listParc,p3,dist+1,distMax); 
-                //}
-            }
-        }
-    } 
 
     /**
      * déplace le joueur de manière aléatoire

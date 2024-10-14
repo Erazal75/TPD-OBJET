@@ -14,6 +14,7 @@ public class PotionSoin extends Nourriture {
      * nbPVRendu est le nombre de point de vie que la PotionSoin peut rendre à une Creature
      */
     private int nbPVRendu;
+    private int utilRestantes = 1;
     
     /**
      * Premier constructeur de PotionSoin
@@ -77,5 +78,15 @@ public class PotionSoin extends Nourriture {
     
     public void setnbPVRendu(int nb){
         nbPVRendu = nb;
+    }
+    
+    @Override
+    public int getutilRestantes(){
+        return(this.utilRestantes);
+    }
+    
+    @Override
+    public void setutilRestantes(int x){
+        this.utilRestantes = x;
     }
 }
