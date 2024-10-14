@@ -91,7 +91,7 @@ public class Epee extends Objet implements Utilisable {
     
     @Override
     public void activation(Creature c) {
-        System.out.println("L'épée est activée, elle augmente votre force.");
+      
     }
     
     @Override
