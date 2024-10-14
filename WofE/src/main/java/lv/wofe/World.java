@@ -181,7 +181,7 @@ public class World {
     
     public void creerNPotion(int nbPotion){
         for (int i=0 ; i<nbPotion ; i=i+1){
-            Random genAlé = new Random();
+            Random genAlé = new Random(); 
             int indice = 1000 + i;
             dicoPerso.put(indice,new PotionSoin(genAlé.nextInt(20)+20,this));
         }
@@ -220,13 +220,6 @@ public class World {
      * ecrit toute les cases occupé et par quel type de créature ou d'objet
      */
     
-    public void afficheWorld(){
-        System.out.println("Affichons le Monde");
-        Set<Integer> list = dicoPerso.keySet();
-        for (Integer ind: list){
-            System.out.println(dicoPerso.get(ind).getClass() +"  ["+ dicoPerso.get(ind).getposX()+ ";" + dicoPerso.get(ind).getposY()+"]");
-        }
-    }
     
     /**
      * methode que nous allons appelé a chaque début de tour et qui nous permet de faire toutes les actions à chqaue tour
@@ -234,10 +227,56 @@ public class World {
     
     public void tourDeJeu(){
         System.out.println("Le Tour commence ...");
-        
+        System.out.println("C'est au Joueur de jouer !");
         joueur.joue();
-        System.out.println("les Actions sont effectuées ...");    
-        
+        System.out.println("les Actions suivantes sont effectuées : ");    
+        System.out.println("Les Personnages réalisent leurs actions ! "); 
+        System.out.println("Les Monstres hantent le royaume ! "); 
+        Set<Integer> list = dicoPerso.keySet();
+        for (Integer id: list){
+            ElementDeJeu perso = dicoPerso.get(id);
+            if (perso.isCreature()){
+                // les effets se dissipent :
+                List<Utilisable> effets = ((Creature)perso).getEffets();
+                int index = 0;
+                for(Utilisable effet : effets){
+                    if (effet.getutilRestantes() == -1) { // l'effet ne s'applique plus à la Creature
+                        effets.remove(index);
+                        }
+                    else {
+                        effet.setutilRestantes(effet.getutilRestantes()-1);  // l'effet se dissipe lentement
+                        }
+                    index ++;
+                }
+                        
+                // la Creature à deux possibilités d'action : se déplacer et attaquer / par défaut il attaque sauf impossibilité.
+                Creature c = (Creature)perso;
+                ArrayList<Integer> listAttack = new ArrayList<>();
+                ArrayList<Point2D> listParc = new ArrayList<>();
+                Point2D pos = new Point2D(c.getposX(), c.getposY());
+                int distMax = 1;
+                if (c instanceof Personnage){
+                    distMax = ((Personnage) c).getdistM();
+                    }
+                if (c instanceof Combattant){ // la Creature est capable de se battre
+                    c.range(listAttack, listParc, pos , 0, distMax);
+                    if (listAttack.isEmpty()){ // il n'y a personne à attaquer, la Creature se déplace
+                        c.deplace();
+                    }
+                    else { // l'ElementDeJeu attaque un ennemi proche aléatoirement
+                        Random genAlé = new Random(); 
+                        int enemy = genAlé.nextInt(listAttack.size());
+                        Creature e = (Creature) dicoPerso.get(enemy);
+                        ((Combattant) c).combattre(e);
+                    }
+                }
+                else { // la Creature n'est pas capable de se battre
+                    c.deplace();
+                }
+                
+            }  
+        }
+        System.out.println("Les effets se dissipent ...");  
         System.out.println("Le Tour se termine ...");    
         this.currentTour++; 
     }

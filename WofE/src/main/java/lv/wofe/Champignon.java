@@ -16,6 +16,7 @@ public class Champignon extends Nourriture{
      */
     
     private int malusPageAtt;
+    private int utilRestantes = 3;
     
     /**
      * Premier constructeur de Champignon
@@ -60,5 +61,15 @@ public class Champignon extends Nourriture{
     
     public int getMalus(){
         return malusPageAtt;
+    }
+        
+    @Override
+    public int getutilRestantes(){
+        return(this.utilRestantes);
+    }
+    
+    @Override
+    public void setutilRestantes(int x){
+        this.utilRestantes = x;
     }
 }

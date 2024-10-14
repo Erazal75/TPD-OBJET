@@ -17,6 +17,7 @@ public class Epee extends Objet implements Utilisable {
      */
     private int nbMain;
     private int degAtt;
+    private int utilRestantes = -10;
     
     /**
      * Premier constructeur d'Epee
@@ -91,5 +92,15 @@ public class Epee extends Objet implements Utilisable {
     @Override
     public void activation(Creature c) {
         System.out.println("L'épée est activée, elle augmente votre force.");
+    }
+    
+    @Override
+    public int getutilRestantes(){
+        return(this.utilRestantes);
+    }
+    
+    @Override
+    public void setutilRestantes(int x){
+        this.utilRestantes = x;
     }
 }
