@@ -133,6 +133,10 @@ public class Joueur implements Deplacable{
             for (int ind: listAttack){
                 System.out.println("Vous pouvez attaquez la créature en case: [" +jeu.getdico().get(ind).getposX()+";"+jeu.getdico().get(ind).getposY()+"], pour l'attquer tapez "+ind);
             }
+            choix = scanner.nextLine();
+            int choixInt = Integer.valueOf(choix);
+            Creature c = (Creature) jeu.getdico().get(choixInt);
+            role.combattre(c);
         }
     }
     
@@ -200,14 +204,6 @@ public class Joueur implements Deplacable{
     public void deplace(int x,int y){
         System.out.println("Le joueur se déplace");
         this.role.deplace( x ,  y);
-    }
-    
-    public void combattre(Creature c){
-        if (this.role instanceof Guerrier){
-            this.role.combattre(c);
-        } else if (this.role instanceof Archer){
-            this.role.combattre(c);
-        }
     }
     
     public void affiche(){
