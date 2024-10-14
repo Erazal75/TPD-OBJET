@@ -202,9 +202,25 @@ public abstract class Creature extends ElementDeJeu implements Deplacable{
     @Override
     public void deplace(){
         Random genAlé = new Random();
-        int x = genAlé.nextInt(21)-10;
-        int y = genAlé.nextInt(21)-10;
-        deplace(x,y);
+        int rand = genAlé.nextInt(4);
+        int x = getposX();
+        int y = getposY();
+        switch (rand) {
+            case 0:
+                deplace(x+1,y);
+                break;
+            case 1:
+                deplace(x-1,y);
+                break;
+            case 2:
+                deplace(x,y+1);
+                break;
+            case 3:
+                deplace(x,y-1);
+                break;
+            default:
+                break;
+        }
     }
     
     /**

@@ -33,6 +33,7 @@ public class World {
   
     private int[][] map;
     private Joueur joueur;
+    private Random genAlé = new Random();
     
     private HashMap<Integer,ElementDeJeu> dicoPerso = new HashMap<>();
     
@@ -122,12 +123,45 @@ public class World {
     public void creerNGuerrier(int nbGuerrier){
         for (int i=0 ; i<nbGuerrier ; i=i+1){
             int indice = 100 + i;
-            dicoPerso.put(indice,new Guerrier(this));
+            int ptVie = genAlé.nextInt(21)+190;
+            int DA = genAlé.nextInt(11)+55;
+            int ptPar = genAlé.nextInt(11)+30;
+            int paAtt = genAlé.nextInt(11)+90;
+            int paPar = genAlé.nextInt(11)+45;
+            int dMax = 1;
+            Point2D pos = new Point2D(0,0);
+            int argent = genAlé.nextInt(501);
+            int nbMain = 0;
+            int degEpee = 0;
+            int prix = 0;
+            int place = 0;
+            dicoPerso.put(indice,new Guerrier("",ptVie,DA,ptPar,paAtt,paPar,dMax,pos,place,nbMain,degEpee,prix,argent,this, new ArrayList<Utilisable>()));
         }
     }
     
     /**
      * Cree nbPaysan Paysans
+     * @param nbArcher 
+     */
+    
+    public void creerNArcher(int nbArcher){
+        for (int i=0 ; i<nbArcher ; i=i+1){
+            int indice = 200 + i;
+            int ptVie = genAlé.nextInt(21)+90;
+            int DA = genAlé.nextInt(11)+25;
+            int ptPar = genAlé.nextInt(10)+1;
+            int paAtt = genAlé.nextInt(11)+75;
+            int paPar = genAlé.nextInt(11)+15;
+            int dMax = genAlé.nextInt(1)+5;
+            Point2D pos = new Point2D(0,0);
+            int nbF = genAlé.nextInt(21)+20;
+            int argent = genAlé.nextInt(501);
+            dicoPerso.put(indice,new Archer("",ptVie,DA,ptPar,paAtt,paPar,dMax,pos,nbF,argent,this,new ArrayList<Utilisable>()));
+        }
+    }
+    
+    /**
+     * Cree nbArcher Archers
      * @param nbPaysan 
      */
     
@@ -135,18 +169,6 @@ public class World {
         for (int i=0 ; i<nbPaysan ; i=i+1){
             int indice = 300 + i;
             dicoPerso.put(indice,new Paysan(this));
-        }
-    }
-    
-    /**
-     * Cree nbArcher Archers
-     * @param nbArcher 
-     */
-    
-    public void creerNArcher(int nbArcher){
-        for (int i=0 ; i<nbArcher ; i=i+1){
-            int indice = 200 + i;
-            dicoPerso.put(indice,new Archer(this));
         }
     }
     
@@ -236,6 +258,8 @@ public class World {
         for (Integer id: list){
             ElementDeJeu perso = dicoPerso.get(id);
             if (perso.isCreature()){
+                int x = perso.getposX();
+                int y = perso.getposY();
                 // les effets se dissipent :
                 List<Utilisable> effets = ((Creature)perso).getEffets();
                 int index = 0;
@@ -260,20 +284,25 @@ public class World {
                     }
                 if (c instanceof Combattant){ // la Creature est capable de se battre
                     c.range(listAttack, listParc, pos , 0, distMax);
-                    if (listAttack.isEmpty()){ // il n'y a personne à attaquer, la Creature se déplace
+                    Set<Integer> set = new HashSet<>(listAttack);
+                    listAttack = new ArrayList<>(set);
+                    if (listAttack.size() <= 1){ // il n'y a personne à attaquer, la Creature se déplace
                         c.deplace();
                     }
                     else { // l'ElementDeJeu attaque un ennemi proche aléatoirement
                         Random genAlé = new Random(); 
-                        int enemy = genAlé.nextInt(listAttack.size());
-                        Creature e = (Creature) dicoPerso.get(enemy);
+                        int enemy = genAlé.nextInt(listAttack.size()-1)+1;
+                        Creature e = (Creature) dicoPerso.get(listAttack.get(enemy));
                         ((Combattant) c).combattre(e);
                     }
                 }
                 else { // la Creature n'est pas capable de se battre
                     c.deplace();
                 }
-                
+                if (c.getposX() != x || c.getposY() != y){
+                    setmap(x,y,0);
+                    setmap(c.getposX(),c.getposY(),id);
+                }
             }  
         }
         System.out.println("Les effets se dissipent ...");  

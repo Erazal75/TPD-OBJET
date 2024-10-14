@@ -156,19 +156,19 @@ public class Joueur implements Deplacable{
         System.out.println("Voulez vous aller à droite(1), à gauche(2), en bas(3) ou en haut(4)");
         String deplacement = scanner.nextLine();
         switch (deplacement) {
-            case "1" -> this.ramasse(x+1,y);
-            case "2" -> this.ramasse(x-1,y);
-            case "3" -> this.ramasse(x,y+1);
-            case "4" -> this.ramasse(x,y-1);
-            default -> {
+            case "1" : this.ramasse(x+1,y); break;
+            case "2" : this.ramasse(x-1,y); break;
+            case "3" : this.ramasse(x,y+1); break;
+            case "4" : this.ramasse(x,y-1); break;
+            default : {
             }
         } 
         switch (deplacement) {
-            case "1" -> this.deplace(x+1,y);
-            case "2" -> this.deplace(x-1,y);
-            case "3" -> this.deplace(x,y+1);
-            case "4" -> this.deplace(x,y-1);
-            default -> {
+            case "1" : this.deplace(x+1,y); break;
+            case "2" : this.deplace(x-1,y); break;
+            case "3" : this.deplace(x,y+1); break;
+            case "4" : this.deplace(x,y-1); break;
+            default : {
             }
         } 
         if (x != role.getposX() || y != role.getposY()){
@@ -190,16 +190,20 @@ public class Joueur implements Deplacable{
     
     public void utilise(){
         for (Utilisable u : inventaire){
-            if(u instanceof Champignon c){
+            if(u instanceof Champignon){
+                Champignon c = (Champignon) u;
                 System.out.println("Voulez vous utilisez un champignon qui va vous donner malus de"+c.getMalus() +"dégat pendant 3 tours.");
                 System.out.println("Tappez "+jeu.getmap(c.getposX(), c.getposY())+" pour l'utiliser");
-            } else if(u instanceof Epinard e){
+            } else if(u instanceof Epinard){
+                Epinard e = (Epinard) u;
                 System.out.println("Voulez vous utilisez un épinanrd qui va vous donner bonus de"+e.getBonus() +"dégat pendant 5 tours");
                 System.out.println("Tappez "+jeu.getmap(e.getposX(), e.getposY())+" pour l'utiliser");
-            } else if(u instanceof PotionSoin p){
+            } else if(u instanceof PotionSoin){
+                PotionSoin p = (PotionSoin) u;
                 System.out.println("Voulez vous utilisez un potion de soin qui va vous guérir "+p.getnbPVRendu() +" point de vie instantanement");
                 System.out.println("Tappez "+jeu.getmap(p.getposX(), p.getposY())+" pour l'utiliser");
-            } else if(u instanceof Epee ep && role instanceof Guerrier){
+            } else if(u instanceof Epee && role instanceof Guerrier){
+                Epee ep = (Epee) u;
                 System.out.println("Voulez vous utilisez une épee qui va donner bonus de "+ep.getdegAtt() +" dégat");
                 System.out.println("Tappez "+jeu.getmap(ep.getposX(), ep.getposY())+" pour l'utiliser");
             }
