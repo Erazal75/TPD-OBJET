@@ -24,6 +24,7 @@ public class Joueur implements Deplacable{
     private int priorité;
     private Scanner scanner = new Scanner(System.in);
     private World jeu;
+    private int nbdeplace;
 
     /**
      * permet de créer un joueur en fonction de la classe qu'il a chosi de jouer  
@@ -85,58 +86,18 @@ public class Joueur implements Deplacable{
      */
     
     public void joue(){
+        nbdeplace = 0;
         System.out.println("Le joueur joue"); 
-        System.out.println("Voulez vous combattre(1) ou vous déplacer(2):");
+        System.out.println("Voulez vous combattre(1), vous déplacer(2) ou ne rein faire(3):");
+        int x = this.role.getposX();
+        int y = this.role.getposY();
         String choix = scanner.nextLine();
         if (choix.equals("2")){
-            int x = role.getposX();
-            int y = role.getposY();
-            System.out.println("Voulez vous aller à droite(1), à gauche(2), en bas(3) ou en haut(4)");
-            String deplacement = scanner.nextLine();
-            switch (deplacement) {
-                case "1" -> this.deplace(this.role.getposX()+1,this.role.getposY());
-                case "2" -> this.deplace(this.role.getposX()-1,this.role.getposY());
-                case "3" -> this.deplace(this.role.getposX(),this.role.getposY()+1);
-                case "4" -> this.deplace(this.role.getposX(),this.role.getposY()-1);
-                default -> {
-                }
-            } 
-            if (x != role.getposX() || y != role.getposY()){
-                jeu.setmap(x,y,0);
-                jeu.setmap(role.getposX(),role.getposY(),1);
+            while (nbdeplace < 4 && x == this.role.getposX() && y == this.role.getposY()){
+                deplace();
             }
         } else if(choix.equals("1")){
-            int x = this.role.getposX();
-            int y = this.role.getposY();
-            ArrayList<Integer> listAttack = new ArrayList<>();
-            ArrayList<Point2D> listParc = new ArrayList<>();
-            role.affichePos();
-            //ArrayList<Point2D> listParc2 = new ArrayList<>();
-            //listParc2.add(new Point2D(3,6));
-            //Point2D a = new Point2D(3,6);
-            //Point2D B = new Point2D(3,6);
-            //System.out.println(containsP2D(listParc2,new Point2D(3,6)));
-            //System.out.println(a.equals(B));
-            System.out.println(role.getdistM());
-            System.out.println("rien");
-            range(listAttack,listParc,new Point2D(role.getposX(),role.getposY()),0,role.getdistM());
             
-//            for (Point2D p : listParc ){
-//                p.affiche();
-//            }
-
-            Set<Integer> set = new HashSet<>(listAttack);
-            listAttack = new ArrayList<>(set);
-            
-            System.out.println(listAttack.size());
-            
-            for (int ind: listAttack){
-                System.out.println("Vous pouvez attaquez la créature en case: [" +jeu.getdico().get(ind).getposX()+";"+jeu.getdico().get(ind).getposY()+"], pour l'attquer tapez "+ind);
-            }
-            choix = scanner.nextLine();
-            int choixInt = Integer.valueOf(choix);
-            Creature c = (Creature) jeu.getdico().get(choixInt);
-            role.combattre(c);
         }
     }
     
@@ -188,10 +149,70 @@ public class Joueur implements Deplacable{
      * déplace le joueur de manière aléatoire
      */
     
+    public void combattre(){
+        int x = this.role.getposX();
+        int y = this.role.getposY();
+        ArrayList<Integer> listAttack = new ArrayList<>();
+        ArrayList<Point2D> listParc = new ArrayList<>();
+        role.affichePos();
+        //ArrayList<Point2D> listParc2 = new ArrayList<>();
+        //listParc2.add(new Point2D(3,6));
+        //Point2D a = new Point2D(3,6);
+        //Point2D B = new Point2D(3,6);
+        //System.out.println(containsP2D(listParc2,new Point2D(3,6)));
+        //System.out.println(a.equals(B));
+        //System.out.println(role.getdistM());
+        //System.out.println("rien");
+        range(listAttack,listParc,new Point2D(x,y),0,role.getdistM());
+        Set<Integer> set = new HashSet<>(listAttack);
+        listAttack = new ArrayList<>(set);
+
+        if (listAttack.size() == 0){
+            System.out.println("Personnae n'est dans votre range d'attaque.");
+            System.out.println("Voulez vous vous déplacer(1) ou ne rien faire(2)?");
+            String choix2 = scanner.nextLine();
+            if (choix2.equals("1")){
+                deplace();
+            }
+        }
+        //System.out.println(listAttack.size());
+
+        for (int ind: listAttack){
+            System.out.println("Vous pouvez attaquez la créature en case: [" +jeu.getdico().get(ind).getposX()+";"+jeu.getdico().get(ind).getposY()+"], pour l'attquer tapez "+ind);
+        }
+        String choix = scanner.nextLine();
+        int choixInt = Integer.valueOf(choix);
+        Creature c = (Creature) jeu.getdico().get(choixInt);
+        int PV = c.getptVie();
+        role.combattre(c);
+        if (PV > c.getptVie()){
+            System.out.println("L'attaque de "+this.role.getNom()+ " est un succès. Vous avez infligez: "+(PV-c.getptVie())+" points de dégat");
+        }
+        
+    }
+    
     @Override
     public void deplace(){
-        System.out.println("Le joueur se déplace");
-        this.role.deplace();
+        nbdeplace ++;
+        int x = role.getposX();
+        int y = role.getposY();
+        System.out.println("Voulez vous aller à droite(1), à gauche(2), en bas(3) ou en haut(4)");
+        String deplacement = scanner.nextLine();
+        switch (deplacement) {
+            case "1" -> this.deplace(x+1,y);
+            case "2" -> this.deplace(x-1,y);
+            case "3" -> this.deplace(x,y+1);
+            case "4" -> this.deplace(x,y-1);
+            default -> {
+            }
+        } 
+        if (x != role.getposX() || y != role.getposY()){
+            jeu.setmap(x,y,0);
+            jeu.setmap(role.getposX(),role.getposY(),1);
+            System.out.println("Le joueur à réussit a se déplacer");
+        } else {
+            System.out.println("La case est occupée ou à l'extérieur du monde, vous n'avez pas pu vous déplacer");
+        }
     }
     
     /**
@@ -202,14 +223,9 @@ public class Joueur implements Deplacable{
     
     @Override
     public void deplace(int x,int y){
-        System.out.println("Le joueur se déplace");
         this.role.deplace( x ,  y);
     }
-    
-    public void affiche(){
-        System.out.println("Le joueur se déplace");
-    }
-    
+
     private boolean containsP2D(ArrayList<Point2D> listParc,Point2D p){
         boolean rep = false;
         for (Point2D p2: listParc){
