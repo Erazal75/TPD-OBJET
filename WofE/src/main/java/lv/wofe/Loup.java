@@ -54,7 +54,6 @@ public class Loup extends Monstre implements Combattant{
     
     @Override
     public void combattre(Creature c){
-        if (this.distance(c)<=1){
             Random genAlé = new Random();
             int pourcAtt = genAlé.nextInt(100);
             int pourcPar = genAlé.nextInt(100);
@@ -65,7 +64,4 @@ public class Loup extends Monstre implements Combattant{
                 c.setptVie(c.getptVie() - this.getdegAtt() + c.getptPar());
             }
       }
-
-
-    }
   }

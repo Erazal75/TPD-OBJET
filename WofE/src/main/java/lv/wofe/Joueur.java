@@ -130,19 +130,20 @@ public class Joueur implements Deplacable{
             if (choix2.equals("1")){
                 deplace();
             }
-        }
-        //System.out.println(listAttack.size());
+        } else {
+            //System.out.println(listAttack.size());
 
-        for (int ind: listAttack){
-            System.out.println("Vous pouvez attaquez la créature en case: [" +jeu.getdico().get(ind).getposX()+";"+jeu.getdico().get(ind).getposY()+"], pour l'attquer tapez "+ind);
-        }
-        String choix = scanner.nextLine();
-        int choixInt = Integer.valueOf(choix);
-        Creature c = (Creature) jeu.getdico().get(choixInt);
-        int PV = c.getptVie();
-        role.combattre(c);
-        if (PV > c.getptVie()){
-            System.out.println("L'attaque de "+this.role.getNom()+ " est un succès. Vous avez infligez: "+(PV-c.getptVie())+" points de dégat");
+            for (int ind: listAttack){
+                System.out.println("Vous pouvez attaquez la créature en case: [" +jeu.getdico().get(ind).getposX()+";"+jeu.getdico().get(ind).getposY()+"], pour l'attquer tapez "+ind);
+            }
+            String choix = scanner.nextLine();
+            int choixInt = Integer.valueOf(choix);
+            Creature c = (Creature) jeu.getdico().get(choixInt);
+            int PV = c.getptVie();
+            role.combattre(c);
+            if (PV > c.getptVie()){
+                System.out.println("L'attaque de "+this.role.getNom()+ " est un succès. Vous avez infligez: "+(PV-c.getptVie())+" points de dégat");
+            }
         }
         
     }

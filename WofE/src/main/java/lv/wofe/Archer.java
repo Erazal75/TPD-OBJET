@@ -68,7 +68,7 @@ public class Archer extends Personnage implements Combattant{
     
     @Override
     public void combattre(Creature c){
-        if (this.distance(c)>1 && this.distance(c)<= this.getdistM() && nbFleches > 0){
+        if (nbFleches > 0){
             Random genAlé = new Random();
             int pourcAtt = genAlé.nextInt(100);
             nbFleches = nbFleches - 1;

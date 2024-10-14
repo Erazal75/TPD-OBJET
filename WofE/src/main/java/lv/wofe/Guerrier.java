@@ -70,16 +70,13 @@ public class Guerrier extends Personnage implements Combattant{
     
     @Override
     public void combattre(Creature c){
-      if (this.distance(c)<=1){
-          Random genAlé = new Random();
-          int pourcAtt = genAlé.nextInt(100);
-          int pourcPar = genAlé.nextInt(100);
-          if (pourcAtt <= this.getpageAtt() && pourcPar>c.getpagePar()){
-              c.setptVie(c.getptVie() - this.getdegAtt() - this.arme.getdegAtt());
-          }
-          else if (pourcAtt <= this.getpageAtt() && pourcPar<=c.getpagePar() && this.getdegAtt() - c.getptPar() >0){
-              c.setptVie(c.getptVie() - this.getdegAtt() + c.getptPar());
-          }
+      Random genAlé = new Random();
+      int pourcAtt = genAlé.nextInt(100);
+      int pourcPar = genAlé.nextInt(100);
+      if (pourcAtt <= this.getpageAtt() && pourcPar>c.getpagePar()){
+          c.setptVie(c.getptVie() - this.getdegAtt() - this.arme.getdegAtt());
+      } else if (pourcAtt <= this.getpageAtt() && pourcPar<=c.getpagePar() && this.getdegAtt() - c.getptPar() >0){
+          c.setptVie(c.getptVie() - this.getdegAtt() + c.getptPar());
+      }
     }
   }
-}
