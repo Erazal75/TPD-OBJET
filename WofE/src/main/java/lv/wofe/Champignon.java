@@ -47,10 +47,18 @@ public class Champignon extends Nourriture{
         this.malusPageAtt = 0;
     }
     
+    public Champignon(int malusPageAtt,World jeu){
+        super(3,new Point2D(),jeu);
+        this.malusPageAtt = malusPageAtt; 
+    }
+    
     @Override
     public void activation(Creature c) {
         c.setpageAtt(c.getpageAtt() - malusPageAtt);
         System.out.println("Vous avez le Tournis !");
     }
     
+    public int getMalus(){
+        return malusPageAtt;
+    }
 }

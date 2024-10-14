@@ -16,7 +16,6 @@ public class Epinard extends Nourriture{
      */
     
     private int bonusDegAtt;
-    private Point2D pos;
     
     /**
      * Premier constructeur d'Epinard
@@ -48,10 +47,18 @@ public class Epinard extends Nourriture{
         this.bonusDegAtt = 0;
     }
     
+    public Epinard(int bonusDegAtt, World jeu){
+        super(5, new Point2D(),jeu);
+        this.bonusDegAtt = bonusDegAtt; 
+    }
+    
     @Override
     public void activation(Creature c) {
         c.setdegAtt(c.getdegAtt() + bonusDegAtt);
         System.out.println("Vous avez gagné de la Force !");
     }
     
+    public int getBonus(){
+        return bonusDegAtt;
+    }
 }

@@ -18,14 +18,12 @@ public class Joueur implements Deplacable{
      * role est le rôle du Joueur, cela correspond à un Protagoniste parmi les Personnages
      * numeroJoueur est l'ordre de priorité du Joueur par rapport aux autres Joueurs
      */
-    
-    private ArrayList<Objet> inventaire;
     private Personnage role;
     private int priorité;
     private Scanner scanner = new Scanner(System.in);
     private World jeu;
     private int nbdeplace;
-
+    private ArrayList<Utilisable> inventaire = new ArrayList();
     /**
      * permet de créer un joueur en fonction de la classe qu'il a chosi de jouer  
      */
@@ -88,7 +86,7 @@ public class Joueur implements Deplacable{
     public void joue(){
         nbdeplace = 0;
         System.out.println("Le joueur joue"); 
-        System.out.println("Voulez vous combattre(1), vous déplacer(2) ou ne rein faire(3):");
+        System.out.println("Voulez vous combattre(1), vous déplacer(2), utiliser un objet(3) ou ne rein faire(4):");
         int x = this.role.getposX();
         int y = this.role.getposY();
         String choix = scanner.nextLine();
@@ -97,7 +95,9 @@ public class Joueur implements Deplacable{
                 deplace();
             }
         } else if(choix.equals("1")){
-            
+            combattre();
+        } else if(choix.equals("3")){
+            utilise();
         }
     }
     
@@ -199,6 +199,14 @@ public class Joueur implements Deplacable{
         System.out.println("Voulez vous aller à droite(1), à gauche(2), en bas(3) ou en haut(4)");
         String deplacement = scanner.nextLine();
         switch (deplacement) {
+            case "1" -> this.ramasse(x+1,y);
+            case "2" -> this.ramasse(x-1,y);
+            case "3" -> this.ramasse(x,y+1);
+            case "4" -> this.ramasse(x,y-1);
+            default -> {
+            }
+        } 
+        switch (deplacement) {
             case "1" -> this.deplace(x+1,y);
             case "2" -> this.deplace(x-1,y);
             case "3" -> this.deplace(x,y+1);
@@ -213,6 +221,37 @@ public class Joueur implements Deplacable{
         } else {
             System.out.println("La case est occupée ou à l'extérieur du monde, vous n'avez pas pu vous déplacer");
         }
+    }
+    
+    public void ramasse(int x ,int y){
+        int obj = jeu.getmap(x,y);
+        if (obj >= 1000 && obj < 2000){
+            inventaire.add((Utilisable) jeu.getdico().get(obj));
+            jeu.setmap(x,y,0);
+        }
+    }
+    
+    public void utilise(){
+        for (Utilisable u : inventaire){
+            if(u instanceof Champignon c){
+                System.out.println("Voulez vous utilisez un champignon qui va vous donner malus de"+c.getMalus() +"dégat pendant 3 tours.");
+                System.out.println("Tappez "+jeu.getmap(c.getposX(), c.getposY())+" pour l'utiliser");
+            } else if(u instanceof Epinard e){
+                System.out.println("Voulez vous utilisez un épinanrd qui va vous donner bonus de"+e.getBonus() +"dégat pendant 5 tours");
+                System.out.println("Tappez "+jeu.getmap(e.getposX(), e.getposY())+" pour l'utiliser");
+            } else if(u instanceof PotionSoin p){
+                System.out.println("Voulez vous utilisez un potion de soin qui va vous guérir "+p.getnbPVRendu() +" point de vie instantanement");
+                System.out.println("Tappez "+jeu.getmap(p.getposX(), p.getposY())+" pour l'utiliser");
+            } else if(u instanceof Epee ep && role instanceof Guerrier){
+                System.out.println("Voulez vous utilisez une épee qui va donner bonus de "+ep.getdegAtt() +" dégat");
+                System.out.println("Tappez "+jeu.getmap(ep.getposX(), ep.getposY())+" pour l'utiliser");
+            }
+        }
+        String choix = scanner.nextLine();
+        int choi = Integer.valueOf(choix);
+        Utilisable uti = (Utilisable) jeu.getdico().get(choi);
+        uti.activation(role);
+        role.getEffets().add(uti);   
     }
     
     /**
