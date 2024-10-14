@@ -76,11 +76,9 @@ public class Guerrier extends Personnage implements Combattant{
           int pourcPar = genAlé.nextInt(100);
           if (pourcAtt <= this.getpageAtt() && pourcPar>c.getpagePar()){
               c.setptVie(c.getptVie() - this.getdegAtt() - this.arme.getdegAtt());
-              System.out.println("l'attaque du Guerrier est un succès");
           }
           else if (pourcAtt <= this.getpageAtt() && pourcPar<=c.getpagePar() && this.getdegAtt() - c.getptPar() >0){
               c.setptVie(c.getptVie() - this.getdegAtt() + c.getptPar());
-              System.out.println("l'attaque du Guerrier est contrée");
           }
     }
   }
