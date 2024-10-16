@@ -24,6 +24,7 @@ public class Joueur implements Deplacable{
     private World jeu;
     private int nbdeplace;
     private ArrayList<Utilisable> inventaire = new ArrayList();
+    private ArrayList<Integer> inventaireInd = new ArrayList();
     /**
      * permet de créer un joueur en fonction de la classe qu'il a chosi de jouer  
      */
@@ -86,6 +87,7 @@ public class Joueur implements Deplacable{
     public void joue(){
         nbdeplace = 0;
         System.out.println("Le joueur joue"); 
+        System.out.println("Votre Personnage est en position: ["+role.getposX()+";"+role.getposY()+"]"); 
         System.out.println("Voulez vous combattre(1), vous déplacer(2), utiliser un objet(3) ou ne rein faire(4):");
         int x = this.role.getposX();
         int y = this.role.getposY();
@@ -124,7 +126,7 @@ public class Joueur implements Deplacable{
         listAttack = new ArrayList<>(set);
 
         if (listAttack.size() == 0){
-            System.out.println("Personnae n'est dans votre range d'attaque.");
+            System.out.println("Personne n'est dans votre range d'attaque.");
             System.out.println("Voulez vous vous déplacer(1) ou ne rien faire(2)?");
             String choix2 = scanner.nextLine();
             if (choix2.equals("1")){
@@ -134,7 +136,7 @@ public class Joueur implements Deplacable{
             //System.out.println(listAttack.size());
 
             for (int ind: listAttack){
-                System.out.println("Vous pouvez attaquez la créature en case: [" +jeu.getdico().get(ind).getposX()+";"+jeu.getdico().get(ind).getposY()+"], pour l'attquer tapez "+ind);
+                System.out.println("Vous pouvez attaquer la créature en case: [" +jeu.getdico().get(ind).getposX()+";"+jeu.getdico().get(ind).getposY()+"], pour l'attaquer tapez "+ind);
             }
             String choix = scanner.nextLine();
             int choixInt = Integer.valueOf(choix);
@@ -174,7 +176,7 @@ public class Joueur implements Deplacable{
         if (x != role.getposX() || y != role.getposY()){
             jeu.setmap(x,y,0);
             jeu.setmap(role.getposX(),role.getposY(),1);
-            System.out.println("Le joueur à réussit a se déplacer");
+            System.out.println("Le joueur à réussit a se déplacer en position ["+role.getposX()+";"+role.getposY()+"]");
         } else {
             System.out.println("La case est occupée ou à l'extérieur du monde, vous n'avez pas pu vous déplacer");
         }
@@ -183,36 +185,60 @@ public class Joueur implements Deplacable{
     public void ramasse(int x ,int y){
         int obj = jeu.getmap(x,y);
         if (obj >= 1000 && obj < 2000){
+            Utilisable u = (Utilisable) jeu.getdico().get(obj);
+            if(u instanceof Champignon){
+                Champignon c = (Champignon) u;
+                System.out.println("Vous avez ramassé un champignon qui va vous donner malus de"+c.getMalus() +"dégat pendant 3 tours quand vous l'utiliserez.");
+            } else if(u instanceof Epinard){
+                Epinard e = (Epinard) u;
+                System.out.println("Vous avez ramassé un épinanrd qui va vous donner bonus de"+e.getBonus() +"dégat pendant 5 tours quand vous l'utiliserez.");
+            } else if(u instanceof PotionSoin){
+                PotionSoin p = (PotionSoin) u;
+                System.out.println("Vous avez ramassé un potion de soin qui va vous guérir "+p.getnbPVRendu() +" point de vie instantanement quand vous l'utiliserez.");
+            } else if(u instanceof Epee && role instanceof Guerrier){
+                Epee ep = (Epee) u;
+                System.out.println("Vous avez ramassé une épee qui va donner bonus de "+ep.getdegAtt() +" dégat quand vous l'équiperez");
+            }
             inventaire.add((Utilisable) jeu.getdico().get(obj));
+            inventaireInd.add(obj);
             jeu.setmap(x,y,0);
         }
     }
     
     public void utilise(){
-        for (Utilisable u : inventaire){
+        for (int i = 0; i < inventaire.size();i++){
+            Utilisable u = inventaire.get(i);
+            int obj = inventaireInd.get(i);
             if(u instanceof Champignon){
                 Champignon c = (Champignon) u;
                 System.out.println("Voulez vous utilisez un champignon qui va vous donner malus de"+c.getMalus() +"dégat pendant 3 tours.");
-                System.out.println("Tappez "+jeu.getmap(c.getposX(), c.getposY())+" pour l'utiliser");
+                System.out.println("Tappez "+obj+" pour l'utiliser");
             } else if(u instanceof Epinard){
                 Epinard e = (Epinard) u;
                 System.out.println("Voulez vous utilisez un épinanrd qui va vous donner bonus de"+e.getBonus() +"dégat pendant 5 tours");
-                System.out.println("Tappez "+jeu.getmap(e.getposX(), e.getposY())+" pour l'utiliser");
+                System.out.println("Tappez "+obj+" pour l'utiliser");
             } else if(u instanceof PotionSoin){
                 PotionSoin p = (PotionSoin) u;
                 System.out.println("Voulez vous utilisez un potion de soin qui va vous guérir "+p.getnbPVRendu() +" point de vie instantanement");
-                System.out.println("Tappez "+jeu.getmap(p.getposX(), p.getposY())+" pour l'utiliser");
+                System.out.println("Tappez "+obj+" pour l'utiliser");
             } else if(u instanceof Epee && role instanceof Guerrier){
                 Epee ep = (Epee) u;
                 System.out.println("Voulez vous utilisez une épee qui va donner bonus de "+ep.getdegAtt() +" dégat");
-                System.out.println("Tappez "+jeu.getmap(ep.getposX(), ep.getposY())+" pour l'utiliser");
+                System.out.println("Tappez "+obj+" pour l'utiliser");
             }
         }
+        System.out.println("Tappez le nombre écrit plus haut pour utiliser un objet ou (1) pour vous déplacer (2) pour combattre (3) pour ne rien faire");
         String choix = scanner.nextLine();
-        int choi = Integer.valueOf(choix);
-        Utilisable uti = (Utilisable) jeu.getdico().get(choi);
-        uti.activation(role);
-        role.getEffets().add(uti);   
+        int choi = Integer.parseInt(choix);
+        if (choi == 1){
+            deplace();
+        } else if (choi == 2){
+            combattre();
+        } else if (choi >= 1000){
+            Utilisable uti = (Utilisable) jeu.getdico().get(choi);
+            uti.activation(role);
+            role.getEffets().add(uti);   
+        }
     }
     
     /**
@@ -235,5 +261,9 @@ public class Joueur implements Deplacable{
             }
         }
         return rep;
+    }
+    
+    public Personnage getRole(){
+        return role;
     }
 }

@@ -113,6 +113,9 @@ public class World {
                 }
             }
         }
+        setmap(dicoPerso.get(100).getposX(),dicoPerso.get(100).getposY(),0);
+        dicoPerso.get(100).setpos(0,0);
+        setmap(0,0,100);
     }
     
     /**
@@ -256,6 +259,9 @@ public class World {
         System.out.println("Les Monstres hantent le royaume ! "); 
         Set<Integer> list = dicoPerso.keySet();
         for (Integer id: list){
+            if (id == 100){
+                id = 100;
+            }
             ElementDeJeu perso = dicoPerso.get(id);
             if (perso.isCreature()){
                 int x = perso.getposX();
@@ -314,7 +320,9 @@ public class World {
      * permet d'afficher le jue dans la console
      */
     
-    public void afficheJeu(){    
+    public void afficheJeu(){ 
+        System.out.println(dicoPerso.get(100).getposX());
+        System.out.println(dicoPerso.get(100).getposY());
         for (int i = 0;i <  map.length; i++ ) {
             for (int j = 0; j < map.length; j++) {
                 if (map[j][i] == 0) {

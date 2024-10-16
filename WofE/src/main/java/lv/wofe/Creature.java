@@ -179,7 +179,7 @@ public abstract class Creature extends ElementDeJeu implements Deplacable{
     
     @Override
     public void deplace(int x , int y){
-        if (0 <= x && x < this.getjeu().getTaille() && 0 <= y && y < this.getjeu().getTaille()) {
+        if (x >= 0 && x < this.getjeu().getTaille() && y >=0 && y < this.getjeu().getTaille()) {
             int c = this.getjeu().getmap(x,y); // la valeur de la case d'arrivée
             if ( c >= 1000 || c <= 0){ // accès à la case autorisé
                 this.setpos(x, y);

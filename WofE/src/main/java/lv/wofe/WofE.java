@@ -22,7 +22,7 @@ public class WofE {
     
     public static void main(String[] args) {
         
-        // monMonde = new World(50);
+        monMonde = new World(50);
         
 //////////////////////////////////// TP 3 //////////////////////////////////////
         
