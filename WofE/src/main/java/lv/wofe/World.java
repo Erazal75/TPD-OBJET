@@ -23,13 +23,6 @@ public class World {
     public Lapin bugy = new Lapin();
     public PotionSoin heal = new PotionSoin();
     */
-    
-    /*
-    0 = case vide
-    1 = Joueur
-    2 = PNJ
-    3 = Objet
-    */
   
     private int[][] map;
     private Joueur joueur;
@@ -40,6 +33,11 @@ public class World {
     private int taille;
     private int currentTour = 0; 
 
+    /**
+     * Constructeur de World avec en paramètre la taille du monde qu'on considère pour l'instant carré
+     * @param nb 
+     */
+    
     public World(int nb){
         
         taille = nb;
@@ -222,6 +220,11 @@ public class World {
         }
     }
     
+    /**
+     * crée nbChampi Champignon
+     * @param nbChampi 
+     */
+    
     public void creerNChampi(int nbChampi){
         for (int i=0 ; i<nbChampi ; i=i+1){
             Random genAlé = new Random();
@@ -229,6 +232,11 @@ public class World {
             dicoPerso.put(indice,new Champignon(genAlé.nextInt(20)+20,this)); 
         }
     }
+    
+    /**
+     * Crée nbEpi Epinard
+     * @param nbEpi 
+     */
     
     public void creerNEpi(int nbEpi){
         for (int i=0 ; i<nbEpi ; i=i+1){
@@ -238,13 +246,9 @@ public class World {
         }
     }
     
-    /**
-     * ecrit toute les cases occupé et par quel type de créature ou d'objet
-     */
-    
     
     /**
-     * methode que nous allons appelé a chaque début de tour et qui nous permet de faire toutes les actions à chqaue tour
+     * methode que nous allons appelé a chaque début de tour et qui nous permet de faire toutes les actions à chaque tour
      */
     
     public void tourDeJeu(){
@@ -257,7 +261,7 @@ public class World {
         Set<Integer> list = dicoPerso.keySet();
         for (Integer id: list){
             ElementDeJeu perso = dicoPerso.get(id);
-            if (perso.isCreature()){
+            if (perso instanceof Creature){
                 int x = perso.getposX();
                 int y = perso.getposY();
                 // les effets se dissipent :
@@ -311,7 +315,7 @@ public class World {
     }
     
     /**
-     * permet d'afficher le jue dans la console
+     * permet d'afficher le jeu dans la console
      */
     
     public void afficheJeu(){ 

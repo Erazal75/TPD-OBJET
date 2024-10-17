@@ -56,6 +56,11 @@ public class NuageToxique extends Objet implements Deplacable {
         vitesse = 0;
     }
     
+    /**
+     * active le nuage toxique et enleve des points de vie a la personne qui se situe sur la même case
+     * @param c 
+     */
+    
     @Override
     public void activation(Creature c) {
         c.setptVie(c.getptVie() - this.degAtt);
@@ -63,17 +68,25 @@ public class NuageToxique extends Objet implements Deplacable {
     }
     
     /**
-     * déplace le nuage toxic en position x y
-     * @param x
-     * @param y 
+     * deplace permet de déplacer la Creature aux coordonnées (x,y) désirées.
+     * Simultanément, nous vérifions que lors du déplacement : 
+     * 1) la Creature se déplace sur un Objet, si c'est le cas, l'Objet s'active
+     * 2) la Creature ne se déplace pas sur une case déjà occuppée par une autre Creature
+     * @param x est l'abscisse des coordonnées
+     * @param y est l'ordonnée des coordonéees 
      */
     
     @Override
     public void deplace(int x , int y){
-        int c = this.getjeu().getmap(x,y); // la valeur de la case d'arrivée
-        if ( c >= 1000 || c <= 0){ // accès à la case autorisé
-            this.setpos(x, y);
-        } 
+        if (x >= 0 && x < this.getjeu().getTaille() && y >=0 && y < this.getjeu().getTaille()) {
+            int c = this.getjeu().getmap(x,y); // la valeur de la case d'arrivée
+            if ( c < 1000){ // accès à la case autorisé
+                this.setpos(x, y);
+            }
+        }    
+        else {
+            deplace();
+        }
     }
     
     /**
@@ -83,8 +96,24 @@ public class NuageToxique extends Objet implements Deplacable {
     @Override
     public void deplace(){
         Random genAlé = new Random();
-        int x = genAlé.nextInt(21)-10;
-        int y = genAlé.nextInt(21)-10;
-        deplace(x,y);
+        int rand = genAlé.nextInt(4);
+        int x = getposX();
+        int y = getposY();
+        switch (rand) {
+            case 0:
+                deplace(x+1,y);
+                break;
+            case 1:
+                deplace(x-1,y);
+                break;
+            case 2:
+                deplace(x,y+1);
+                break;
+            case 3:
+                deplace(x,y-1);
+                break;
+            default:
+                break;
+        }
     }
 }

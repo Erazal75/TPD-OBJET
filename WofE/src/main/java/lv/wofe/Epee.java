@@ -27,6 +27,7 @@ public class Epee extends Objet implements Utilisable {
      * @param placeEpee place prise par l'epee
      * @param prix pric de l'epee
      * @param p est la position de l'Epee
+     * @param jeu
      */
     
     public Epee(int nbmain,int degEpee, int placeEpee,int prix, Point2D p,World jeu){
@@ -38,6 +39,7 @@ public class Epee extends Objet implements Utilisable {
     /**
      * crée une épee
      * @param degAtt 
+     * @param jeu 
      */
     
     public Epee(int degAtt,World jeu){
@@ -59,6 +61,7 @@ public class Epee extends Objet implements Utilisable {
     
     /**
      * Troisème contructeur d'Epee, permet d'initialiser tous les attributs avec leur valeur par défaut.
+     * @param jeu
      */
     
     public Epee(World jeu){

@@ -67,6 +67,7 @@ public class Monstre extends Creature{
      * affichePos permet d'afficher la position du Monstre.
      */
     
+    @Override
     public void affichePos(){
         System.out.println("Votre monstre est en position: ["+ this.getposX()+";"+this.getposY()+"]");
     }

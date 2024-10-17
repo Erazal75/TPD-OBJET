@@ -17,6 +17,11 @@ public interface Utilisable {
     
     void activation(Creature c);
     
+    /**
+     * renvoie l e nombre de tour restant pour l'utilisable
+     * @return int
+     */
+    
     int getutilRestantes();
     
     void setutilRestantes(int x);

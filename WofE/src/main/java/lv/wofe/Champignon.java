@@ -48,10 +48,21 @@ public class Champignon extends Nourriture{
         this.malusPageAtt = 0;
     }
     
+    /**
+     * dernier constructeur de Chamignon
+     * @param malusPageAtt
+     * @param jeu 
+     */
+    
     public Champignon(int malusPageAtt,World jeu){
         super(3,new Point2D(),jeu);
         this.malusPageAtt = malusPageAtt; 
     }
+    
+    /**
+     * permet d'activer un Champignon sur une Créture pour lui donner le malus de précision d'attaque
+     * @param c 
+     */
     
     @Override
     public void activation(Creature c) {
@@ -62,11 +73,21 @@ public class Champignon extends Nourriture{
     public int getMalus(){
         return malusPageAtt;
     }
-        
+    
+    /**
+     * renvoie le nombre de tour restant du malus
+     * @return 
+     */   
+    
     @Override
     public int getutilRestantes(){
         return(this.utilRestantes);
     }
+    
+    /**
+     * change le nombre de tour restant du malus 
+     * @param x 
+     */
     
     @Override
     public void setutilRestantes(int x){

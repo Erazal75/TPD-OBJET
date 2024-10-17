@@ -47,26 +47,9 @@ abstract class ElementDeJeu {
         jeu = null;
     }
     
-    /**
-     * isObjet permet de savoir, grâce à un booléen, si l'ElementDeJeu est un Objet.
-     */
-    
-    public boolean isObjet(){
-        return (this instanceof Objet);
-    }
-    
-    /**
-     * isCreature permet de savoir, grâce à un booléen, si l'ElementDeJeu est une Creature.
-     */
-    
-    public boolean isCreature(){
-        return (this instanceof Creature);
-    }
-    
     public World getjeu(){
         return jeu;
     }
-    
     
     public void setpos(int x, int y){
         pos.setPosition(x,y);
@@ -86,11 +69,34 @@ abstract class ElementDeJeu {
      * @return 
      */
     
-    
     public float distance (ElementDeJeu c){
         return this.pos.distance(c.pos);
     }
     
+    /**
+     * Permet de calculer les Creatures qui sont range de notre Creature
+     * Cela utilise une liste listAttack qui est l'ensemble des Creatures qui sont attaqueble par notre Creature
+     * listParc qui est une liste des case déjà parcouru
+     * p1 qui est le Point2D qu'on est entrain de regarder
+     * dist est la distance à la case initiale
+     * distMax est la distance maximale a laquelle nous avons le droit d'aller de la case initiale
+     * 
+     * Nous avons rencontrer un problème que nous avons pas réussi à regler
+     * Notre algorythme passe plusieurs fois sur les même cases 
+     * ce qui n'est pas un problème pour notre algorythme de pettie taille 
+     * mais qui peut le devenir avec un jeu plus gros
+     * 
+     * Nous avons essayé plusieurs solution mais rien de concluant car 
+     * Soit l'algorythme ne passait jamais sur certaines cases 
+     * Soit il fallait créer une nouvelle classe qui était Point2d avec un int en plus 
+     * représentant la distance à la case initiale
+     * 
+     * @param listAttack
+     * @param listParc
+     * @param p1
+     * @param dist
+     * @param distMax 
+     */
     public void range(ArrayList<Integer> listAttack, ArrayList<Point2D> listParc, Point2D p1,int dist,int distMax){
         int x = p1.getX();
         int y = p1.getY();
