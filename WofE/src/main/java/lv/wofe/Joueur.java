@@ -6,6 +6,8 @@ package lv.wofe;
 
 import java.lang.reflect.Array;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,15 +21,25 @@ public class Joueur implements Deplacable{
      * numeroJoueur est l'ordre de priorité du Joueur par rapport aux autres Joueurs
      */
     private Personnage role;
-    private int priorité;
+    private int priorite;
     private Scanner scanner = new Scanner(System.in);
     private World jeu;
     private int nbdeplace;
     private ArrayList<Utilisable> inventaire = new ArrayList();
     private ArrayList<Integer> inventaireInd = new ArrayList();
     /**
-     * permet de créer un joueur en fonction de la classe qu'il a chosi de jouer  
+     * permet de créer un joueur en fonction de la classe qu'il a choisit de jouer  
      */
+    
+    public Joueur(Personnage role, int priorite, Scanner scanner, World jeu, int nbdeplace, ArrayList<Utilisable> inventaire,ArrayList<Integer> inventaireInd){
+        this.role = role;
+        this.priorite = priorite;
+        this.scanner = scanner;
+        this.jeu = jeu;
+        this.nbdeplace = nbdeplace;
+        this.inventaire = inventaire;
+        this.inventaireInd = inventaireInd;
+    }
         
     public Joueur(World jeu){
         this.jeu = jeu;
@@ -88,18 +100,44 @@ public class Joueur implements Deplacable{
         nbdeplace = 0;
         System.out.println("Le joueur joue"); 
         System.out.println("Votre Personnage est en position: ["+role.getposX()+";"+role.getposY()+"]"); 
-        System.out.println("Voulez vous combattre(1), vous déplacer(2), utiliser un objet(3) ou ne rein faire(4):");
+        System.out.println("Voulez vous combattre(1), vous déplacer(2), utiliser un objet(3), sauvegarder la partie (4) ou ne rien faire(5):");
         int x = this.role.getposX();
         int y = this.role.getposY();
         String choix = scanner.nextLine();
         if (choix.equals("2")){
             while (nbdeplace < 4 && x == this.role.getposX() && y == this.role.getposY()){
-                deplace();
+                try{
+                    deplace();
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("Erreur : Vous ne pouvez pas sortir de la Carte !");
+                        this.joue();
+                    }
             }
         } else if(choix.equals("1")){
             combattre();
         } else if(choix.equals("3")){
             utilise();
+        } else if (choix.equals("4")){
+            System.out.print("Entrez le nom de la sauvegarde (0 pour un nom automatique) : ");
+            String nomSauvegarde = scanner.nextLine();
+            if (nomSauvegarde.equals("0")){
+                try {
+                    jeu.sauvegarderPartie();
+                } catch (IllegalArgumentException ex) {
+                    Logger.getLogger(Joueur.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IllegalAccessException ex) {
+                    Logger.getLogger(Joueur.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            else {
+                try {
+                    jeu.sauvegarderPartie(nomSauvegarde);
+                } catch (IllegalArgumentException ex) {
+                    Logger.getLogger(Joueur.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IllegalAccessException ex) {
+                    Logger.getLogger(Joueur.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
 
@@ -265,5 +303,18 @@ public class Joueur implements Deplacable{
     
     public Personnage getRole(){
         return role;
+    }
+    
+    public void setRole(Personnage role){
+        this.role = role;
+    }
+    
+    public void addInventory(Utilisable o, int ind){
+        this.inventaire.add(o);
+        this.inventaireInd.add(ind);
+    }
+    
+    public ArrayList<Utilisable> getInventory(){
+        return(this.inventaire);
     }
 }
