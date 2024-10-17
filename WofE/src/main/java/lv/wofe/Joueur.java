@@ -157,6 +157,7 @@ public class Joueur implements Deplacable{
         int y = role.getposY();
         System.out.println("Voulez vous aller à droite(1), à gauche(2), en bas(3) ou en haut(4)");
         String deplacement = scanner.nextLine();
+        
         switch (deplacement) {
             case "1" : this.ramasse(x+1,y); break;
             case "2" : this.ramasse(x-1,y); break;
