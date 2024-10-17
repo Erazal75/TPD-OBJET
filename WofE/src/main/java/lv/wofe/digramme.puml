@@ -1,0 +1,228 @@
+@startuml
+skinparam dpi 300
+
+class World {
+    - int[][] map
+    - Joueur joueur
+    - HashMap<Integer,ElementDeJeu> dicoPerso
+    - int taille
+    + World(int nb)
+    + creerMondeAlea()
+    + creerNGuerrier(int nbGuerrier)
+    + creerNArcher(int nbArcher)
+    + creerNPaysan(int nbPaysan)
+    + creerNLoup(int nbLoup)
+    + creerNLapin(int nbLapin)
+    + creerNPotion(int nbPotion)
+    + creerNEpee(int nbEpee)
+    + creerNChampi(int nbChampi)
+    + creerNEpi(int nbEpi)
+    + tourDeJeu() 
+    + afficheJeu()
+}
+
+interface Utilisable {
+    + activation(Creature c)
+    + getutilRestantes()
+    + setutilRestantes(int x)
+}
+
+class PotionSoin extends Nourriture {
+    - int nbPVRendu
+    - int utilRestantes
+    + PotionSoin(int nbPVRendu, int place,int prix,Point2D p,World jeu)
+    + PotionSoin(int nbPVRendu,World jeu)
+    + PotionSoin(World jeu)
+    + PotionSoin(PotionSoin p)
+    + activation(Creature c)
+}
+
+class Point2D {
+    - int x
+    - int y
+    + Point2D(int x,int y)
+    + Point2D()
+    + Point2D(Point2D v)
+    + translate(int x, int y)
+    + affiche()
+    + distance (Point2D p)
+    + equals(Point2D p)
+}
+
+abstract class Personnage extends Creature{
+    - String nom
+    - int distAttMax
+    - int argent
+    + Personnage(String nom,int ptVie,int dAtt, int ptP,int pageA, int pageP, int distAttM,Point2D p,int argent,World jeu, List<Utilisable> effets)
+    + Personnage(Personnage p)
+    + Personnage(World jeu)
+    + rencontrer(Personnage p)
+    + affiche()
+    + affichePos()
+    + abstract combattre(Creature c)
+}
+
+class Paysan extends Personnage{
+    + Paysan(String n,int pV,int dA,int ptPar,int paAtt,int paPar,int dMax,Point2D p,int argent,World jeu, List<Utilisable> effets)
+    + Paysan(Paysan p)
+    + Paysan(World jeu)
+}
+
+class Objet extends ElementDeJeu{
+    - int place
+    - int prix
+    + Objet(int place,int prix, Point2D p,World jeu)
+    + Objet(Objet o)
+    + Objet(World jeu)
+    + abstract activation(Creature c)
+}
+
+class NuageToxique extends Objet implements Deplacable{
+    - int degAtt
+    - int vitesse   
+    + NuageToxique(int degAtt, int vitesse, Point2D pos,World jeu)
+    + NuageToxique(NuageToxique n)
+    + NuageToxique(World jeu) 
+    + activation(Creature c)
+    + deplace(int x , int y)
+    + deplace()
+}
+
+class Nourriture extends Objet implements Utilisable{
+    - int nbTour
+    + Nourriture(int nbTour, Point2D pos,World jeu)
+    + Nourriture(Nourriture n)
+    + Nourriture(World jeu)
+}
+
+class Monstre extends Creature{
+    + Monstre(int ptVie,int dAtt, int ptP,int pageA, int pageP,Point2D p,World jeu, List<Utilisable> effets)
+    + Monstre(Monstre m)
+    + Monstre(World jeu)
+    + affiche()
+    + affichePos()
+}
+
+class Loup extends Monstre implements Combattant{
+    + Loup(int pV,int dA,int ptPar,int paAtt,int paPar,Point2D p,World jeu, List<Utilisable> effets)
+    + Loup(Loup l)
+    + Loup(World jeu)
+    + combattre(Creature c)
+}
+
+class Lapin extends Monstre{
+    + Lapin(int pV,int dA,int ptPar,int paAtt,int paPar,Point2D p,World jeu, List<Utilisable> effets)
+    + Lapin(Lapin l)
+    + Lapin(World jeu)
+}
+
+class Joueur implements Deplacable{
+    - Personnage role
+    - int priorité
+    - Scanner scanner 
+    - World jeu 
+    - int nbdeplace
+    - ArrayList<Utilisable> inventaire
+    - ArrayList<Integer> inventaireInd
+    + Joueur(World jeu)
+    + joue()
+    + combattre()
+    + deplace()
+    + ramasse(int x ,int y)
+    + utilise()
+    + deplace(int x,int y)
+    + containsP2D(ArrayList<Point2D> listParc,Point2D p)
+}
+
+class Archer extends Personnage implements Combattant{
+    - int nbFleches
+    + Archer(String n,int pV,int dA,int ptPar,int paAtt,int paPar,int dMax,Point2D p,int nbFleches,int argent,World jeu, List<Utilisable> effets)
+    + Archer(Archer a)
+    + Archer(World jeu)
+    + combattre(Creature c)
+}
+
+class Champignon extends Nourriture{
+    - int malusPageAtt
+    - int utilRestantes
+    + Champignon(int malusPageAtt, Point2D pos,World jeu)
+    + Champignon(Champignon c)
+    + Champignon(World jeu)
+    + Champignon(int malusPageAtt,World jeu)    
+    + activation(Creature c)
+}
+
+interface Combattant {
+    + combattre(Creature c)
+}
+
+abstract class Creature extends ElementDeJeu implements Deplacable{
+    - int ptVie
+    - int degAtt;
+    - int ptPar;
+    - int pageAtt;
+    - int pagePar;
+    - List<Utilisable> effets;
+    + Creature(int ptVie,int dAtt, int ptP,int pageA, int pageP,Point2D p,World jeu, List<Utilisable> effets)
+    + Creature(Creature c)
+    + Creature(World jeu)
+    + deplace(int x , int y)
+    + deplace()
+    + coincide(Creature c)
+    + affichePos()  
+    + abstract affiche()
+}
+
+interface Deplacable {
+    + deplace(int x , int y)
+    + deplace()
+}
+
+class ElementDeJeu {
+    - Point2D pos
+    - World jeu
+    + ElementDeJeu(Point2D p,World jeu)
+    + ElementDeJeu(ElementDeJeu e)  
+    + ElementDeJeu()
+    + distance (ElementDeJeu c)
+    + range(ArrayList<Integer> listAttack, ArrayList<Point2D> listParc, Point2D p1,int dist,int distMax)
+}
+
+class Epee extends Objet implements Utilisable{
+    - int nbMain
+    - int degAtt
+    - int utilRestantes
+    + Epee(int nbmain,int degEpee, int placeEpee,int prix, Point2D p,World jeu) 
+    + Epee(int degAtt,World jeu)
+    + Epee(Epee e)
+    + Epee(World jeu)
+    + activation(Creature c)
+}
+
+class Epinard extends Nourriture{
+    - int bonusDegAtt
+    - int utilRestantes
+    + Epinard(int bonusDegAtt, Point2D pos,World jeu)
+    + Epinard(Epinard e)
+    + Epinard(World jeu)
+    + Epinard(int bonusDegAtt, World jeu)  
+    + activation(Creature c)
+}
+
+class Guerrier extends Personnage implements Combattant{
+    - Epee arme
+    + Guerrier(String n,int pV,int dA,int ptPar,int paAtt,int paPar,int dMax,Point2D p,
+            int placeEpee,int nbmain,int degEpee,int prix,int argent, World jeu, List<Utilisable> effets)
+    + Guerrier(Guerrier a)
+    + Guerrier(World jeu)
+    + combattre(Creature c)
+}
+
+class Personnage {
+    - String name
+    - int age
+    + getName()
+    + getAge()
+}
+
+@enduml

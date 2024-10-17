@@ -149,6 +149,8 @@ public class Joueur implements Deplacable{
             role.combattre(c);
             if (PV > c.getptVie()){
                 System.out.println("L'attaque de "+this.role.getNom()+ " est un succès. Vous avez infligez: "+(PV-c.getptVie())+" points de dégat");
+            } else {
+                System.out.println("L'attaque de "+this.role.getNom()+ " a manqué sa cible");
             }
         }
         
@@ -258,7 +260,13 @@ public class Joueur implements Deplacable{
         } else if (choi >= 1000){
             Utilisable uti = (Utilisable) jeu.getdico().get(choi);
             uti.activation(role);
-            role.getEffets().add(uti);   
+            role.getEffets().add(uti);
+            inventaire.remove((Utilisable) jeu.getdico().get(choi));
+            for (int i = 0; i < inventaireInd.size();i++){
+                if (inventaireInd.get(i) == choi ){
+                    inventaireInd.remove(i);
+                }
+            }
         }
     }
     
