@@ -10,6 +10,12 @@ package lv.wofe;
  * 
  */
 import java.util.*;
+import java.io.*;
+import java.lang.reflect.Field;
+import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public class World {
     
@@ -27,6 +33,8 @@ public class World {
     private int[][] map;
     private Joueur joueur;
     private Random genAlé = new Random();
+    private Scanner scanner = new Scanner(System.in);
+    private int nbrSauvegarde = 0;
     
     private HashMap<Integer,ElementDeJeu> dicoPerso = new HashMap<>();
     
@@ -45,17 +53,31 @@ public class World {
         Random genAlé = new Random(); 
         
         creerNPaysan(genAlé.nextInt(10)+10);
-        creerNGuerrier(genAlé.nextInt(10)+10);
+        /*creerNGuerrier(genAlé.nextInt(10)+10);
         creerNArcher(genAlé.nextInt(10)+10);
         creerNLoup(genAlé.nextInt(10)+10);
         creerNLapin(genAlé.nextInt(10)+10);
         creerNPotion(genAlé.nextInt(10)+10);
-        creerNEpee(genAlé.nextInt(10)+10);
+        creerNEpee(genAlé.nextInt(10)+10); */
 //        dicoPerso.put(101,new Guerrier(this));
 //        dicoPerso.get(101).setpos(5, 6);
 //        map[5][6] = 101;
         joueur = new Joueur(this);
-        creerMondeAlea();
+        // Creation de la Carte 
+        System.out.println("Voulez-vous créer une nouvelle Partie (1) ou charger une Sauvegarde (2)"); 
+        String choix = scanner.nextLine();
+        if (choix.equals("2")){
+            System.out.println("Merci d'entrer le chemin d'accès à la sauvegarde"); 
+            String fileName = scanner.nextLine();
+            try {
+                chargementPartie(fileName);
+            } catch (IOException ex) {
+                Logger.getLogger(World.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else {
+            creerMondeAlea();
+        }
     }
     
     /**
@@ -113,6 +135,356 @@ public class World {
         }
     }
     
+    public void chargementPartie(String fileName) throws FileNotFoundException, IOException{
+        try {
+            String ligne;
+            BufferedReader fichier = new BufferedReader(new FileReader(fileName));
+            ligne = fichier.readLine();
+            while (ligne != null) { // Parcours des Lignes du Fichier
+                System.out.println(ligne);
+                ligne = fichier.readLine();
+                chargementElement(ligne);
+                }
+            fichier.close();
+            }  catch (Exception e) {
+                System.out.println("Erreur :" + e);
+        }
+    }
+     
+        
+    public void chargementElement(String ligneStat){
+        String delimiteur = " ";
+        StringTokenizer tokenizer = new StringTokenizer(ligneStat, delimiteur);
+        String firstWord = tokenizer.nextToken();
+        Joueur joueur = null;
+        
+        switch (firstWord) {
+        case "Largeur":
+            int largeur = Integer.parseInt(tokenizer.nextToken());
+            setTaille(largeur); // nos cartes sont des carrés
+            break;
+        
+        case "Hauteur":
+            int hauteur = Integer.parseInt(tokenizer.nextToken());
+            setTaille(hauteur); // nos cartes sont des carrés
+            break;
+        
+        case "Guerrier":
+            String nomPersonnageG = tokenizer.nextToken();
+            int ptVieG = Integer.parseInt(tokenizer.nextToken());
+            int degAttG = Integer.parseInt(tokenizer.nextToken());
+            int ptParadeG = Integer.parseInt(tokenizer.nextToken());
+            int pourcentageAttG = Integer.parseInt(tokenizer.nextToken());
+            int pourcentageParadeG = Integer.parseInt(tokenizer.nextToken());
+            int distAttMaxG = Integer.parseInt(tokenizer.nextToken());
+            int posXG = Integer.parseInt(tokenizer.nextToken());
+            int posYG = Integer.parseInt(tokenizer.nextToken());
+            
+            Point2D posG = new Point2D(posXG, posYG);
+            // Creation du Guerrier
+            Guerrier guerrier = new Guerrier(nomPersonnageG, ptVieG, degAttG, ptParadeG, pourcentageAttG, pourcentageParadeG, distAttMaxG, posG, 0, this, new ArrayList<Utilisable>());
+            break;
+            
+        case "Archer":
+            String nomPersonnageA = tokenizer.nextToken();
+            int ptVieA = Integer.parseInt(tokenizer.nextToken());
+            int degAttA = Integer.parseInt(tokenizer.nextToken());
+            int ptParadeA = Integer.parseInt(tokenizer.nextToken());
+            int pourcentageAttA = Integer.parseInt(tokenizer.nextToken());
+            int pourcentageParadeA = Integer.parseInt(tokenizer.nextToken());
+            int distAttMaxA = Integer.parseInt(tokenizer.nextToken());
+            int posXA = Integer.parseInt(tokenizer.nextToken());
+            int posYA = Integer.parseInt(tokenizer.nextToken());
+            
+            Point2D posA = new Point2D(posXA, posYA);
+            // Creation de l'Archer
+            Archer archer = new Archer(nomPersonnageA, ptVieA, degAttA, ptParadeA, pourcentageAttA, pourcentageParadeA, distAttMaxA, posA, 10, 0, this, new ArrayList<Utilisable>());
+            break;
+        
+        case "Paysan":
+            String nomPersonnageP = tokenizer.nextToken();
+            int ptVieP = Integer.parseInt(tokenizer.nextToken());
+            int degAttP = Integer.parseInt(tokenizer.nextToken());
+            int ptParadeP = Integer.parseInt(tokenizer.nextToken());
+            int pourcentageAttP = Integer.parseInt(tokenizer.nextToken());
+            int pourcentageParadeP = Integer.parseInt(tokenizer.nextToken());
+            int distAttMaxP = Integer.parseInt(tokenizer.nextToken());
+            int posXP = Integer.parseInt(tokenizer.nextToken());
+            int posYP = Integer.parseInt(tokenizer.nextToken());
+            
+            Point2D posP = new Point2D(posXP, posYP);
+            // Creation du Paysan
+            Paysan paysan = new Paysan(nomPersonnageP, ptVieP, degAttP, ptParadeP, pourcentageAttP, pourcentageParadeP, distAttMaxP, posP, 0, this, new ArrayList<Utilisable>());
+            break;
+            
+        case "Loup":
+            int ptVieL = Integer.parseInt(tokenizer.nextToken());
+            int degAttL = Integer.parseInt(tokenizer.nextToken());
+            int ptParadeL = Integer.parseInt(tokenizer.nextToken());
+            int pourcentageAttL = Integer.parseInt(tokenizer.nextToken());
+            int pourcentageParadeL = Integer.parseInt(tokenizer.nextToken());
+            int posXL = Integer.parseInt(tokenizer.nextToken());
+            int posYL = Integer.parseInt(tokenizer.nextToken());
+            
+            Point2D posL = new Point2D(posXL, posYL);
+            // Creation du Loup
+            Loup loup = new Loup(ptVieL, degAttL, ptParadeL, pourcentageAttL, pourcentageParadeL, posL, this, new ArrayList<Utilisable>() );
+            break;
+        
+        case "Lapin":
+            int ptVieLa = Integer.parseInt(tokenizer.nextToken());
+            int degAttLa = Integer.parseInt(tokenizer.nextToken());
+            int ptParadeLa = Integer.parseInt(tokenizer.nextToken());
+            int pourcentageAttLa = Integer.parseInt(tokenizer.nextToken());
+            int pourcentageParadeLa = Integer.parseInt(tokenizer.nextToken());
+            int posXLa = Integer.parseInt(tokenizer.nextToken());
+            int posYLa = Integer.parseInt(tokenizer.nextToken());
+            
+            Point2D posLa = new Point2D(posXLa, posYLa);
+            // Creation du Loup
+            Lapin lapin = new Lapin(ptVieLa, degAttLa, ptParadeLa, pourcentageAttLa, pourcentageParadeLa, posLa, this, new ArrayList<Utilisable>() );
+            break;
+
+        case "PotionSoin":
+            int soin = Integer.parseInt(tokenizer.nextToken());
+            int posXPot = Integer.parseInt(tokenizer.nextToken());;
+            int posYPot = Integer.parseInt(tokenizer.nextToken());;
+            
+            Point2D posPot = new Point2D(posXPot, posYPot);
+            // Creation de la Potion
+            PotionSoin potionSoin = new PotionSoin(soin, 1, soin%100 ,posPot, this);
+            break;
+        
+        case "Epee": 
+            int degEpee = Integer.parseInt(tokenizer.nextToken());
+            int posXE = Integer.parseInt(tokenizer.nextToken());
+            int posYE = Integer.parseInt(tokenizer.nextToken());
+          
+            Point2D posE = new Point2D(posXE, posYE);
+            // Creation de l'Epee
+            Epee epee = new Epee(1, degEpee, 3, degEpee*3, posE,this);
+            break;
+           
+        case "Champignon": 
+            int malusPageAtt = Integer.parseInt(tokenizer.nextToken());
+            int posXC = Integer.parseInt(tokenizer.nextToken());
+            int posYC = Integer.parseInt(tokenizer.nextToken());
+          
+            Point2D posC = new Point2D(posXC, posYC);
+            // Creation du Champignon
+            Champignon champi = new Champignon(malusPageAtt, posC, this);
+            break;
+            
+        case "Epinard": 
+            int bonusDegAtt = Integer.parseInt(tokenizer.nextToken());
+            int posXEpi = Integer.parseInt(tokenizer.nextToken());
+            int posYEpi = Integer.parseInt(tokenizer.nextToken());
+          
+            Point2D posEpi = new Point2D(posXEpi, posYEpi);
+            // Creation du Champignon
+            Epinard epinard = new Epinard(bonusDegAtt, posEpi, this);
+            break;
+        
+        case "NuageToxique": 
+            int degAtt = Integer.parseInt(tokenizer.nextToken());
+            int vitesse = Integer.parseInt(tokenizer.nextToken());
+            int posXN = Integer.parseInt(tokenizer.nextToken());
+            int posYN= Integer.parseInt(tokenizer.nextToken());
+          
+            Point2D posN = new Point2D(posXN, posYN);
+            // Creation du Champignon
+            NuageToxique nuage = new NuageToxique(degAtt, vitesse, posN, this);
+            break;
+
+
+        case "Joueur":
+            String role = tokenizer.nextToken();
+            String nomPersonnageJ = tokenizer.nextToken();
+            int ptVieJ = Integer.parseInt(tokenizer.nextToken());
+            int degAttJ = Integer.parseInt(tokenizer.nextToken());
+            int ptParadeJ = Integer.parseInt(tokenizer.nextToken());
+            int pourcentageAttJ = Integer.parseInt(tokenizer.nextToken());
+            int pourcentageParadeJ = Integer.parseInt(tokenizer.nextToken());
+            int distAttMaxJ = Integer.parseInt(tokenizer.nextToken());
+            int posXJ = Integer.parseInt(tokenizer.nextToken());
+            int posYJ = Integer.parseInt(tokenizer.nextToken());
+            
+            Point2D posJ = new Point2D(posXJ, posYJ);
+            // Creation du Joueur
+            Personnage roleJ;
+            if (role.equals("Guerrier")) {
+                roleJ = new Guerrier(nomPersonnageJ, ptVieJ, degAttJ, ptParadeJ, pourcentageAttJ, pourcentageParadeJ, distAttMaxJ, posJ, 0, this, new ArrayList<Utilisable>());
+            } else{
+                roleJ = new Archer(nomPersonnageJ, ptVieJ, degAttJ, ptParadeJ, pourcentageAttJ, pourcentageParadeJ, distAttMaxJ, posJ, 10, 0, this, new ArrayList<Utilisable>());
+            }
+            
+            joueur = new Joueur(roleJ, 0, new Scanner(System.in), this, 0, new ArrayList<Utilisable>(), new ArrayList<Integer>());
+            
+            break;
+
+        case "Inventaire": // Inventaire sauvegardé de la forme : Inventaire Objet ID StatObjets 
+            String objet = tokenizer.nextToken();
+            int ind = Integer.parseInt(tokenizer.nextToken());
+            int statObjet = Integer.parseInt(tokenizer.nextToken());
+            
+            // Creation de l'Objet 
+            switch (objet) {
+            case "Champignon": 
+                int malusPageAttinv = Integer.parseInt(tokenizer.nextToken());
+                int posXCinv = Integer.parseInt(tokenizer.nextToken());
+                int posYCinv = Integer.parseInt(tokenizer.nextToken());
+
+                Point2D posCinv = null;
+                // Creation du Champignon
+                Champignon champiInv = new Champignon(malusPageAttinv, posCinv, this);
+                // Ajout à l'inventaire 
+                joueur.addInventory(champiInv,ind);
+                break;
+            
+            case "Epinard": 
+                int bonusDegAttinv = Integer.parseInt(tokenizer.nextToken());
+                int posXEpiinv = Integer.parseInt(tokenizer.nextToken());
+                int posYEpiinv = Integer.parseInt(tokenizer.nextToken());
+
+                Point2D posEpiinv = new Point2D(posXEpiinv, posYEpiinv);
+                // Creation du Champignon
+                Epinard epinardinv = new Epinard(bonusDegAttinv, posEpiinv, this);
+                // Ajout à l'inventaire 
+                joueur.addInventory(epinardinv,ind);
+                break;
+                
+            case "PotionSoin":
+                int soininv = Integer.parseInt(tokenizer.nextToken());
+                int posXPotinv = Integer.parseInt(tokenizer.nextToken());;
+                int posYPotinv = Integer.parseInt(tokenizer.nextToken());;
+
+                Point2D posPotinv = new Point2D(posXPotinv, posYPotinv);
+                // Creation de la Potion
+                PotionSoin potionSoininv = new PotionSoin(soininv, 1, soininv%100 ,posPotinv, this);
+                // Ajout à l'inventaire 
+                joueur.addInventory(potionSoininv,ind);
+                break;
+        
+            case "Epee": 
+                int degEpeeinv = Integer.parseInt(tokenizer.nextToken());
+                int posXEinv = Integer.parseInt(tokenizer.nextToken());
+                int posYEinv = Integer.parseInt(tokenizer.nextToken());
+
+                Point2D posEinv = new Point2D(posXEinv, posYEinv);
+                // Creation de l'Epee
+                Epee epeeinv = new Epee(1, degEpeeinv, 3, degEpeeinv*3, posEinv,this);
+                // Ajout à l'inventaire 
+                joueur.addInventory(epeeinv,ind);
+                break;
+            
+            default:
+                break;
+            }
+        
+        default:
+            break;
+        }
+    }
+    
+    
+    public void sauvegarderPartie(String nomSauvegarde) throws IllegalArgumentException, IllegalAccessException{
+        BufferedWriter bufferedWriter = null;
+        try {
+            // Creation du BufferedWriter
+            bufferedWriter = new BufferedWriter(new FileWriter(nomSauvegarde));
+            // Sauvegarde
+            
+            // Largeur puis Hauteur
+            bufferedWriter.write("Largeur " + this.taille);
+            bufferedWriter.newLine();
+            
+            bufferedWriter.write("Hauteur " + this.taille);
+            bufferedWriter.newLine();
+            
+            // les Entites
+            
+            Set<Integer> list = dicoPerso.keySet();
+            for (Integer id: list){
+                // Obtenir la classe de l'objet :
+                ElementDeJeu e = dicoPerso.get(id);
+                Class<?> classe = e.getClass();
+                
+                // Parcourir les attributs de l'objet
+                String elm =  classe + "";
+                Field[] champs = classe.getDeclaredFields();
+                for (Field champ : champs){
+                    champ.setAccessible(true);
+                    elm = elm + champ.get(e)+ ""; 
+
+                bufferedWriter.write(elm);
+                bufferedWriter.newLine();
+                }
+            
+            // l'Inventaire
+            ArrayList<Utilisable> inventaire = joueur.getInventory();
+            for (Utilisable item: inventaire){
+                Class<?> classeItem = item.getClass();
+                
+                // Parcourir les attributs de l'objet
+                String elmItem =  classeItem + "";
+                Field[] champsItem = classeItem.getDeclaredFields();
+                for (Field champ : champsItem){
+                    champ.setAccessible(true);
+                    elmItem = elmItem + champ.get(e)+ ""; 
+
+                bufferedWriter.write(elmItem);
+                bufferedWriter.newLine();
+                    } 
+                }
+            }
+        } 
+        // on attrape l'exception si on a pas pu creer le fichier
+        catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } 
+        // on attrape l'exception si il y a un probleme lors de l'ecriture dans le fichier
+        catch (IOException ex) {
+            ex.printStackTrace();
+        } 
+        // on ferme le fichier
+        finally {
+            try {
+                if (bufferedWriter != null) {
+                    // je force l'écriture dans le fichier
+                    bufferedWriter.flush();
+                    // puis je le ferme
+                    bufferedWriter.close();
+                }
+            } 
+            // on attrape l'exception potentielle
+            catch (IOException ex) {
+                ex.printStackTrace();
+                }
+            }
+    }
+        
+    public void sauvegarderPartie() throws IllegalArgumentException, IllegalAccessException{ // le nom est choisit par défaut
+        String nomSauvegarde = "sauvegardePartie"+this.joueur.getRole().getNom()+this.nbrSauvegarde;
+        this.nbrSauvegarde ++;
+        sauvegarderPartie(nomSauvegarde);
+    }
+        
+    
+    /**
+     * Cree nbGuerrier Guerriers
+     * @param nbGuerrier 
+     */
+        
+    /**
+     * Cree nbGuerrier Guerriers
+     * @param nbGuerrier 
+     */
+        
+    /**
+     * Cree nbGuerrier Guerriers
+     * @param nbGuerrier 
+     */
+        
     /**
      * Cree nbGuerrier Guerriers
      * @param nbGuerrier 

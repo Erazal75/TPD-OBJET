@@ -36,15 +36,32 @@ public class Guerrier extends Personnage implements Combattant{
      * @param jeu est une représentation matricielle de la carte
      * @param effets est une Collection List de Utilisable contenant les effets appliqués aux joueurs pendant le tour
      */
-    
+ 
     public Guerrier(String n,int pV,int dA,int ptPar,int paAtt,int paPar,int dMax,Point2D p,
             int placeEpee,int nbmain,int degEpee,int prix,int argent, World jeu, List<Utilisable> effets){
         super(n,pV,dA,ptPar,paAtt,paPar,dMax,p,argent,jeu, effets);
         arme = new Epee(nbmain,degEpee,placeEpee,prix,p,jeu);
     }
     
+    /** 
+     * Deuxième Connstructeur de Guerrier.
+     * @param n est le nom du Personnage
+     * @param pV est le nombre de point de vie du Guerrier
+     * @param dA est le nombre de dégât d'attaque du Guerrier
+     * @param ptPar est le nombre de dégat que le Guerrier pare a chaque parade réussie
+     * @param paAtt est le pourcentage de chance qu'une attaque du Guerrier soit réussie
+     * @param paPar est le pourcentage de chance qu'une parade du Guerrier soit réussie
+     * @param dMax est la distance maximun à laquelle le Guerrier peut attaquer 
+     * @param p est la position du Guerrier
+     */
+    
+    public Guerrier(String n,int pV,int dA,int ptPar,int paAtt,int paPar,int dMax,Point2D p, int argent, World jeu,  List<Utilisable> effets) {
+        super(n,pV,dA,ptPar,paAtt,paPar,dMax,p, argent, jeu, effets);
+    }
+     
+    
     /**
-     * Deuxième constructeur de Guerrier
+     * Troisième constructeur de Guerrier
      * @param a est un autre Guerrier, à partir de laquel notre Guerrier sera créé
      */
     
@@ -54,7 +71,7 @@ public class Guerrier extends Personnage implements Combattant{
     }
     
     /**
-     * Troisème contructeur de Guerrier, permet d'initialiser tous les attributs avec leur valeur par défaut.
+     * Quatrième contructeur de Guerrier, permet d'initialiser tous les attributs avec leur valeur par défaut.
      */
     
     public Guerrier(World jeu){
