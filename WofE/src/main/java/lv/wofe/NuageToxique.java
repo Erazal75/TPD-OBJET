@@ -57,6 +57,18 @@ public class NuageToxique extends Objet implements Deplacable {
     }
     
     /**
+     * Quatième contructeur de NuageToxique, permet d'initialiser un attribut avec une valeur chosit et l'autre par défaut
+     * @param jeu
+     * @param deg
+     */
+    
+    public NuageToxique(int deg,World jeu){
+        super(jeu);
+        degAtt = deg;
+        vitesse = 0;
+    }
+    
+    /**
      * active le nuage toxique et enleve des points de vie a la personne qui se situe sur la même case
      * @param c 
      */
