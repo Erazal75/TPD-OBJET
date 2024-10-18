@@ -825,7 +825,7 @@ public class World {
                 if (map[j][i] == 0) {
                     System.out.print("_ ");
                 } else if (map[j][i] == 1){
-                    System.out.print("1 ");
+                    System.out.print("J ");
                 } else if (map[j][i] >= 100 && map[j][i] < 200){
                     System.out.print("G ");
                 } else if (map[j][i] >= 200 && map[j][i] < 300){
