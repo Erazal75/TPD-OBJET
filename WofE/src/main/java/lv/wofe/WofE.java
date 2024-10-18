@@ -360,12 +360,24 @@ public class WofE {
                     break;
                 case "1":
                     effectue = true;
-                    System.out.println("De quelle taille doit être votre monde?");
-                    monMonde = new World(10);
+                    boolean effectueTaille = false;
+                    int taile = 0;
+                    while(!effectueTaille){
+                        System.out.println("De quelle taille doit être votre monde?");
+                        try{
+                            String taille = scanner.nextLine();
+                            taile = Integer.parseInt(taille);
+                            effectueTaille = true;
+                        } catch(NumberFormatException e){
+                            System.out.println("Il nous faut un nombre entier pour la taille du monde SVP");
+                        }  
+                    }
+                    monMonde = new World(taile);
                     break;
                 default:
                     System.out.println("Vous n'avez choisi aucune des options proposées");
                     System.out.println("SVP entrez un nombre parmi ceux proposés");
+                    
                     break;
             }
         }
