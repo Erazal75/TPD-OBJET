@@ -359,6 +359,7 @@ public class World {
             int distAttMaxJ = Integer.parseInt(tokenizer.nextToken());
             int posXJ = Integer.parseInt(tokenizer.nextToken());
             int posYJ = Integer.parseInt(tokenizer.nextToken());
+            setmap(posXJ,posYJ,1);
             
             Point2D posJ = new Point2D(posXJ, posYJ);
             // Creation du Joueur

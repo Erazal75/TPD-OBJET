@@ -94,7 +94,7 @@ public class Joueur implements Deplacable{
         int x = genAlé.nextInt(jeu.getTaille());
         int y = genAlé.nextInt(jeu.getTaille());
         Set<Integer> list = jeu.getdico().keySet();
-        while (role.getposX()!= x && role.getposY()!=y){
+        while (role.getposX()!= x || role.getposY()!=y){
             x = genAlé.nextInt(jeu.getTaille());
             y = genAlé.nextInt(jeu.getTaille());
             if (jeu.getmap(x,y) == 0){
