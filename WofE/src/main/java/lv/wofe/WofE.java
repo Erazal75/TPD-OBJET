@@ -346,12 +346,13 @@ public class WofE {
         */
     
 //////////////// WOE  ////////////////////
-
-        System.out.println("Voulez-vous créer une nouvelle Partie (1) ou charger une Sauvegarde (2): ");
         
-        String choix = scanner.nextLine();
+        String choix;
         boolean effectue = false;
         while(!effectue){
+            System.out.println("Voulez-vous créer une nouvelle Partie (1) ou charger une Sauvegarde (2): ");
+        
+            choix = scanner.nextLine();
             switch (choix) {
                 case "2":
                     effectue = true;
@@ -359,6 +360,7 @@ public class WofE {
                     break;
                 case "1":
                     effectue = true;
+                    System.out.println("De quelle taille doit être votre monde?");
                     monMonde = new World(10);
                     break;
                 default:
