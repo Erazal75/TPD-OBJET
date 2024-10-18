@@ -8,7 +8,7 @@ import java.util.*;
 
 /**
  *
- * @author lazaregrail & victorsimon
+ * @author lazaregrail victorsimon
  */
 public class Loup extends Monstre implements Combattant{
     
@@ -40,6 +40,7 @@ public class Loup extends Monstre implements Combattant{
     
     /**
      * Troisème contructeur de Loup, permet d'initialiser tous les attributs avec leur valeur par défaut.
+     * @param jeu
      */
 
     public Loup(World jeu){

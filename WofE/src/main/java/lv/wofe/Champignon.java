@@ -6,7 +6,7 @@ package lv.wofe;
 
 /**
  *
- * @author lazareGrail & victorSimon
+ * @author lazareGrail victorSimon
  */
 public class Champignon extends Nourriture{
     
@@ -22,6 +22,7 @@ public class Champignon extends Nourriture{
      * Premier constructeur de Champignon
      * @param malusPageAtt est le malus de pourcentage d'attaque affecté à la Creature consommant le Champignon
      * @param pos est la position du Champignon
+     * @param jeu
      */
     
     public Champignon(int malusPageAtt, Point2D pos,World jeu){
@@ -41,6 +42,7 @@ public class Champignon extends Nourriture{
     
     /**
      * Troisieme constructeur de Nourriture, par defautL. 
+     * @param jeu
      */
     
     public Champignon(World jeu){

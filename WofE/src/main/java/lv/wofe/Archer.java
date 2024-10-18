@@ -8,7 +8,7 @@ import java.util.*;
 
 /**
  *
- * @author lazaregrail & victorsimon
+ * @author lazaregrail victorsimon
  * 
  */
 public class Archer extends Personnage implements Combattant{
@@ -52,6 +52,7 @@ public class Archer extends Personnage implements Combattant{
     
     /**
      * Troisème contructeur d'Archer, permet d'initialiser tous les attributs avec leur valeur par défaut.
+     * @param jeu
      */
     
     public Archer(World jeu){

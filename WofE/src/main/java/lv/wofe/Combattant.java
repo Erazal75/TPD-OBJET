@@ -6,7 +6,7 @@ package lv.wofe;
 
 /**
  *
- * @author lazaregrail
+ * @author lazaregrail victorSimon
  */
 public interface Combattant {
     

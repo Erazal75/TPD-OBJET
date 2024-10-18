@@ -8,7 +8,7 @@ import java.util.*;
 
 /**
  *
- * @author lazaregrail & victorsimon
+ * @author lazaregrail victorsimon
  */
 public class Lapin extends Monstre{
     

@@ -5,14 +5,13 @@
 package lv.wofe;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  *
- * @author lazaregrail & victorsimon
+ * @author lazaregrail victorsimon
  * 
  */
 public class Joueur implements Deplacable{
@@ -64,39 +63,44 @@ public class Joueur implements Deplacable{
             String classe = scanner.nextLine();
             System.out.print("Entrez votre nom: ");
             String nom = scanner.nextLine();
-            if (classe.equals("1")){
-
-                int ptVie = genAlé.nextInt(21)+90;
-                int DA = genAlé.nextInt(11)+25;
-                int ptPar = genAlé.nextInt(10)+1;
-                int paAtt = genAlé.nextInt(11)+75;
-                int paPar = genAlé.nextInt(11)+15;
-                int dMax = genAlé.nextInt(1)+5;
-                Point2D pos = new Point2D(0,0);
-                int nbF = genAlé.nextInt(21)+20;
-                int argent = genAlé.nextInt(501);
-                role = new Archer(nom,ptVie,DA,ptPar,paAtt,paPar,dMax,pos,nbF,argent,jeu,new ArrayList<Utilisable>());
-                joueurCreee = true;
-            }
-            else if (classe.equals("2")){
-                int ptVie = genAlé.nextInt(21)+190;
-                int DA = genAlé.nextInt(11)+55;
-                int ptPar = genAlé.nextInt(11)+30;
-                int paAtt = genAlé.nextInt(11)+90;
-                int paPar = genAlé.nextInt(11)+45;
-                int dMax = 1;
-                Point2D pos = new Point2D(0,0);
-                int argent = genAlé.nextInt(501);
-                int nbMain = 0;
-                int degEpee = 0;
-                int prix = 0;
-                int place = 0;
-                role = new Guerrier(nom,ptVie,DA,ptPar,paAtt,paPar,dMax,pos,place,nbMain,degEpee,prix,argent,jeu, new ArrayList<Utilisable>());
-                joueurCreee = true;
-            }
-            else{
-                System.out.println("Vous n'avez choisi aucune des options proposées");
-                System.out.println("SVP entrez un nombre parmi ceux proposés");
+            switch (classe) {
+                case "1":
+                    {
+                        int ptVie = genAlé.nextInt(21)+90;
+                        int DA = genAlé.nextInt(11)+25;
+                        int ptPar = genAlé.nextInt(10)+1;
+                        int paAtt = genAlé.nextInt(11)+75;
+                        int paPar = genAlé.nextInt(11)+15;
+                        int dMax = genAlé.nextInt(1)+5;
+                        Point2D pos = new Point2D(0,0);
+                        int nbF = genAlé.nextInt(21)+20;
+                        int argent = genAlé.nextInt(501);
+                        role = new Archer(nom,ptVie,DA,ptPar,paAtt,paPar,dMax,pos,nbF,argent,jeu,new ArrayList<Utilisable>());
+                        joueurCreee = true;
+                        break;
+                    }
+                case "2":
+                    {
+                        int ptVie = genAlé.nextInt(21)+190;
+                        int DA = genAlé.nextInt(11)+55;
+                        int ptPar = genAlé.nextInt(11)+30;
+                        int paAtt = genAlé.nextInt(11)+90;
+                        int paPar = genAlé.nextInt(11)+45;
+                        int dMax = 1;
+                        Point2D pos = new Point2D(0,0);
+                        int argent = genAlé.nextInt(501);
+                        int nbMain = 0;
+                        int degEpee = 0;
+                        int prix = 0;
+                        int place = 0;
+                        role = new Guerrier(nom,ptVie,DA,ptPar,paAtt,paPar,dMax,pos,place,nbMain,degEpee,prix,argent,jeu, new ArrayList<Utilisable>());
+                        joueurCreee = true;
+                        break;
+                    }
+                default:
+                    System.out.println("Vous n'avez choisi aucune des options proposées");
+                    System.out.println("SVP entrez un nombre parmi ceux proposés");
+                    break;
             }
         }
         
@@ -116,7 +120,8 @@ public class Joueur implements Deplacable{
     }
     
     /**
-     * cette méthode permet au joueur de chosir quelles seront ses actions à chaque tour.
+     * cette méthode permet au joueur de chosir quelles seront ses actions à ch
+     * @throws java.io.IOException
      */
     
     public void joue() throws IOException{

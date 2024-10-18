@@ -6,7 +6,7 @@ package lv.wofe;
 
 /**
  *
- * @author lazare & victorSimon
+ * @author lazare victorSimon
  */
 public class Epinard extends Nourriture{
     

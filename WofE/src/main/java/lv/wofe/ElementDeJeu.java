@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author lazareGrail & victorSimon
+ * @author lazareGrail victorSimon
  */
 abstract class ElementDeJeu {
     
