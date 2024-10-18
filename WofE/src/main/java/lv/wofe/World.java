@@ -49,24 +49,18 @@ public class World {
     public World(int nb){
         
         taille = nb;
-        map = new int[taille][taille];
+        
         Random genAlé = new Random(); 
         
-        creerNPaysan(genAlé.nextInt(10)+10);
-        /*creerNGuerrier(genAlé.nextInt(10)+10);
-        creerNArcher(genAlé.nextInt(10)+10);
-        creerNLoup(genAlé.nextInt(10)+10);
-        creerNLapin(genAlé.nextInt(10)+10);
-        creerNPotion(genAlé.nextInt(10)+10);
-        creerNEpee(genAlé.nextInt(10)+10); */
+        
 //        dicoPerso.put(101,new Guerrier(this));
 //        dicoPerso.get(101).setpos(5, 6);
 //        map[5][6] = 101;
-        joueur = new Joueur(this);
+
+        
+        
         // Creation de la Carte 
-        System.out.println("Voulez-vous créer une nouvelle Partie (1) ou charger une Sauvegarde (2)"); 
-        String choix = scanner.nextLine();
-        if (choix.equals("2")){
+        if (taille == 0){
             System.out.println("Merci d'entrer le chemin d'accès à la sauvegarde"); 
             String fileName = scanner.nextLine();
             try {
@@ -76,7 +70,19 @@ public class World {
             }
         }
         else {
+            map = new int[taille][taille];
+            
+            creerNPaysan(genAlé.nextInt(10)+10);
+            /*creerNGuerrier(genAlé.nextInt(10)+10);
+            creerNArcher(genAlé.nextInt(10)+10);
+            creerNLoup(genAlé.nextInt(10)+10);
+            creerNLapin(genAlé.nextInt(10)+10);
+            creerNPotion(genAlé.nextInt(10)+10);
+            creerNEpee(genAlé.nextInt(10)+10); */
+            joueur = new Joueur(this);
+            
             creerMondeAlea();
+            
         }
     }
     
@@ -162,6 +168,7 @@ public class World {
         case "Largeur":
             int largeur = Integer.parseInt(tokenizer.nextToken());
             setTaille(largeur); // nos cartes sont des carrés
+            map = new int[taille][taille];
             break;
         
         case "Hauteur":
@@ -387,7 +394,7 @@ public class World {
     }
     
     
-    public void sauvegarderPartie(String nomSauvegarde) throws IllegalArgumentException, IllegalAccessException{
+    public void sauvegarderPartie(String nomSauvegarde) throws IllegalArgumentException, IllegalAccessException, IOException{
         BufferedWriter bufferedWriter = null;
         try {
             // Creation du BufferedWriter
@@ -404,21 +411,44 @@ public class World {
             // les Entites
             
             Set<Integer> list = dicoPerso.keySet();
-            for (Integer id: list){
-                // Obtenir la classe de l'objet :
+            for (Integer id: list) {
+                // Obtenir la classe de l'objet
                 ElementDeJeu e = dicoPerso.get(id);
-                Class<?> classe = e.getClass();
-                
-                // Parcourir les attributs de l'objet
-                String elm =  classe + "";
-                Field[] champs = classe.getDeclaredFields();
-                for (Field champ : champs){
-                    champ.setAccessible(true);
-                    elm = elm + champ.get(e)+ ""; 
-
-                bufferedWriter.write(elm);
-                bufferedWriter.newLine();
+                String className = e.getClass().getSimpleName();
+                String elm = className + " ";
+                if(e instanceof Personnage){
+                   Personnage p = (Personnage) e;
+                   elm = elm + p.getNom() + " " + p.getptVie() + " " + p.getdegAtt() + " " + p.getptPar() + " " + p.getpageAtt() + " " + p.getpagePar() + " " + p.getdistM() + " " + p.getposX() + " " + p.getposY();
+                   }
+                else if (e instanceof Monstre){
+                    Monstre m = (Monstre) e;
+                    elm = elm + m.getptVie() + " " + m.getdegAtt() + " " + m.getptPar() + " " + m.getpageAtt() + " " + m.getpagePar() + " " + m.getposX() + " " + m.getposY();
                 }
+                else if (e instanceof Objet) {
+                    Objet o = (Objet) e;
+                    String nomClasse = e.getClass().getSimpleName();
+                    switch(nomClasse){
+                        case "Epee":
+                            elm = elm + " " + ((Epee)e).getdegAtt();
+                            break;
+                        case "Epinard":
+                            elm = elm + " " + ((Epinard)e).getBonus();
+                            break;
+                        case "Champignon":
+                            elm = elm + " " + ((Champignon)e).getMalus();
+                            break;
+                        case "Potion":
+                            elm = elm + " " + ((PotionSoin)e).getnbPVRendu();
+                            break;
+                        default:
+                            break;
+                    }
+                    elm = elm + " " + e.getposX() + " " + e.getposY();
+                }
+                // Écriture de la ligne dans le fichier
+                bufferedWriter.write(elm.toString()); 
+                bufferedWriter.newLine();  // Passe à la ligne suivante dans le fichier
+            }
             
             // l'Inventaire
             ArrayList<Utilisable> inventaire = joueur.getInventory();
@@ -430,14 +460,13 @@ public class World {
                 Field[] champsItem = classeItem.getDeclaredFields();
                 for (Field champ : champsItem){
                     champ.setAccessible(true);
-                    elmItem = elmItem + champ.get(e)+ ""; 
+                    elmItem = elmItem + champ.get(elmItem)+ ""; 
 
                 bufferedWriter.write(elmItem);
                 bufferedWriter.newLine();
                     } 
                 }
             }
-        } 
         // on attrape l'exception si on a pas pu creer le fichier
         catch (FileNotFoundException ex) {
             ex.printStackTrace();
@@ -461,9 +490,10 @@ public class World {
                 ex.printStackTrace();
                 }
             }
+        System.out.println("Sauvegarde Terminée, le Tour reprend !");
     }
         
-    public void sauvegarderPartie() throws IllegalArgumentException, IllegalAccessException{ // le nom est choisit par défaut
+    public void sauvegarderPartie() throws IllegalArgumentException, IllegalAccessException, IOException{ // le nom est choisit par défaut
         String nomSauvegarde = "sauvegardePartie"+this.joueur.getRole().getNom()+this.nbrSauvegarde;
         this.nbrSauvegarde ++;
         sauvegarderPartie(nomSauvegarde);
@@ -623,7 +653,7 @@ public class World {
      * methode que nous allons appelé a chaque début de tour et qui nous permet de faire toutes les actions à chaque tour
      */
     
-    public void tourDeJeu(){
+    public void tourDeJeu() throws IOException{
         System.out.println("Le Tour commence ...");
         System.out.println("C'est au Joueur de jouer !");
         joueur.joue();

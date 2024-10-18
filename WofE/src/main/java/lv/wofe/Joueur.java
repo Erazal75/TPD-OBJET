@@ -4,6 +4,7 @@
  */
 package lv.wofe;
 
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.*;
 import java.util.logging.Level;
@@ -29,8 +30,14 @@ public class Joueur implements Deplacable{
     private ArrayList<Integer> inventaireInd = new ArrayList();
     
     /**
-     * permet de créer un joueur en fonction de la classe qu'il a chosi de jouer
+     * Permet de créer un joueur a partir d'une sauvegarde
+     * @param role
+     * @param priorite
+     * @param scanner
      * @param jeu
+     * @param nbdeplace
+     * @param inventaire
+     * @param inventaireInd 
      */
     
     public Joueur(Personnage role, int priorite, Scanner scanner, World jeu, int nbdeplace, ArrayList<Utilisable> inventaire,ArrayList<Integer> inventaireInd){
@@ -42,7 +49,12 @@ public class Joueur implements Deplacable{
         this.inventaire = inventaire;
         this.inventaireInd = inventaireInd;
     }
-        
+     
+    /**
+     * permet de créer un joueur en fonction de la classe qu'il a chosi de jouer
+     * @param jeu
+     */
+    
     public Joueur(World jeu){
         this.jeu = jeu;
         System.out.print("Entrez votre rôle entre Archer(1) et Guerrier(2): ");
@@ -98,7 +110,7 @@ public class Joueur implements Deplacable{
      * cette méthode permet au joueur de chosir quelles seront ses actions à chaque tour 
      */
     
-    public void joue(){
+    public void joue() throws IOException{
         nbdeplace = 0;
         System.out.println("Le joueur joue"); 
         System.out.println("Votre Personnage est en position: ["+role.getposX()+";"+role.getposY()+"]"); 
