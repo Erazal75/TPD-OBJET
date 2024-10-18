@@ -366,8 +366,7 @@ public class World {
                 roleJ = new Archer(nomPersonnageJ, ptVieJ, degAttJ, ptParadeJ, pourcentageAttJ, pourcentageParadeJ, distAttMaxJ, posJ, 10, 0, this, new ArrayList<Utilisable>());
             }
             
-            joueur = new Joueur(roleJ, 0, new Scanner(System.in), this, 0, new ArrayList<Utilisable>(), new ArrayList<Integer>());
-            
+            this.joueur = new Joueur(roleJ, 0, new Scanner(System.in), this, 0, new ArrayList<Utilisable>(), new ArrayList<Integer>());
             break;
 
         case "Inventaire": // Inventaire sauvegardé de la forme : Inventaire Objet ID StatObjets 
@@ -498,6 +497,14 @@ public class World {
                 bufferedWriter.write(elm.toString()); 
                 bufferedWriter.newLine();  // Passe à la ligne suivante dans le fichier
             }
+            
+            // Le Joueur 
+            String elmJ = "Joueur" + " " + joueur.getRole().getClass().getSimpleName() + " " 
+                    + joueur.getRole().getNom() + " " + joueur.getRole().getptVie() + " " + joueur.getRole().getdegAtt() 
+                    + " " + joueur.getRole().getptPar() + " " + joueur.getRole().getpageAtt() + " " + joueur.getRole().getpagePar() 
+                    + " " + joueur.getRole().getdistM() + " " + joueur.getRole().getposX() + " " + joueur.getRole().getposY();          
+            bufferedWriter.write(elmJ);
+            bufferedWriter.newLine();
             
             // l'Inventaire
             ArrayList<Utilisable> inventaire = joueur.getInventory();
