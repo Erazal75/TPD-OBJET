@@ -30,7 +30,14 @@ public class Joueur implements Deplacable{
     private ArrayList<Integer> inventaireInd = new ArrayList();
     
     /**
-     * permet de créer un joueur en fonction de la classe qu'il a choisit de jouer  
+     * Permet de créer un joueur a partir d'une sauvegarde
+     * @param role
+     * @param priorite
+     * @param scanner
+     * @param jeu
+     * @param nbdeplace
+     * @param inventaire
+     * @param inventaireInd 
      */
     
     public Joueur(Personnage role, int priorite, Scanner scanner, World jeu, int nbdeplace, ArrayList<Utilisable> inventaire,ArrayList<Integer> inventaireInd){
@@ -42,7 +49,12 @@ public class Joueur implements Deplacable{
         this.inventaire = inventaire;
         this.inventaireInd = inventaireInd;
     }
-        
+     
+    /**
+     * permet de créer un joueur en fonction de la classe qu'il a chosi de jouer
+     * @param jeu
+     */
+    
     public Joueur(World jeu){
         this.jeu = jeu;
         System.out.print("Entrez votre rôle entre Archer(1) et Guerrier(2): ");
@@ -187,6 +199,8 @@ public class Joueur implements Deplacable{
             role.combattre(c);
             if (PV > c.getptVie()){
                 System.out.println("L'attaque de "+this.role.getNom()+ " est un succès. Vous avez infligez: "+(PV-c.getptVie())+" points de dégat");
+            } else {
+                System.out.println("L'attaque de "+this.role.getNom()+ " a manqué sa cible");
             }
         }
         
@@ -296,7 +310,13 @@ public class Joueur implements Deplacable{
         } else if (choi >= 1000){
             Utilisable uti = (Utilisable) jeu.getdico().get(choi);
             uti.activation(role);
-            role.getEffets().add(uti);   
+            role.getEffets().add(uti);
+            inventaire.remove((Utilisable) jeu.getdico().get(choi));
+            for (int i = 0; i < inventaireInd.size();i++){
+                if (inventaireInd.get(i) == choi ){
+                    inventaireInd.remove(i);
+                }
+            }
         }
     }
     

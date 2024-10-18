@@ -62,24 +62,18 @@ public class World {
     public World(int nb){
         
         taille = nb;
-        map = new int[taille][taille];
+        
         Random genAlé = new Random(); 
         
-        creerNPaysan(genAlé.nextInt(10)+10);
-        /*creerNGuerrier(genAlé.nextInt(10)+10);
-        creerNArcher(genAlé.nextInt(10)+10);
-        creerNLoup(genAlé.nextInt(10)+10);
-        creerNLapin(genAlé.nextInt(10)+10);
-        creerNPotion(genAlé.nextInt(10)+10);
-        creerNEpee(genAlé.nextInt(10)+10); */
+        
 //        dicoPerso.put(101,new Guerrier(this));
 //        dicoPerso.get(101).setpos(5, 6);
 //        map[5][6] = 101;
-        joueur = new Joueur(this);
+
+        
+        
         // Creation de la Carte 
-        System.out.println("Voulez-vous créer une nouvelle Partie (1) ou charger une Sauvegarde (2)"); 
-        String choix = scanner.nextLine();
-        if (choix.equals("2")){
+        if (taille == 0){
             System.out.println("Merci d'entrer le chemin d'accès à la sauvegarde"); 
             String fileName = scanner.nextLine();
             try {
@@ -89,7 +83,19 @@ public class World {
             }
         }
         else {
+            map = new int[taille][taille];
+            
+            creerNPaysan(genAlé.nextInt(10)+10);
+            /*creerNGuerrier(genAlé.nextInt(10)+10);
+            creerNArcher(genAlé.nextInt(10)+10);
+            creerNLoup(genAlé.nextInt(10)+10);
+            creerNLapin(genAlé.nextInt(10)+10);
+            creerNPotion(genAlé.nextInt(10)+10);
+            creerNEpee(genAlé.nextInt(10)+10); */
+            joueur = new Joueur(this);
+            
             creerMondeAlea();
+            
         }
     }
     
@@ -176,6 +182,7 @@ public class World {
         case "Largeur":
             int largeur = Integer.parseInt(tokenizer.nextToken());
             setTaille(largeur); // nos cartes sont des carrés
+            map = new int[taille][taille];
             break;
         
         case "Hauteur":
@@ -674,7 +681,7 @@ public class World {
     public void creerNChampi(int nbChampi){
         for (int i=0 ; i<nbChampi ; i=i+1){
             Random genAlé = new Random();
-            int indice = 1100 + i;
+            int indice = 1200 + i;
             dicoPerso.put(indice,new Champignon(genAlé.nextInt(20)+20,this)); 
         }
     }
@@ -687,7 +694,7 @@ public class World {
     public void creerNEpi(int nbEpi){
         for (int i=0 ; i<nbEpi ; i=i+1){
             Random genAlé = new Random();
-            int indice = 1100 + i;
+            int indice = 1300 + i;
             dicoPerso.put(indice,new Epinard(genAlé.nextInt(20)+20,this)); 
         }
     }

@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,10 +23,11 @@ public class WofE {
      * monMonde est une instance de World permettant de tester les différentes notions de notre jeu World Of ECN
      */
     static World monMonde;
+    static Scanner scanner = new Scanner(System.in);
     
     public static void main(String[] args) throws IOException {
         
-        monMonde = new World(10);
+        
         
 //////////////////////////////////// TP 3 //////////////////////////////////////
         
@@ -343,10 +347,19 @@ public class WofE {
     
 //////////////// WOE  ////////////////////
 
+        System.out.println("Voulez-vous créer une nouvelle Partie (1) ou charger une Sauvegarde (2)");
+        
+        String choix = scanner.nextLine();
+        if (choix.equals("2")){
+            monMonde = new World(0);
+        }
+        else {
+            monMonde = new World(10);
+        }
         //monMonde.afficheWorld();
         while (true){
             monMonde.afficheJeu();
             monMonde.tourDeJeu();
-        }
+        } 
     }
 }
