@@ -350,11 +350,22 @@ public class WofE {
         System.out.println("Voulez-vous créer une nouvelle Partie (1) ou charger une Sauvegarde (2): ");
         
         String choix = scanner.nextLine();
-        if (choix.equals("2")){
-            monMonde = new World(0);
-        }
-        else {
-            monMonde = new World(10);
+        boolean effectue = false;
+        while(!effectue){
+            switch (choix) {
+                case "2":
+                    effectue = true;
+                    monMonde = new World(0);
+                    break;
+                case "1":
+                    effectue = true;
+                    monMonde = new World(10);
+                    break;
+                default:
+                    System.out.println("Vous n'avez choisi aucune des options proposées");
+                    System.out.println("SVP entrez un nombre parmi ceux proposés");
+                    break;
+            }
         }
         //monMonde.afficheWorld();
         while (true){

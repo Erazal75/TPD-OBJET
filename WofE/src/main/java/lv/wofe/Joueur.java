@@ -317,43 +317,61 @@ public class Joueur implements Deplacable{
      */
     
     public void utilise(){
-        for (int i = 0; i < inventaire.size();i++){
-            Utilisable u = inventaire.get(i);
-            int obj = inventaireInd.get(i);
-            if(u instanceof Champignon){
-                Champignon c = (Champignon) u;
-                System.out.println("Voulez vous utilisez un champignon qui va vous donner malus de"+c.getMalus() +"dégat pendant 3 tours.");
-                System.out.println("Tappez "+obj+" pour l'utiliser");
-            } else if(u instanceof Epinard){
-                Epinard e = (Epinard) u;
-                System.out.println("Voulez vous utilisez un épinanrd qui va vous donner bonus de"+e.getBonus() +"dégat pendant 5 tours");
-                System.out.println("Tappez "+obj+" pour l'utiliser");
-            } else if(u instanceof PotionSoin){
-                PotionSoin p = (PotionSoin) u;
-                System.out.println("Voulez vous utilisez un potion de soin qui va vous guérir "+p.getnbPVRendu() +" point de vie instantanement");
-                System.out.println("Tappez "+obj+" pour l'utiliser");
-            } else if(u instanceof Epee && role instanceof Guerrier){
-                Epee ep = (Epee) u;
-                System.out.println("Voulez vous utilisez une épee qui va donner bonus de "+ep.getdegAtt() +" dégat");
-                System.out.println("Tappez "+obj+" pour l'utiliser");
-            }
-        }
-        System.out.println("Tappez le nombre écrit plus haut pour utiliser un objet ou (1) pour vous déplacer (2) pour combattre (3) pour ne rien faire");
-        String choix = scanner.nextLine();
-        int choi = Integer.parseInt(choix);
-        if (choi == 1){
-            deplace();
-        } else if (choi == 2){
-            combattre();
-        } else if (choi >= 1000){
-            Utilisable uti = (Utilisable) jeu.getdico().get(choi);
-            uti.activation(role);
-            role.getEffets().add(uti);
-            inventaire.remove((Utilisable) jeu.getdico().get(choi));
-            for (int i = 0; i < inventaireInd.size();i++){
-                if (inventaireInd.get(i) == choi ){
-                    inventaireInd.remove(i);
+        boolean effectue = false;
+        
+        while(!effectue){
+            for (int i = 0; i < inventaire.size();i++){
+                Utilisable u = inventaire.get(i);
+                int obj = inventaireInd.get(i);
+                if(u instanceof Champignon){
+                    Champignon c = (Champignon) u;
+                    System.out.println("Voulez vous utilisez un champignon qui va vous donner malus de"+c.getMalus() +"dégat pendant 3 tours.");
+                    System.out.println("Tappez "+obj+" pour l'utiliser");
+                } else if(u instanceof Epinard){
+                    Epinard e = (Epinard) u;
+                    System.out.println("Voulez vous utilisez un épinanrd qui va vous donner bonus de"+e.getBonus() +"dégat pendant 5 tours");
+                    System.out.println("Tappez "+obj+" pour l'utiliser");
+                } else if(u instanceof PotionSoin){
+                    PotionSoin p = (PotionSoin) u;
+                    System.out.println("Voulez vous utilisez un potion de soin qui va vous guérir "+p.getnbPVRendu() +" point de vie instantanement");
+                    System.out.println("Tappez "+obj+" pour l'utiliser");
+                } else if(u instanceof Epee && role instanceof Guerrier){
+                    Epee ep = (Epee) u;
+                    System.out.println("Voulez vous utilisez une épee qui va donner bonus de "+ep.getdegAtt() +" dégat");
+                    System.out.println("Tappez "+obj+" pour l'utiliser");
                 }
+            }
+            System.out.println("Tappez le nombre écrit plus haut pour utiliser un objet ou (1) pour vous déplacer (2) pour combattre (3) pour ne rien faire");
+            String choix;
+            int choi = 0;
+            try{
+                    choix = scanner.nextLine();
+                    choi = Integer.parseInt(choix);
+                } catch(NumberFormatException e){
+                    System.out.println("Vous n'avez choisi aucune des options proposées");
+                    System.out.println("SVP entrez un nombre parmi ceux proposés");
+                }
+
+            if (choi == 1){
+                effectue = true;
+                deplace();
+            } else if (choi == 2){
+                effectue = true;
+                combattre();
+            } else if (choi >= 1000 && choi < 2000){
+                effectue = true;
+                Utilisable uti = (Utilisable) jeu.getdico().get(choi);
+                uti.activation(role);
+                role.getEffets().add(uti);
+                inventaire.remove((Utilisable) jeu.getdico().get(choi));
+                for (int i = 0; i < inventaireInd.size();i++){
+                    if (inventaireInd.get(i) == choi ){
+                        inventaireInd.remove(i);
+                    }
+                }
+            } else {
+                System.out.println("Vous n'avez choisi aucune des options proposées");
+                System.out.println("SVP entrez un nombre parmi ceux proposés");
             }
         }
     }
