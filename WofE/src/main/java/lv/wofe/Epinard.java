@@ -21,6 +21,7 @@ public class Epinard extends Nourriture{
      * Premier constructeur d'Epinard
      * @param bonusDegAtt est le bonus de dégât d'attaque engendré par la consommation d'un Epinard
      * @param pos est la position de l'Epinard
+     * @param jeu
      */
     
     public Epinard(int bonusDegAtt, Point2D pos,World jeu){
@@ -40,6 +41,7 @@ public class Epinard extends Nourriture{
     
     /**
      * Troisieme constructeur de Nourriture, par defautL. 
+     * @param jeu
      */
     
     public Epinard(World jeu){

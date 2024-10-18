@@ -4,6 +4,7 @@
 
 package lv.wofe;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.List;
@@ -20,7 +21,7 @@ public class WofE {
      */
     static World monMonde;
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         
         monMonde = new World(10);
         

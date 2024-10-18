@@ -29,13 +29,6 @@ public class World {
     public Lapin bugy = new Lapin();
     public PotionSoin heal = new PotionSoin();
     */
-    
-    /*
-    0 = case vide
-    1 = Joueur
-    2 = PNJ
-    3 = Objet
-    */
   
     private int[][] map;
     private Joueur joueur;
@@ -48,6 +41,11 @@ public class World {
     private int taille;
     private int currentTour = 0; 
 
+    /**
+     * Constructeur de World avec en paramètre la taille du monde qu'on considère pour l'instant carré
+     * @param nb 
+     */
+    
     public World(int nb){
         
         taille = nb;
@@ -124,9 +122,9 @@ public class World {
         Random genAlé = new Random();
         Set<Integer> list = dicoPerso.keySet();
         for(int ind : list){
-            int x=genAlé.nextInt(taille);
-            int y=genAlé.nextInt(taille);
-            while (dicoPerso.get(ind).getposX()!= x && dicoPerso.get(ind).getposY()!=y){
+            int x=-1;
+            int y=-1;
+            while (dicoPerso.get(ind).getposX()!= x || dicoPerso.get(ind).getposY()!=y){
                 x=genAlé.nextInt(taille);
                 y=genAlé.nextInt(taille);
                 if (map[x][y] == 0){
@@ -389,7 +387,7 @@ public class World {
     }
     
     
-    public void sauvegarderPartie(String nomSauvegarde) throws IllegalArgumentException, IllegalAccessException{
+    public void sauvegarderPartie(String nomSauvegarde) throws IllegalArgumentException, IllegalAccessException, IOException{
         BufferedWriter bufferedWriter = null;
         try {
             // Creation du BufferedWriter
@@ -406,21 +404,44 @@ public class World {
             // les Entites
             
             Set<Integer> list = dicoPerso.keySet();
-            for (Integer id: list){
-                // Obtenir la classe de l'objet :
+            for (Integer id: list) {
+                // Obtenir la classe de l'objet
                 ElementDeJeu e = dicoPerso.get(id);
-                Class<?> classe = e.getClass();
-                
-                // Parcourir les attributs de l'objet
-                String elm =  classe + "";
-                Field[] champs = classe.getDeclaredFields();
-                for (Field champ : champs){
-                    champ.setAccessible(true);
-                    elm = elm + champ.get(e)+ ""; 
-
-                bufferedWriter.write(elm);
-                bufferedWriter.newLine();
+                String className = e.getClass().getSimpleName();
+                String elm = className + " ";
+                if(e instanceof Personnage){
+                   Personnage p = (Personnage) e;
+                   elm = elm + p.getNom() + " " + p.getptVie() + " " + p.getdegAtt() + " " + p.getptPar() + " " + p.getpageAtt() + " " + p.getpagePar() + " " + p.getdistM() + " " + p.getposX() + " " + p.getposY();
+                   }
+                else if (e instanceof Monstre){
+                    Monstre m = (Monstre) e;
+                    elm = elm + m.getptVie() + " " + m.getdegAtt() + " " + m.getptPar() + " " + m.getpageAtt() + " " + m.getpagePar() + " " + m.getposX() + " " + m.getposY();
                 }
+                else if (e instanceof Objet) {
+                    Objet o = (Objet) e;
+                    String nomClasse = e.getClass().getSimpleName();
+                    switch(nomClasse){
+                        case "Epee":
+                            elm = elm + " " + ((Epee)e).getdegAtt();
+                            break;
+                        case "Epinard":
+                            elm = elm + " " + ((Epinard)e).getBonus();
+                            break;
+                        case "Champignon":
+                            elm = elm + " " + ((Champignon)e).getMalus();
+                            break;
+                        case "Potion":
+                            elm = elm + " " + ((PotionSoin)e).getnbPVRendu();
+                            break;
+                        default:
+                            break;
+                    }
+                    elm = elm + " " + e.getposX() + " " + e.getposY();
+                }
+                // Écriture de la ligne dans le fichier
+                bufferedWriter.write(elm.toString()); 
+                bufferedWriter.newLine();  // Passe à la ligne suivante dans le fichier
+            }
             
             // l'Inventaire
             ArrayList<Utilisable> inventaire = joueur.getInventory();
@@ -432,14 +453,13 @@ public class World {
                 Field[] champsItem = classeItem.getDeclaredFields();
                 for (Field champ : champsItem){
                     champ.setAccessible(true);
-                    elmItem = elmItem + champ.get(e)+ ""; 
+                    elmItem = elmItem + champ.get(elmItem)+ ""; 
 
                 bufferedWriter.write(elmItem);
                 bufferedWriter.newLine();
                     } 
                 }
             }
-        } 
         // on attrape l'exception si on a pas pu creer le fichier
         catch (FileNotFoundException ex) {
             ex.printStackTrace();
@@ -463,9 +483,10 @@ public class World {
                 ex.printStackTrace();
                 }
             }
+        System.out.println("Sauvegarde Terminée, le Tour reprend !");
     }
         
-    public void sauvegarderPartie() throws IllegalArgumentException, IllegalAccessException{ // le nom est choisit par défaut
+    public void sauvegarderPartie() throws IllegalArgumentException, IllegalAccessException, IOException{ // le nom est choisit par défaut
         String nomSauvegarde = "sauvegardePartie"+this.joueur.getRole().getNom()+this.nbrSauvegarde;
         this.nbrSauvegarde ++;
         sauvegarderPartie(nomSauvegarde);
@@ -594,6 +615,11 @@ public class World {
         }
     }
     
+    /**
+     * crée nbChampi Champignon
+     * @param nbChampi 
+     */
+    
     public void creerNChampi(int nbChampi){
         for (int i=0 ; i<nbChampi ; i=i+1){
             Random genAlé = new Random();
@@ -601,6 +627,11 @@ public class World {
             dicoPerso.put(indice,new Champignon(genAlé.nextInt(20)+20,this)); 
         }
     }
+    
+    /**
+     * Crée nbEpi Epinard
+     * @param nbEpi 
+     */
     
     public void creerNEpi(int nbEpi){
         for (int i=0 ; i<nbEpi ; i=i+1){
@@ -610,16 +641,12 @@ public class World {
         }
     }
     
-    /**
-     * ecrit toute les cases occupé et par quel type de créature ou d'objet
-     */
-    
     
     /**
-     * methode que nous allons appelé a chaque début de tour et qui nous permet de faire toutes les actions à chqaue tour
+     * methode que nous allons appelé a chaque début de tour et qui nous permet de faire toutes les actions à chaque tour
      */
     
-    public void tourDeJeu(){
+    public void tourDeJeu() throws IOException{
         System.out.println("Le Tour commence ...");
         System.out.println("C'est au Joueur de jouer !");
         joueur.joue();
@@ -628,11 +655,8 @@ public class World {
         System.out.println("Les Monstres hantent le royaume ! "); 
         Set<Integer> list = dicoPerso.keySet();
         for (Integer id: list){
-            if (id == 100){
-                id = 100;
-            }
             ElementDeJeu perso = dicoPerso.get(id);
-            if (perso.isCreature()){
+            if (perso instanceof Creature){
                 int x = perso.getposX();
                 int y = perso.getposY();
                 // les effets se dissipent :
@@ -686,7 +710,7 @@ public class World {
     }
     
     /**
-     * permet d'afficher le jue dans la console
+     * permet d'afficher le jeu dans la console
      */
     
     public void afficheJeu(){ 

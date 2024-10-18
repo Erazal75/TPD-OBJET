@@ -49,6 +49,11 @@ public class Paysan extends Personnage{
     public Paysan(World jeu){
         super(jeu);
     }
+     
+    /**
+     * fait que le Paysan ne fait rien quand il attaque
+     * @param c 
+     */
     
     @Override
     public void combattre(Creature c){

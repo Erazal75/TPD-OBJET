@@ -4,6 +4,7 @@
  */
 package lv.wofe;
 
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.*;
 import java.util.logging.Level;
@@ -27,6 +28,7 @@ public class Joueur implements Deplacable{
     private int nbdeplace;
     private ArrayList<Utilisable> inventaire = new ArrayList();
     private ArrayList<Integer> inventaireInd = new ArrayList();
+    
     /**
      * permet de créer un joueur en fonction de la classe qu'il a choisit de jouer  
      */
@@ -96,7 +98,7 @@ public class Joueur implements Deplacable{
      * cette méthode permet au joueur de chosir quelles seront ses actions à chaque tour 
      */
     
-    public void joue(){
+    public void joue() throws IOException{
         nbdeplace = 0;
         System.out.println("Le joueur joue"); 
         System.out.println("Votre Personnage est en position: ["+role.getposX()+";"+role.getposY()+"]"); 
@@ -142,7 +144,9 @@ public class Joueur implements Deplacable{
     }
 
     /**
-     * déplace le joueur de manière aléatoire
+     * fonction appelée quand le joueur décide de combattre
+     * Si un enemi ou plusierus sont dans sa range alors on lui donne une liste de personne qu'il peut attaquer et il choisit
+     * Sinon on lui propose de faire une autre action comme se déplacer ou utiliser un objet
      */
     
     public void combattre(){
@@ -188,6 +192,10 @@ public class Joueur implements Deplacable{
         
     }
     
+    /**
+     * Fonction appélée dans le joueur decide de se déplacer qui va ensuite appelé ramasse(x,y) et deplace(x,y)
+     */
+    
     @Override
     public void deplace(){
         nbdeplace ++;
@@ -195,6 +203,7 @@ public class Joueur implements Deplacable{
         int y = role.getposY();
         System.out.println("Voulez vous aller à droite(1), à gauche(2), en bas(3) ou en haut(4)");
         String deplacement = scanner.nextLine();
+        
         switch (deplacement) {
             case "1" : this.ramasse(x+1,y); break;
             case "2" : this.ramasse(x-1,y); break;
@@ -220,6 +229,12 @@ public class Joueur implements Deplacable{
         }
     }
     
+    /**
+     * fonction qui est appelé à chaque fois que le joueur se déplace pour ramasser l'objet avant que le joueur ne se déplace
+     * @param x
+     * @param y 
+     */
+    
     public void ramasse(int x ,int y){
         int obj = jeu.getmap(x,y);
         if (obj >= 1000 && obj < 2000){
@@ -242,6 +257,12 @@ public class Joueur implements Deplacable{
             jeu.setmap(x,y,0);
         }
     }
+    
+    /**
+     * Fonction qui est appelée quand le joueur décide d'utiliser un objet de son inventaire
+     * On lui affiche une liste d'objet qui sont dans son inventaire pour qu'il puisse choisir celui qu'il va utiliser
+     * Il n'a plus qu'a chosir dans la liste qu'on lui a afficher ou faire autre chose comme combattre ou se déplacer
+     */
     
     public void utilise(){
         for (int i = 0; i < inventaire.size();i++){
@@ -290,6 +311,13 @@ public class Joueur implements Deplacable{
         this.role.deplace( x ,  y);
     }
 
+    /**
+     * Renvoi si p (Point2D) est dans la liste listParc(ArrayList<Point2D>)
+     * @param listParc
+     * @param p
+     * @return boolean
+     */
+    
     private boolean containsP2D(ArrayList<Point2D> listParc,Point2D p){
         boolean rep = false;
         for (Point2D p2: listParc){

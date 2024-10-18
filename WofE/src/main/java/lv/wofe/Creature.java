@@ -235,6 +235,10 @@ public abstract class Creature extends ElementDeJeu implements Deplacable{
         return(reponse);
     }
     
+    /**
+     * permet d'afficher la position de notre Creature
+     */
+    
     public void affichePos(){
         System.out.println("Votre créature est un: "+this.getClass()+" et est en position: ["+ this.getposX()+";"+this.getposY()+"]");
     }
