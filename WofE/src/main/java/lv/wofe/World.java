@@ -36,6 +36,19 @@ public class World {
     private Scanner scanner = new Scanner(System.in);
     private int nbrSauvegarde = 0;
     
+    // identifiant 
+    // configuration des id : 
+    private int indiceGuerrier = 100; 
+    private int indiceArcher = 200;
+    private int indicePaysan = 300;
+    private int indiceLoup = 400;
+    private int indiceLapin = 500;
+    private int indiceEpee = 1100;
+    private int indicePotion = 1000;
+    private int indiceChampi = 1200;
+    private int indiceEpinard = 1300;
+    
+    
     private HashMap<Integer,ElementDeJeu> dicoPerso = new HashMap<>();
     
     private int taille;
@@ -137,17 +150,18 @@ public class World {
     
     public void chargementPartie(String fileName) throws FileNotFoundException, IOException{
         try {
+            // chargement 
             String ligne;
             BufferedReader fichier = new BufferedReader(new FileReader(fileName));
             ligne = fichier.readLine();
             while (ligne != null) { // Parcours des Lignes du Fichier
                 System.out.println(ligne);
-                ligne = fichier.readLine();
                 chargementElement(ligne);
+                ligne = fichier.readLine();
                 }
             fichier.close();
             }  catch (Exception e) {
-                System.out.println("Erreur :" + e);
+                System.out.println("Erreur ChargementPartie :" + e);
         }
     }
      
@@ -180,9 +194,12 @@ public class World {
             int posXG = Integer.parseInt(tokenizer.nextToken());
             int posYG = Integer.parseInt(tokenizer.nextToken());
             
+            indiceGuerrier ++;
+            
             Point2D posG = new Point2D(posXG, posYG);
             // Creation du Guerrier
             Guerrier guerrier = new Guerrier(nomPersonnageG, ptVieG, degAttG, ptParadeG, pourcentageAttG, pourcentageParadeG, distAttMaxG, posG, 0, this, new ArrayList<Utilisable>());
+            dicoPerso.put(indiceGuerrier ,guerrier);
             break;
             
         case "Archer":
@@ -196,9 +213,12 @@ public class World {
             int posXA = Integer.parseInt(tokenizer.nextToken());
             int posYA = Integer.parseInt(tokenizer.nextToken());
             
+            indiceArcher ++;
+            
             Point2D posA = new Point2D(posXA, posYA);
             // Creation de l'Archer
             Archer archer = new Archer(nomPersonnageA, ptVieA, degAttA, ptParadeA, pourcentageAttA, pourcentageParadeA, distAttMaxA, posA, 10, 0, this, new ArrayList<Utilisable>());
+            dicoPerso.put(indiceArcher ,archer);
             break;
         
         case "Paysan":
@@ -212,9 +232,12 @@ public class World {
             int posXP = Integer.parseInt(tokenizer.nextToken());
             int posYP = Integer.parseInt(tokenizer.nextToken());
             
+            indicePaysan ++;
+            
             Point2D posP = new Point2D(posXP, posYP);
             // Creation du Paysan
             Paysan paysan = new Paysan(nomPersonnageP, ptVieP, degAttP, ptParadeP, pourcentageAttP, pourcentageParadeP, distAttMaxP, posP, 0, this, new ArrayList<Utilisable>());
+            dicoPerso.put(indicePaysan ,paysan);
             break;
             
         case "Loup":
@@ -226,9 +249,12 @@ public class World {
             int posXL = Integer.parseInt(tokenizer.nextToken());
             int posYL = Integer.parseInt(tokenizer.nextToken());
             
+            indiceLoup++;
+            
             Point2D posL = new Point2D(posXL, posYL);
             // Creation du Loup
             Loup loup = new Loup(ptVieL, degAttL, ptParadeL, pourcentageAttL, pourcentageParadeL, posL, this, new ArrayList<Utilisable>() );
+            dicoPerso.put(indiceLoup ,loup);
             break;
         
         case "Lapin":
@@ -240,9 +266,12 @@ public class World {
             int posXLa = Integer.parseInt(tokenizer.nextToken());
             int posYLa = Integer.parseInt(tokenizer.nextToken());
             
+            indiceLapin ++;
+            
             Point2D posLa = new Point2D(posXLa, posYLa);
             // Creation du Loup
             Lapin lapin = new Lapin(ptVieLa, degAttLa, ptParadeLa, pourcentageAttLa, pourcentageParadeLa, posLa, this, new ArrayList<Utilisable>() );
+            dicoPerso.put(indiceLapin ,lapin);
             break;
 
         case "PotionSoin":
@@ -250,39 +279,51 @@ public class World {
             int posXPot = Integer.parseInt(tokenizer.nextToken());;
             int posYPot = Integer.parseInt(tokenizer.nextToken());;
             
+            indicePotion ++;
+            
             Point2D posPot = new Point2D(posXPot, posYPot);
             // Creation de la Potion
             PotionSoin potionSoin = new PotionSoin(soin, 1, soin%100 ,posPot, this);
+            dicoPerso.put(indicePotion ,potionSoin);
             break;
         
         case "Epee": 
             int degEpee = Integer.parseInt(tokenizer.nextToken());
             int posXE = Integer.parseInt(tokenizer.nextToken());
             int posYE = Integer.parseInt(tokenizer.nextToken());
+            
+            indiceEpee ++;
           
             Point2D posE = new Point2D(posXE, posYE);
             // Creation de l'Epee
             Epee epee = new Epee(1, degEpee, 3, degEpee*3, posE,this);
+            dicoPerso.put(indiceEpee ,epee );
             break;
            
         case "Champignon": 
             int malusPageAtt = Integer.parseInt(tokenizer.nextToken());
             int posXC = Integer.parseInt(tokenizer.nextToken());
             int posYC = Integer.parseInt(tokenizer.nextToken());
+            
+            indiceChampi ++;
           
             Point2D posC = new Point2D(posXC, posYC);
             // Creation du Champignon
             Champignon champi = new Champignon(malusPageAtt, posC, this);
+            dicoPerso.put(indiceChampi ,champi);
             break;
             
         case "Epinard": 
             int bonusDegAtt = Integer.parseInt(tokenizer.nextToken());
             int posXEpi = Integer.parseInt(tokenizer.nextToken());
             int posYEpi = Integer.parseInt(tokenizer.nextToken());
+            
+            indiceEpinard ++;
           
             Point2D posEpi = new Point2D(posXEpi, posYEpi);
             // Creation du Champignon
             Epinard epinard = new Epinard(bonusDegAtt, posEpi, this);
+            dicoPerso.put(indiceEpinard ,epinard);
             break;
         
         case "NuageToxique": 
@@ -333,6 +374,8 @@ public class World {
                 int malusPageAttinv = Integer.parseInt(tokenizer.nextToken());
                 int posXCinv = Integer.parseInt(tokenizer.nextToken());
                 int posYCinv = Integer.parseInt(tokenizer.nextToken());
+                
+                indiceChampi ++;
 
                 Point2D posCinv = null;
                 // Creation du Champignon
@@ -345,6 +388,8 @@ public class World {
                 int bonusDegAttinv = Integer.parseInt(tokenizer.nextToken());
                 int posXEpiinv = Integer.parseInt(tokenizer.nextToken());
                 int posYEpiinv = Integer.parseInt(tokenizer.nextToken());
+                
+                indiceEpinard++;
 
                 Point2D posEpiinv = new Point2D(posXEpiinv, posYEpiinv);
                 // Creation du Champignon
@@ -358,6 +403,8 @@ public class World {
                 int posXPotinv = Integer.parseInt(tokenizer.nextToken());;
                 int posYPotinv = Integer.parseInt(tokenizer.nextToken());;
 
+                indicePotion ++;
+                
                 Point2D posPotinv = new Point2D(posXPotinv, posYPotinv);
                 // Creation de la Potion
                 PotionSoin potionSoininv = new PotionSoin(soininv, 1, soininv%100 ,posPotinv, this);
@@ -370,6 +417,8 @@ public class World {
                 int posXEinv = Integer.parseInt(tokenizer.nextToken());
                 int posYEinv = Integer.parseInt(tokenizer.nextToken());
 
+                indiceEpee ++;
+                
                 Point2D posEinv = new Point2D(posXEinv, posYEinv);
                 // Creation de l'Epee
                 Epee epeeinv = new Epee(1, degEpeeinv, 3, degEpeeinv*3, posEinv,this);
@@ -528,7 +577,7 @@ public class World {
             int degEpee = 0;
             int prix = 0;
             int place = 0;
-            dicoPerso.put(indice,new Guerrier("",ptVie,DA,ptPar,paAtt,paPar,dMax,pos,place,nbMain,degEpee,prix,argent,this, new ArrayList<Utilisable>()));
+            dicoPerso.put(indice,new Guerrier("guerrier",ptVie,DA,ptPar,paAtt,paPar,dMax,pos,place,nbMain,degEpee,prix,argent,this, new ArrayList<Utilisable>()));
         }
     }
     
@@ -549,7 +598,7 @@ public class World {
             Point2D pos = new Point2D(0,0);
             int nbF = genAlé.nextInt(21)+20;
             int argent = genAlé.nextInt(501);
-            dicoPerso.put(indice,new Archer("",ptVie,DA,ptPar,paAtt,paPar,dMax,pos,nbF,argent,this,new ArrayList<Utilisable>()));
+            dicoPerso.put(indice,new Archer("archer",ptVie,DA,ptPar,paAtt,paPar,dMax,pos,nbF,argent,this,new ArrayList<Utilisable>()));
         }
     }
     
@@ -561,7 +610,9 @@ public class World {
     public void creerNPaysan(int nbPaysan){
         for (int i=0 ; i<nbPaysan ; i=i+1){
             int indice = 300 + i;
-            dicoPerso.put(indice,new Paysan(this));
+            Paysan p = new Paysan(this);
+            p.setNom("paysan");
+            dicoPerso.put(indice,p);
         }
     }
     
