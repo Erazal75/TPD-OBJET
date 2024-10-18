@@ -85,14 +85,14 @@ public class World {
         }
         else {
             map = new int[taille][taille];
-            
-            creerNPaysan(genAlé.nextInt(10)+10);
-            /*creerNGuerrier(genAlé.nextInt(10)+10);
-            creerNArcher(genAlé.nextInt(10)+10);
-            creerNLoup(genAlé.nextInt(10)+10);
-            creerNLapin(genAlé.nextInt(10)+10);
-            creerNPotion(genAlé.nextInt(10)+10);
-            creerNEpee(genAlé.nextInt(10)+10); */
+            int randomRange = (int) Math.floor(taille*taille/(3*7));
+            creerNPaysan(genAlé.nextInt(10)+randomRange-5);
+            creerNGuerrier(genAlé.nextInt(10)+randomRange-5);
+            creerNArcher(genAlé.nextInt(10)+randomRange-5);
+            creerNLoup(genAlé.nextInt(10)+randomRange-5);
+            creerNLapin(genAlé.nextInt(10)+randomRange-5);
+            creerNPotion(genAlé.nextInt(10)+randomRange-5);
+            creerNEpee(genAlé.nextInt(10)+randomRange-5); 
             joueur = new Joueur(this);
             
             creerMondeAlea();
@@ -155,6 +155,13 @@ public class World {
         }
     }
     
+    /**
+     * fonction permettant de charger un monde World à partir d'une sauvegarde txt.
+     * @param fileName
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
+    
     public void chargementPartie(String fileName) throws FileNotFoundException, IOException{
         try {
             // chargement 
@@ -162,7 +169,6 @@ public class World {
             BufferedReader fichier = new BufferedReader(new FileReader(fileName));
             ligne = fichier.readLine();
             while (ligne != null) { // Parcours des Lignes du Fichier
-                System.out.println(ligne);
                 chargementElement(ligne);
                 ligne = fichier.readLine();
                 }
@@ -172,6 +178,10 @@ public class World {
         }
     }
      
+    /**
+     * fonction auxiliaire de chargementPartie, responsable du chargement d'un simple ElementDeJeu.
+     * @param ligneStat 
+     */
         
     public void chargementElement(String ligneStat){
         String delimiteur = " ";
@@ -444,6 +454,14 @@ public class World {
         }
     }
     
+    /**
+     * fonction permettant d'effectuer une sauvegarde txt d'un monde.
+     * @param nomSauvegarde
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
+     * @throws IOException 
+     */
+    
     
     public void sauvegarderPartie(String nomSauvegarde) throws IllegalArgumentException, IllegalAccessException, IOException{
         BufferedWriter bufferedWriter = null;
@@ -551,7 +569,14 @@ public class World {
             }
         System.out.println("Sauvegarde Terminée, le Tour reprend !");
     }
-        
+    
+    /**
+     * fonction auxiliaire pour la sauvegarde d'un monde, permettant d'implementer les sauvegardes par défaut sans nom.
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
+     * @throws IOException 
+     */
+    
     public void sauvegarderPartie() throws IllegalArgumentException, IllegalAccessException, IOException{ // le nom est choisit par défaut
         String nomSauvegarde = "sauvegardePartie"+this.joueur.getRole().getNom()+this.nbrSauvegarde;
         this.nbrSauvegarde ++;
@@ -723,7 +748,7 @@ public class World {
     }
     
     /**
-     * methode que nous allons appelé a chaque début de tour et qui nous permet de faire toutes les actions à chaque tour
+     * methode que nous allons appelé a chaque début de tour et qui nous permet de faire toutes les actions à chaque tour.
      */
     
     public void tourDeJeu() throws IOException{
@@ -790,7 +815,7 @@ public class World {
     }
     
     /**
-     * permet d'afficher le jeu dans la console
+     * permet d'afficher le jeu dans la console.
      */
     
     public void afficheJeu(){ 

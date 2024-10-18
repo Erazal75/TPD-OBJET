@@ -354,7 +354,8 @@ public class WofE {
             monMonde = new World(0);
         }
         else {
-            monMonde = new World(10);
+            
+            monMonde = new World(100);
         }
         //monMonde.afficheWorld();
         while (true){

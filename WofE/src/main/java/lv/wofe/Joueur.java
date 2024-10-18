@@ -94,7 +94,7 @@ public class Joueur implements Deplacable{
         int x = genAlé.nextInt(jeu.getTaille());
         int y = genAlé.nextInt(jeu.getTaille());
         Set<Integer> list = jeu.getdico().keySet();
-        while (role.getposX()!= x && role.getposY()!=y){
+        while (role.getposX()!= x || role.getposY()!=y){
             x = genAlé.nextInt(jeu.getTaille());
             y = genAlé.nextInt(jeu.getTaille());
             if (jeu.getmap(x,y) == 0){
@@ -107,7 +107,7 @@ public class Joueur implements Deplacable{
     }
     
     /**
-     * cette méthode permet au joueur de chosir quelles seront ses actions à chaque tour 
+     * cette méthode permet au joueur de chosir quelles seront ses actions à chaque tour.
      */
     
     public void joue() throws IOException{
@@ -156,8 +156,8 @@ public class Joueur implements Deplacable{
     }
 
     /**
-     * fonction appelée quand le joueur décide de combattre
-     * Si un enemi ou plusierus sont dans sa range alors on lui donne une liste de personne qu'il peut attaquer et il choisit
+     * fonction appelée quand le joueur décide de combattre.
+     * Si un enemi ou plusieurs sont dans sa range alors on lui donne une liste de personne qu'il peut attaquer et il choisit
      * Sinon on lui propose de faire une autre action comme se déplacer ou utiliser un objet
      */
     
@@ -207,7 +207,7 @@ public class Joueur implements Deplacable{
     }
     
     /**
-     * Fonction appélée dans le joueur decide de se déplacer qui va ensuite appelé ramasse(x,y) et deplace(x,y)
+     * Fonction appélée dans le joueur decide de se déplacer qui va ensuite appelé ramasse(x,y) et deplace(x,y).
      */
     
     @Override
@@ -273,7 +273,7 @@ public class Joueur implements Deplacable{
     }
     
     /**
-     * Fonction qui est appelée quand le joueur décide d'utiliser un objet de son inventaire
+     * Fonction qui est appelée quand le joueur décide d'utiliser un objet de son inventaire.
      * On lui affiche une liste d'objet qui sont dans son inventaire pour qu'il puisse choisir celui qu'il va utiliser
      * Il n'a plus qu'a chosir dans la liste qu'on lui a afficher ou faire autre chose comme combattre ou se déplacer
      */
