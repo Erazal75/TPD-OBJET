@@ -47,6 +47,7 @@ public class World {
     private int indicePotion = 1000;
     private int indiceChampi = 1200;
     private int indiceEpinard = 1300;
+    private int indiceNuage = 1400;
     
     
     private HashMap<Integer,ElementDeJeu> dicoPerso = new HashMap<>();
@@ -200,7 +201,7 @@ public class World {
             int distAttMaxG = Integer.parseInt(tokenizer.nextToken());
             int posXG = Integer.parseInt(tokenizer.nextToken());
             int posYG = Integer.parseInt(tokenizer.nextToken());
-            
+            setmap(posXG,posYG,indiceGuerrier);
             indiceGuerrier ++;
             
             Point2D posG = new Point2D(posXG, posYG);
@@ -219,7 +220,7 @@ public class World {
             int distAttMaxA = Integer.parseInt(tokenizer.nextToken());
             int posXA = Integer.parseInt(tokenizer.nextToken());
             int posYA = Integer.parseInt(tokenizer.nextToken());
-            
+            setmap(posXA,posYA,indiceArcher);
             indiceArcher ++;
             
             Point2D posA = new Point2D(posXA, posYA);
@@ -238,7 +239,7 @@ public class World {
             int distAttMaxP = Integer.parseInt(tokenizer.nextToken());
             int posXP = Integer.parseInt(tokenizer.nextToken());
             int posYP = Integer.parseInt(tokenizer.nextToken());
-            
+            setmap(posXP,posYP,indicePaysan);
             indicePaysan ++;
             
             Point2D posP = new Point2D(posXP, posYP);
@@ -255,7 +256,7 @@ public class World {
             int pourcentageParadeL = Integer.parseInt(tokenizer.nextToken());
             int posXL = Integer.parseInt(tokenizer.nextToken());
             int posYL = Integer.parseInt(tokenizer.nextToken());
-            
+            setmap(posXL,posYL,indiceLoup);
             indiceLoup++;
             
             Point2D posL = new Point2D(posXL, posYL);
@@ -272,7 +273,7 @@ public class World {
             int pourcentageParadeLa = Integer.parseInt(tokenizer.nextToken());
             int posXLa = Integer.parseInt(tokenizer.nextToken());
             int posYLa = Integer.parseInt(tokenizer.nextToken());
-            
+            setmap(posXLa,posYLa,indiceLapin);
             indiceLapin ++;
             
             Point2D posLa = new Point2D(posXLa, posYLa);
@@ -285,7 +286,7 @@ public class World {
             int soin = Integer.parseInt(tokenizer.nextToken());
             int posXPot = Integer.parseInt(tokenizer.nextToken());;
             int posYPot = Integer.parseInt(tokenizer.nextToken());;
-            
+            setmap(posXPot,posYPot,indicePotion);
             indicePotion ++;
             
             Point2D posPot = new Point2D(posXPot, posYPot);
@@ -298,7 +299,7 @@ public class World {
             int degEpee = Integer.parseInt(tokenizer.nextToken());
             int posXE = Integer.parseInt(tokenizer.nextToken());
             int posYE = Integer.parseInt(tokenizer.nextToken());
-            
+            setmap(posXE,posYE,indiceEpee);
             indiceEpee ++;
           
             Point2D posE = new Point2D(posXE, posYE);
@@ -311,7 +312,7 @@ public class World {
             int malusPageAtt = Integer.parseInt(tokenizer.nextToken());
             int posXC = Integer.parseInt(tokenizer.nextToken());
             int posYC = Integer.parseInt(tokenizer.nextToken());
-            
+            setmap(posXC,posYC,indiceChampi);
             indiceChampi ++;
           
             Point2D posC = new Point2D(posXC, posYC);
@@ -324,7 +325,7 @@ public class World {
             int bonusDegAtt = Integer.parseInt(tokenizer.nextToken());
             int posXEpi = Integer.parseInt(tokenizer.nextToken());
             int posYEpi = Integer.parseInt(tokenizer.nextToken());
-            
+            setmap(posXEpi,posYEpi,indiceEpinard);
             indiceEpinard ++;
           
             Point2D posEpi = new Point2D(posXEpi, posYEpi);
@@ -338,7 +339,9 @@ public class World {
             int vitesse = Integer.parseInt(tokenizer.nextToken());
             int posXN = Integer.parseInt(tokenizer.nextToken());
             int posYN= Integer.parseInt(tokenizer.nextToken());
-          
+            setmap(posXN,posYN,indiceNuage);
+            indiceNuage ++;
+            
             Point2D posN = new Point2D(posXN, posYN);
             // Creation du Champignon
             NuageToxique nuage = new NuageToxique(degAtt, vitesse, posN, this);
@@ -706,6 +709,18 @@ public class World {
         }
     }
     
+    /**
+     * Crée nbEpi Epinard
+     * @param nbEpi 
+     */
+    
+    public void creerNNuage(int nbNuage){
+        for (int i=0 ; i<nbNuage ; i=i+1){
+            Random genAlé = new Random();
+            int indice = 1400 + i;
+            dicoPerso.put(indice,new NuageToxique(genAlé.nextInt(20)+20,this)); 
+        }
+    }
     
     /**
      * methode que nous allons appelé a chaque début de tour et qui nous permet de faire toutes les actions à chaque tour
@@ -783,8 +798,28 @@ public class World {
             for (int j = 0; j < map.length; j++) {
                 if (map[j][i] == 0) {
                     System.out.print("_ ");
-                } else {
-                    System.out.print(map[j][i]+" ");
+                } else if (map[j][i] == 1){
+                    System.out.print("1 ");
+                } else if (map[j][i] >= 100 && map[j][i] < 200){
+                    System.out.print("G ");
+                } else if (map[j][i] >= 200 && map[j][i] < 300){
+                    System.out.print("A ");
+                } else if (map[j][i] >= 300 && map[j][i] < 400){
+                    System.out.print("P ");
+                } else if (map[j][i] >= 400 && map[j][i] < 500){
+                    System.out.print("W ");
+                } else if (map[j][i] >= 500 && map[j][i] < 600){
+                    System.out.print("L ");
+                } else if (map[j][i] >= 1000 && map[j][i] < 1100){
+                    System.out.print("P ");
+                } else if (map[j][i] >= 1100 && map[j][i] < 1200){
+                    System.out.print("S ");
+                } else if (map[j][i] >= 1200 && map[j][i] < 1300){
+                    System.out.print("C ");
+                } else if (map[j][i] >= 1300 && map[j][i] < 1400){
+                    System.out.print("E ");
+                } else if (map[j][i] >= 1400 && map[j][i] < 1500){
+                    System.out.print("N ");
                 }
             }
             System.out.println("");

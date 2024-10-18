@@ -347,7 +347,7 @@ public class WofE {
     
 //////////////// WOE  ////////////////////
 
-        System.out.println("Voulez-vous créer une nouvelle Partie (1) ou charger une Sauvegarde (2)");
+        System.out.println("Voulez-vous créer une nouvelle Partie (1) ou charger une Sauvegarde (2): ");
         
         String choix = scanner.nextLine();
         if (choix.equals("2")){
