@@ -198,11 +198,11 @@ public class Joueur implements Deplacable{
         Set<Integer> set = new HashSet<>(listAttack);
         listAttack = new ArrayList<>(set);
 
-        if (listAttack.size() == 0){
+        if (listAttack.isEmpty()){
             boolean effectue = false;
             while(!effectue){
                 System.out.println("Personne n'est dans votre range d'attaque.");
-                System.out.println("Voulez vous vous déplacer(1) ou ne rien faire(2)?");
+                System.out.println("Voulez vous vous déplacer(1), utiliser un objet(2) ou ne rien faire(3)?");
                 String choix2 = scanner.nextLine();
                 switch (choix2) {
                     case "1":
@@ -210,6 +210,10 @@ public class Joueur implements Deplacable{
                         deplace();
                         break;
                     case "2":
+                        effectue = true;
+                        utilise();
+                        break;
+                    case "3":
                         effectue = true;
                         break;
                     default:
