@@ -6,7 +6,7 @@ package lv.wofe;
 
 /**
  *
- * @author lazaregrail & victorsimon
+ * @author lazaregrail victorsimon
  * 
  */
 

@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author lazaregrail & victorsimon
+ * @author lazaregrail victorsimon
  */
 public class WofE {
     

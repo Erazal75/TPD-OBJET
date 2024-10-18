@@ -8,7 +8,7 @@ import java.util.Random;
 
 /**
  *
- * @author lazareGrail & victorSimon
+ * @author lazareGrail victorSimon
  */
 public class NuageToxique extends Objet implements Deplacable {
     
@@ -48,6 +48,7 @@ public class NuageToxique extends Objet implements Deplacable {
     
     /**
      * Troisème contructeur de NuageToxique, permet d'initialiser tous les attributs avec leur valeur par défaut.
+     * @param jeu
      */
     
     public NuageToxique(World jeu){

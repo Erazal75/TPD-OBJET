@@ -6,7 +6,7 @@ package lv.wofe;
 
 /**
  *
- * @author lazareGrail & victorSimon
+ * @author lazareGrail victorSimon
  */
 abstract class Nourriture extends Objet implements Utilisable{
     

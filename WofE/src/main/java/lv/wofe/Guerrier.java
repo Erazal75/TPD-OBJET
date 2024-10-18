@@ -8,7 +8,7 @@ import java.util.*;
 
 /**
  *
- * @author lazaregrail & victorsimon
+ * @author lazaregrail victorsimon
  */
 public class Guerrier extends Personnage implements Combattant{
     
@@ -53,6 +53,9 @@ public class Guerrier extends Personnage implements Combattant{
      * @param paPar est le pourcentage de chance qu'une parade du Guerrier soit réussie
      * @param dMax est la distance maximun à laquelle le Guerrier peut attaquer 
      * @param p est la position du Guerrier
+     * @param argent
+     * @param jeu
+     * @param effets
      */
     
     public Guerrier(String n,int pV,int dA,int ptPar,int paAtt,int paPar,int dMax,Point2D p, int argent, World jeu,  List<Utilisable> effets) {
@@ -72,6 +75,7 @@ public class Guerrier extends Personnage implements Combattant{
     
     /**
      * Quatrième contructeur de Guerrier, permet d'initialiser tous les attributs avec leur valeur par défaut.
+     * @param jeu
      */
     
     public Guerrier(World jeu){
