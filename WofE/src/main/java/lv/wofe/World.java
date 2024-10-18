@@ -100,11 +100,6 @@ public class World {
         }
     }
     
-    /**
-     *
-     * @return tableauélément
-     */
-    
     public HashMap<Integer,ElementDeJeu> getdico(){
         return dicoPerso;
     }
@@ -736,8 +731,8 @@ public class World {
     }
     
     /**
-     * Crée nbEpi Epinard
-     * @param nbEpi 
+     * Crée nbNuage Nuage
+     * @param nbNuage 
      */
     
     public void creerNNuage(int nbNuage){
@@ -750,6 +745,7 @@ public class World {
     
     /**
      * methode que nous allons appelé a chaque début de tour et qui nous permet de faire toutes les actions à chaque tour.
+     * @throws java.io.IOException
      */
     
     public void tourDeJeu() throws IOException{

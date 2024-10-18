@@ -23,6 +23,7 @@ public class PotionSoin extends Nourriture {
      * @param place est le nombre de place que l'objet occupe dans l'inventaire d'un Personnage
      * @param prix est la quantité d'argent que vaut l'Objet
      * @param p est la position de l'Objet
+     * @param jeu
      */
     
     public PotionSoin(int nbPVRendu, int place,int prix,Point2D p,World jeu){
@@ -33,6 +34,7 @@ public class PotionSoin extends Nourriture {
     /**
      * crée une potion de soin
      * @param nbPVRendu 
+     * @param jeu 
      */
     
     public PotionSoin(int nbPVRendu,World jeu){
@@ -42,6 +44,7 @@ public class PotionSoin extends Nourriture {
     
     /**
      * Deuxième constructeur d'Objet, permet d'initialiser tous les attributs avec leur valeur par défaut.
+     * @param jeu
      */
     
     public PotionSoin(World jeu){

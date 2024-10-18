@@ -27,6 +27,7 @@ public class NuageToxique extends Objet implements Deplacable {
      * @param degAtt est le nombre de dégats qu'inflige le NuageToxique
      * @param vitesse est la vitesse de déplacement du NuageToxique
      * @param pos est la position du NuageToxique
+     * @param jeu
      */
     
     public NuageToxique(int degAtt, int vitesse, Point2D pos,World jeu){
@@ -48,6 +49,7 @@ public class NuageToxique extends Objet implements Deplacable {
     
     /**
      * Troisème contructeur de NuageToxique, permet d'initialiser tous les attributs avec leur valeur par défaut.
+     * @param jeu
      */
     
     public NuageToxique(World jeu){
