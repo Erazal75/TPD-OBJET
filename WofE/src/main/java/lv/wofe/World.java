@@ -630,7 +630,7 @@ public class World {
     public void creerNChampi(int nbChampi){
         for (int i=0 ; i<nbChampi ; i=i+1){
             Random genAlé = new Random();
-            int indice = 1100 + i;
+            int indice = 1200 + i;
             dicoPerso.put(indice,new Champignon(genAlé.nextInt(20)+20,this)); 
         }
     }
@@ -643,7 +643,7 @@ public class World {
     public void creerNEpi(int nbEpi){
         for (int i=0 ; i<nbEpi ; i=i+1){
             Random genAlé = new Random();
-            int indice = 1100 + i;
+            int indice = 1300 + i;
             dicoPerso.put(indice,new Epinard(genAlé.nextInt(20)+20,this)); 
         }
     }
