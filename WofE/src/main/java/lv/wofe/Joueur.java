@@ -111,46 +111,56 @@ public class Joueur implements Deplacable{
      */
     
     public void joue() throws IOException{
+        boolean effectue = false;
         nbdeplace = 0;
         System.out.println("Le joueur joue"); 
-        System.out.println("Votre Personnage est en position: ["+role.getposX()+";"+role.getposY()+"]"); 
-        System.out.println("Voulez vous combattre(1), vous déplacer(2), utiliser un objet(3), sauvegarder la partie (4) ou ne rien faire(5):");
-        int x = this.role.getposX();
-        int y = this.role.getposY();
-        String choix = scanner.nextLine();
-        if (choix.equals("2")){
-            while (nbdeplace < 4 && x == this.role.getposX() && y == this.role.getposY()){
-                try{
-                    deplace();
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println("Erreur : Vous ne pouvez pas sortir de la Carte !");
-                        this.joue();
+        while (!effectue){
+            System.out.println("Votre Personnage est en position: ["+role.getposX()+";"+role.getposY()+"]"); 
+            System.out.println("Voulez vous combattre(1), vous déplacer(2), utiliser un objet(3), sauvegarder la partie (4) ou ne rien faire(5):");
+            int x = this.role.getposX();
+            int y = this.role.getposY();
+            String choix = scanner.nextLine();
+            switch (choix) {
+                case "2":
+                    effectue = true;
+                    while (nbdeplace < 4 && x == this.role.getposX() && y == this.role.getposY()){
+                        try{
+                            deplace();
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            System.out.println("Erreur : Vous ne pouvez pas sortir de la Carte !");
+                            this.joue();
+                        }
+                    }   break;
+                case "1":
+                    effectue = true;
+                    combattre();
+                    break;
+                case "3":
+                    effectue = true;
+                    utilise();
+                    break;
+                case "4":
+                    effectue = true;
+                    System.out.print("Entrez le nom de la sauvegarde (0 pour un nom automatique) : ");
+                    String nomSauvegarde = scanner.nextLine();
+                    if (nomSauvegarde.equals("0")){
+                        try {
+                            jeu.sauvegarderPartie();
+                        } catch (IllegalArgumentException | IllegalAccessException ex) {
+                            Logger.getLogger(Joueur.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
-            }
-        } else if(choix.equals("1")){
-            combattre();
-        } else if(choix.equals("3")){
-            utilise();
-        } else if (choix.equals("4")){
-            System.out.print("Entrez le nom de la sauvegarde (0 pour un nom automatique) : ");
-            String nomSauvegarde = scanner.nextLine();
-            if (nomSauvegarde.equals("0")){
-                try {
-                    jeu.sauvegarderPartie();
-                } catch (IllegalArgumentException ex) {
-                    Logger.getLogger(Joueur.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IllegalAccessException ex) {
-                    Logger.getLogger(Joueur.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            else {
-                try {
-                    jeu.sauvegarderPartie(nomSauvegarde);
-                } catch (IllegalArgumentException ex) {
-                    Logger.getLogger(Joueur.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IllegalAccessException ex) {
-                    Logger.getLogger(Joueur.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                    else {
+                        try {
+                            jeu.sauvegarderPartie(nomSauvegarde);
+                        } catch (IllegalArgumentException | IllegalAccessException ex) {
+                            Logger.getLogger(Joueur.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }   break;
+                default:
+                    System.out.println("Vous n'avez choisi aucune des options proposées");
+                    System.out.println("SVP entrez un nombre parmi ceux proposés");
+                    break;
             }
         }
     }
@@ -180,20 +190,44 @@ public class Joueur implements Deplacable{
         listAttack = new ArrayList<>(set);
 
         if (listAttack.size() == 0){
-            System.out.println("Personne n'est dans votre range d'attaque.");
-            System.out.println("Voulez vous vous déplacer(1) ou ne rien faire(2)?");
-            String choix2 = scanner.nextLine();
-            if (choix2.equals("1")){
-                deplace();
+            boolean effectue = false;
+            while(!effectue){
+                System.out.println("Personne n'est dans votre range d'attaque.");
+                System.out.println("Voulez vous vous déplacer(1) ou ne rien faire(2)?");
+                String choix2 = scanner.nextLine();
+                switch (choix2) {
+                    case "1":
+                        effectue = true;
+                        deplace();
+                        break;
+                    case "2":
+                        effectue = true;
+                        break;
+                    default:
+                        System.out.println("Vous n'avez choisi aucune des options proposées");
+                        System.out.println("SVP entrez un nombre parmi ceux proposés");
+                        break;
+                }
             }
         } else {
             //System.out.println(listAttack.size());
-
+            boolean effectue = false;
+            int choixInt = 0;
+            while(!effectue){
             for (int ind: listAttack){
                 System.out.println("Vous pouvez attaquer la créature en case: [" +jeu.getdico().get(ind).getposX()+";"+jeu.getdico().get(ind).getposY()+"], pour l'attaquer tapez "+ind);
             }
-            String choix = scanner.nextLine();
-            int choixInt = Integer.valueOf(choix);
+                try{
+                    String choix = scanner.nextLine();
+                    choixInt = Integer.parseInt(choix);
+                } catch(NumberFormatException e){
+                    System.out.println("Vous n'avez choisi aucune des options proposées");
+                    System.out.println("SVP entrez un nombre parmi ceux proposés");
+                }
+                if(listAttack.contains(choixInt)){
+                    effectue = true;
+                }
+            }
             Creature c = (Creature) jeu.getdico().get(choixInt);
             int PV = c.getptVie();
             role.combattre(c);
@@ -212,28 +246,32 @@ public class Joueur implements Deplacable{
     
     @Override
     public void deplace(){
+        boolean effectue = false;
         nbdeplace ++;
         int x = role.getposX();
         int y = role.getposY();
-        System.out.println("Voulez vous aller à droite(1), à gauche(2), en bas(3) ou en haut(4)");
-        String deplacement = scanner.nextLine();
-        
-        switch (deplacement) {
-            case "1" : this.ramasse(x+1,y); break;
-            case "2" : this.ramasse(x-1,y); break;
-            case "3" : this.ramasse(x,y+1); break;
-            case "4" : this.ramasse(x,y-1); break;
-            default : {
+        while (!effectue){
+            System.out.println("Voulez vous aller à droite(1), à gauche(2), en bas(3) ou en haut(4)");
+            String deplacement = scanner.nextLine();
+            switch (deplacement) {
+                case "1" : this.ramasse(x+1,y); effectue=true; break;
+                case "2" : this.ramasse(x-1,y); effectue=true; break;
+                case "3" : this.ramasse(x,y+1); effectue=true; break;
+                case "4" : this.ramasse(x,y-1); effectue=true; break;
+                default : {
+                    System.out.println("Vous n'avez choisi aucune des options proposées");
+                    System.out.println("SVP entrez un nombre parmi ceux proposés");
+                }
+            } 
+            switch (deplacement) {
+                case "1" : this.deplace(x+1,y); break;
+                case "2" : this.deplace(x-1,y); break;
+                case "3" : this.deplace(x,y+1); break;
+                case "4" : this.deplace(x,y-1); break;
+                default : {
+                }
             }
-        } 
-        switch (deplacement) {
-            case "1" : this.deplace(x+1,y); break;
-            case "2" : this.deplace(x-1,y); break;
-            case "3" : this.deplace(x,y+1); break;
-            case "4" : this.deplace(x,y-1); break;
-            default : {
-            }
-        } 
+        }
         if (x != role.getposX() || y != role.getposY()){
             jeu.setmap(x,y,0);
             jeu.setmap(role.getposX(),role.getposY(),1);
@@ -279,43 +317,61 @@ public class Joueur implements Deplacable{
      */
     
     public void utilise(){
-        for (int i = 0; i < inventaire.size();i++){
-            Utilisable u = inventaire.get(i);
-            int obj = inventaireInd.get(i);
-            if(u instanceof Champignon){
-                Champignon c = (Champignon) u;
-                System.out.println("Voulez vous utilisez un champignon qui va vous donner malus de"+c.getMalus() +"dégat pendant 3 tours.");
-                System.out.println("Tappez "+obj+" pour l'utiliser");
-            } else if(u instanceof Epinard){
-                Epinard e = (Epinard) u;
-                System.out.println("Voulez vous utilisez un épinanrd qui va vous donner bonus de"+e.getBonus() +"dégat pendant 5 tours");
-                System.out.println("Tappez "+obj+" pour l'utiliser");
-            } else if(u instanceof PotionSoin){
-                PotionSoin p = (PotionSoin) u;
-                System.out.println("Voulez vous utilisez un potion de soin qui va vous guérir "+p.getnbPVRendu() +" point de vie instantanement");
-                System.out.println("Tappez "+obj+" pour l'utiliser");
-            } else if(u instanceof Epee && role instanceof Guerrier){
-                Epee ep = (Epee) u;
-                System.out.println("Voulez vous utilisez une épee qui va donner bonus de "+ep.getdegAtt() +" dégat");
-                System.out.println("Tappez "+obj+" pour l'utiliser");
-            }
-        }
-        System.out.println("Tappez le nombre écrit plus haut pour utiliser un objet ou (1) pour vous déplacer (2) pour combattre (3) pour ne rien faire");
-        String choix = scanner.nextLine();
-        int choi = Integer.parseInt(choix);
-        if (choi == 1){
-            deplace();
-        } else if (choi == 2){
-            combattre();
-        } else if (choi >= 1000){
-            Utilisable uti = (Utilisable) jeu.getdico().get(choi);
-            uti.activation(role);
-            role.getEffets().add(uti);
-            inventaire.remove((Utilisable) jeu.getdico().get(choi));
-            for (int i = 0; i < inventaireInd.size();i++){
-                if (inventaireInd.get(i) == choi ){
-                    inventaireInd.remove(i);
+        boolean effectue = false;
+        
+        while(!effectue){
+            for (int i = 0; i < inventaire.size();i++){
+                Utilisable u = inventaire.get(i);
+                int obj = inventaireInd.get(i);
+                if(u instanceof Champignon){
+                    Champignon c = (Champignon) u;
+                    System.out.println("Voulez vous utilisez un champignon qui va vous donner malus de"+c.getMalus() +"dégat pendant 3 tours.");
+                    System.out.println("Tappez "+obj+" pour l'utiliser");
+                } else if(u instanceof Epinard){
+                    Epinard e = (Epinard) u;
+                    System.out.println("Voulez vous utilisez un épinanrd qui va vous donner bonus de"+e.getBonus() +"dégat pendant 5 tours");
+                    System.out.println("Tappez "+obj+" pour l'utiliser");
+                } else if(u instanceof PotionSoin){
+                    PotionSoin p = (PotionSoin) u;
+                    System.out.println("Voulez vous utilisez un potion de soin qui va vous guérir "+p.getnbPVRendu() +" point de vie instantanement");
+                    System.out.println("Tappez "+obj+" pour l'utiliser");
+                } else if(u instanceof Epee && role instanceof Guerrier){
+                    Epee ep = (Epee) u;
+                    System.out.println("Voulez vous utilisez une épee qui va donner bonus de "+ep.getdegAtt() +" dégat");
+                    System.out.println("Tappez "+obj+" pour l'utiliser");
                 }
+            }
+            System.out.println("Tappez le nombre écrit plus haut pour utiliser un objet ou (1) pour vous déplacer (2) pour combattre (3) pour ne rien faire");
+            String choix;
+            int choi = 0;
+            try{
+                    choix = scanner.nextLine();
+                    choi = Integer.parseInt(choix);
+                } catch(NumberFormatException e){
+                    System.out.println("Vous n'avez choisi aucune des options proposées");
+                    System.out.println("SVP entrez un nombre parmi ceux proposés");
+                }
+
+            if (choi == 1){
+                effectue = true;
+                deplace();
+            } else if (choi == 2){
+                effectue = true;
+                combattre();
+            } else if (choi >= 1000 && choi < 2000){
+                effectue = true;
+                Utilisable uti = (Utilisable) jeu.getdico().get(choi);
+                uti.activation(role);
+                role.getEffets().add(uti);
+                inventaire.remove((Utilisable) jeu.getdico().get(choi));
+                for (int i = 0; i < inventaireInd.size();i++){
+                    if (inventaireInd.get(i) == choi ){
+                        inventaireInd.remove(i);
+                    }
+                }
+            } else {
+                System.out.println("Vous n'avez choisi aucune des options proposées");
+                System.out.println("SVP entrez un nombre parmi ceux proposés");
             }
         }
     }
